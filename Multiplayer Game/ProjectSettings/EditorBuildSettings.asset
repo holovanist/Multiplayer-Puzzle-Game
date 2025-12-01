@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Logan J.unity
     guid: 213c1bfc3e420754b881d4e21df2dc31
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 75186babcfc463e43886e03c7e6076ff
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 36b2b287e0696e444924c85e01558c44, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 83b06ea6bef795e4eb3eedfc4799764e, type: 3}
