@@ -97,7 +97,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Grapple",
+                    "name": "Test",
                     "type": "PassThrough",
                     "id": "70321fbb-6031-42db-a49b-017c87ad9d42",
                     "expectedControlType": "Button",
@@ -414,11 +414,11 @@
                 {
                     "name": "",
                     "id": "8935a20f-6819-438d-80ea-a36cab833553",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Grapple",
+                    "action": "Test",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

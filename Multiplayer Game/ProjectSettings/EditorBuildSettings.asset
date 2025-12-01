@@ -12,5 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Logan J.unity
     guid: 213c1bfc3e420754b881d4e21df2dc31
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.input.settings: {fileID: 11400000, guid: 36b2b287e0696e444924c85e01558c44, type: 2}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 83b06ea6bef795e4eb3eedfc4799764e, type: 3}
   m_UseUCBPForAssetBundles: 0
