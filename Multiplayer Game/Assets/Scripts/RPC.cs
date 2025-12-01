@@ -25,7 +25,7 @@ public class RPC : NetworkBehaviour
     {
         if (IsOwner)
             P ??= InputSystem.actions.FindAction("Test");
-        if (IsClient && P.WasPressedThisFrame())
+        if (IsOwner && P.WasPressedThisFrame())
         {
             // Client -> Server because PingRpc sends to Server
             PingRpc(1);

@@ -75,7 +75,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
-        MyInput();
+        MyInputRpc();
         SpeedControl();
         StateHandler();
         if (grounded)
@@ -88,16 +88,17 @@ public class PlayerMovement : NetworkBehaviour
     private void FixedUpdate()
     {
         if (!IsOwner) return;
-        MovePlayer();
+        MovePlayerRpc();
     }
-    private void MyInput()
+    [Rpc(SendTo.Server)]
+    private void MyInputRpc()
     {
         horizontalInput = Move.ReadValue<Vector2>().x;
         verticalInput = Move.ReadValue<Vector2>().y;
         if (JumpInput.WasPressedThisFrame() && readyToJump && grounded)
         {
             readyToJump = false;
-            Jump();
+            JumpRpc();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
         if (Crouch.WasPressedThisFrame() && !crouching && grounded)
@@ -138,7 +139,8 @@ public class PlayerMovement : NetworkBehaviour
             else moveSpeed = sprintSpeed;
         }
     }
-    private void MovePlayer()
+    [Rpc(SendTo.Server)]
+    private void MovePlayerRpc()
     {
         moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
         if (grounded)
@@ -157,7 +159,8 @@ public class PlayerMovement : NetworkBehaviour
         if(maxYSpeed != 0 && rb.linearVelocity.y > maxYSpeed)
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, maxYSpeed, rb.linearVelocity.z);
     }
-    private void Jump()
+    [Rpc(SendTo.Server)]
+    private void JumpRpc()
     {
         jumping = true;
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f , rb.linearVelocity.z);
