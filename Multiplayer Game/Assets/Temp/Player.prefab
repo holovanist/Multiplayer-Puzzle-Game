@@ -328,7 +328,9 @@ MonoBehaviour:
   sprintSpeed: 15
   maxYSpeed: 15
   GroundDrag: 4
-  jumpForce: 30
+  AirDrag: 0
+  AddAirDrag: 0
+  jumpForce: 7.5
   jumpCooldown: 0.25
   airMultiplier: 1
   crouchSpeed: 5
@@ -336,7 +338,7 @@ MonoBehaviour:
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 128
   grounded: 0
   orientation: {fileID: 5245827528156268361}
   Speed: {fileID: 0}
@@ -461,7 +463,7 @@ MonoBehaviour:
   RotationMaxInterpolationTime: 0.1
   ScaleLerpSmoothing: 1
   ScaleMaxInterpolationTime: 0.1
-  AuthorityMode: 1
+  AuthorityMode: 0
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
   SyncPositionX: 1
