@@ -9,7 +9,7 @@ public class PlayerMovementSimple : MonoBehaviour
     public InputActionReference move;
     void Start()
     {
-        
+        CursorManager.Main.LockCursor();
     }
     private void Update()
     {
