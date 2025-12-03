@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 2993427626852757774}
   - component: {fileID: 5857783679396167867}
   - component: {fileID: 746703393272392899}
+  - component: {fileID: 3527956435171593255}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -339,3 +340,22 @@ MonoBehaviour:
   upDownLookRange: 80
   characterController: {fileID: 5857783679396167867}
   MainCamera: {fileID: 2470807105082790208}
+--- !u!114 &3527956435171593255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6436759897243248485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d3e030f0101b74b992175de3e1f16c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
+  playerControls: {fileID: -944628639613478452, guid: e728662279d222c44b3f63240faecbd5, type: 3}
+  actionMapName: Player
+  movement: Movement
+  rotation: Rotation
+  jump: Jump
+  sprint: Sprint
+  pause: Pause

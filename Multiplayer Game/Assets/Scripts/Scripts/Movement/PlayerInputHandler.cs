@@ -12,30 +12,31 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] string rotation = "Rotation";
     [SerializeField] string jump = "Jump";
     [SerializeField] string sprint = "Sprint";
+    [SerializeField] string pause = "Pause";
 
     InputAction movementAction;
     InputAction rotationAction;
     InputAction jumpAction;
     InputAction sprintAction;
+    InputAction pauseAction; 
 
     public Vector2 MovementInput {  get; private set; }
     public Vector2 RotationInput { get; private set; }
     public bool JumpTriggered { get; private set; }
     public bool SprintTriggered { get; private set; }
+    public bool PauseTriggered { get; private set; }
 
-    public static PlayerInputHandler Main;
 
-    void Awake()
+    void Start()
     {
         InputActionMap mapReference = playerControls.FindActionMap(actionMapName);
         movementAction = mapReference.FindAction(movement);
         rotationAction = mapReference.FindAction(rotation);
         jumpAction = mapReference.FindAction(jump);
         sprintAction = mapReference.FindAction(sprint);
+        pauseAction = mapReference.FindAction(pause);
 
         SubscribeActionValuesToInputEvents();
-
-        Main = this;
     }
     void SubscribeActionValuesToInputEvents()
     {
@@ -50,6 +51,9 @@ public class PlayerInputHandler : MonoBehaviour
 
         sprintAction.performed += inputInfo => SprintTriggered = true;
         sprintAction.canceled += inputInfo => SprintTriggered = false;
+        
+        pauseAction.performed += inputInfo => PauseTriggered = true;
+        pauseAction.canceled += inputInfo => PauseTriggered = false;
     }
     void OnEnable()
     {
@@ -58,5 +62,15 @@ public class PlayerInputHandler : MonoBehaviour
     void OnDisable()
     {
         playerControls.FindActionMap(actionMapName).Disable();
+    }
+    public void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+    public void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

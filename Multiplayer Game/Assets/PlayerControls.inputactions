@@ -3,7 +3,7 @@
     "name": "PlayerControls",
     "maps": [
         {
-            "name": "Gameplay",
+            "name": "Player",
             "id": "f82248f8-1f9d-4426-91f6-61eb01a06f9f",
             "actions": [
                 {
@@ -46,6 +46,15 @@
                     "name": "Sprint",
                     "type": "Button",
                     "id": "496ad777-ff64-4615-84c8-45924cdd33a7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "13d5af6f-d459-4a21-a850-e3e1329e27f8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -149,6 +158,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f0e494f7-b3e8-49a1-af26-32e334511102",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

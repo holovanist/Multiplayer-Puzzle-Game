@@ -20,8 +20,8 @@ public class FirstPersonControler : MonoBehaviour
     float CurrentSpeed => walkSpeed * (PlayerInputHandler.SprintTriggered ? sprintMultiplier : 1); 
     void Start()
     {
-        CursorManager.Main.LockCursor();
-        PlayerInputHandler = PlayerInputHandler.Main;
+        PlayerInputHandler = GetComponent<PlayerInputHandler>();
+        PlayerInputHandler.LockCursor();
     }
     void Update()
     {
