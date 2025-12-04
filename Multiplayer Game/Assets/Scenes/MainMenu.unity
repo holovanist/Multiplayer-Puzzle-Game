@@ -1045,7 +1045,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -47.226837}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 881.4753, y: 398.3867}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1376591663
@@ -1068,9 +1068,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Welcome to Escape Plan! In Escape Plan you will communicate with your teammate
-    through a wall to complete different puzzles to escape every room. Finish the
-    game before the timer runs out!
+  m_text: Welcome to Scavenge the Abandoned Planet! In this game, you and your teammate
+    will have to complete puzzles to open doors and get to the next levels. One player
+    will be above the other player and both players have to communicate to each other
+    how to complete each puzzle.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1594,7 +1595,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Escape Plan
+  m_text: Scavenge the Abandoned Planet
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
