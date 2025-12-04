@@ -55,10 +55,6 @@ public class PlayerMovement1 : NetworkBehaviour
             MouseLocked =true;
         }
     }
-    private void OnMouseDown()
-    {
-        PlayerInputHandler.LockCursor();
-    }
     Vector3 CalculateworldDirection(Vector2 Input)
     {
         Vector3 inputDirection = new(Input.x, 0f, Input.y);
@@ -98,7 +94,7 @@ public class PlayerMovement1 : NetworkBehaviour
 
         //applies vertical rotation to camera
         verticalRotation = Mathf.Clamp(verticalRotation - mouseYRotation, -upDownLookRange, upDownLookRange);
-        MainCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+        MainCamera.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
     [Rpc(SendTo.Server)]
     private void MoveServerRpc(Vector2 MovementInput, Vector2 LookInput, bool JumpInput)
