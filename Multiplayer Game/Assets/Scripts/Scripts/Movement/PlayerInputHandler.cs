@@ -13,18 +13,21 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] string jump = "Jump";
     [SerializeField] string sprint = "Sprint";
     [SerializeField] string pause = "Pause";
+    [SerializeField] string leftClick = "Left Click";
 
     InputAction movementAction;
     InputAction rotationAction;
     InputAction jumpAction;
     InputAction sprintAction;
     InputAction pauseAction; 
+    InputAction leftClickAction; 
 
     public Vector2 MovementInput {  get; private set; }
     public Vector2 RotationInput { get; private set; }
     public bool JumpTriggered { get; private set; }
     public bool SprintTriggered { get; private set; }
     public bool PauseTriggered { get; private set; }
+    public bool LeftClickTriggered { get; private set; }
 
 
     void Start()
@@ -35,6 +38,7 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction = mapReference.FindAction(jump);
         sprintAction = mapReference.FindAction(sprint);
         pauseAction = mapReference.FindAction(pause);
+        leftClickAction = mapReference.FindAction(leftClick);
 
         SubscribeActionValuesToInputEvents();
     }
@@ -54,6 +58,9 @@ public class PlayerInputHandler : MonoBehaviour
         
         pauseAction.performed += inputInfo => PauseTriggered = true;
         pauseAction.canceled += inputInfo => PauseTriggered = false;
+
+        leftClickAction.performed += inputInfo => LeftClickTriggered = true;
+        leftClickAction.canceled += inputInfo => LeftClickTriggered = false;
     }
     void OnEnable()
     {
