@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,6 +29,7 @@ public class MovementTest2 : NetworkBehaviour
 
     private const int BUFFERSIZE = 1024;
     private MovementData[] clientMovementData = new MovementData[BUFFERSIZE];
+    float maxPositionError = 0.5f;
     Vector2 CurrentRotation;
     private void Awake()
     {
@@ -39,7 +41,13 @@ public class MovementTest2 : NetworkBehaviour
         PlayerInputHandler.LockCursor();
         MouseLocked = true;
     }
-    void Update()
+    private void Update()
+    {
+        if(IsLocalPlayer)
+        HandleRotation(PlayerInputHandler.RotationInput);
+        
+    }
+    void FixedUpdate()
     {
         time += Time.deltaTime;
         if (!IsOwner || !IsClient) 
@@ -86,13 +94,12 @@ public class MovementTest2 : NetworkBehaviour
         }
         else
         {
-            currentMovement.y += Physics.gravity.y * gravityMultiplier * Time.deltaTime;
+            currentMovement.y += Physics.gravity.y * gravityMultiplier * tickTime;
         }
     }
     void MovementAndRotation()
     {
         HandleMovement(PlayerInputHandler.MovementInput);
-        HandleRotation(PlayerInputHandler.RotationInput);
         HandleJumping(PlayerInputHandler.JumpTriggered);
     }
     void HandleMovement(Vector2 Input)
@@ -101,15 +108,18 @@ public class MovementTest2 : NetworkBehaviour
         currentMovement.x = worldDirection.x * CurrentSpeed;
         currentMovement.z = worldDirection.z * CurrentSpeed;
 
-        characterController.Move(currentMovement * Time.deltaTime);
+        characterController.Move(currentMovement * tickTime);
 
         clientMovementData[currentTick % BUFFERSIZE] = new MovementData
         {
             tick = currentTick,
             movementDirection = currentMovement,
             position = transform.position,
-            rotation = CurrentRotation,
         };
+
+        if(currentTick < 2) return;
+
+        MoveServerRpc(clientMovementData[currentTick % BUFFERSIZE], clientMovementData[(currentTick - 1) % BUFFERSIZE], new ServerRpcParams { Receive = new ServerRpcReceiveParams { SenderClientId = OwnerClientId} });
     }
     void HandleRotation(Vector2 RotationInput)
     {
@@ -122,11 +132,50 @@ public class MovementTest2 : NetworkBehaviour
         //applies vertical rotation to camera
         verticalRotation = Mathf.Clamp(verticalRotation - mouseYRotation, -upDownLookRange, upDownLookRange);
         MainCamera.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
-        CurrentRotation = new(MainCamera.localRotation.x, transform.localPosition.y);
+        //CurrentRotation = new(MainCamera.localRotation.x, transform.localPosition.y);
     }
-    [Rpc(SendTo.Server)]
-    private void MoveServerRpc()
+    [ServerRpc]
+    private void MoveServerRpc(MovementData currentMovementData, MovementData lastMovementData, ServerRpcParams parameters)
     {
+        Vector3 startPosition = transform.position;
+
+        Vector3 moveVector = lastMovementData.movementDirection.normalized * walkSpeed;
+        //Physics.simulationMode = SimulationMode.Script;
+        transform.position = lastMovementData.position;
+        characterController.Move(moveVector);
+        Vector3 correctPosition = transform.position;
+        //Physics.simulationMode = SimulationMode.FixedUpdate;
+
+        if(Vector2.Distance(correctPosition, currentMovementData.position) > maxPositionError)
+        {
+            ReconciliateClientRpc(currentMovementData.tick, new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams
+                {
+                    TargetClientIds = new List<ulong>() { parameters.Receive.SenderClientId }
+                }
+            });
+        }
+    }
+    [ClientRpc]
+    private void ReconciliateClientRpc(int activationTick, ClientRpcParams parameters)
+    {
+        Vector3 correctPosition = clientMovementData[(activationTick - 1) % BUFFERSIZE].position;
+
+        //Physics.simulationMode = SimulationMode.Script;
+        while (activationTick <= currentTick)
+        {
+            Vector3 moveVector = clientMovementData[(activationTick - 1) % BUFFERSIZE].movementDirection.normalized * walkSpeed;
+            transform.position = correctPosition;
+            characterController.Move(moveVector);
+            //Physics.Simulate(Time.fixedDeltaTime);
+            correctPosition = transform.position;
+            clientMovementData[activationTick % BUFFERSIZE].position = correctPosition;
+            activationTick++;
+        }
+        //Physics.simulationMode = SimulationMode.FixedUpdate;
+
+        transform.position = correctPosition;
     }
     public class MovementData : INetworkSerializable
     {

@@ -334,11 +334,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1820725066586795965}
-  - component: {fileID: 2941509749160363659}
   - component: {fileID: 6297449788366579218}
   - component: {fileID: 2721364492631168455}
   - component: {fileID: 6940259456307495028}
   - component: {fileID: 2563711192122288148}
+  - component: {fileID: 2121472156040472686}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -363,28 +363,6 @@ Transform:
   - {fileID: 1626623598384536113}
   m_Father: {fileID: 6376913922186582293}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2941509749160363659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1406399660994918037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ddb0d1a1681eae45bbcd0423d086533, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MovementTest2
-  ShowTopMostFoldoutHeaderGroup: 1
-  walkSpeed: 3
-  sprintMultiplier: 2
-  jumpForce: 5
-  gravityMultiplier: 1
-  mouseSensitivity: 0.1
-  upDownLookRange: 80
-  characterController: {fileID: 6940259456307495028}
-  MainCamera: {fileID: 1626623598384536113}
-  tickRate: 60
 --- !u!114 &6297449788366579218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,6 +466,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e0eee67cda6ae45a46cc8bb2c2b729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RigidBodyPushTest
+--- !u!114 &2121472156040472686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406399660994918037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ddb0d1a1681eae45bbcd0423d086533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovementTest2
+  ShowTopMostFoldoutHeaderGroup: 1
+  walkSpeed: 3
+  sprintMultiplier: 2
+  jumpForce: 5
+  gravityMultiplier: 1
+  mouseSensitivity: 0.1
+  upDownLookRange: 80
+  characterController: {fileID: 6940259456307495028}
+  MainCamera: {fileID: 1626623598384536113}
+  tickRate: 60
 --- !u!1 &4243825152771828104
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 956701731
+  GlobalObjectIdHash: 341537954
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
