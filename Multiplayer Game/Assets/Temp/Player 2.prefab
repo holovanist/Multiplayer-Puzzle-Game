@@ -191,7 +191,6 @@ MonoBehaviour:
     m_Bits: 128
   maxGroudTime: 0
   grounded: 0
-  maxSlopeAngle: 45
   orientation: {fileID: 6823851174436091021}
   state: 0
   tickRate: 60
@@ -211,8 +210,8 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   NetworkRigidbodyBaseExpanded: 0
   UseRigidBodyForMotion: 1
-  AutoUpdateKinematicState: 1
-  AutoSetKinematicOnDespawn: 1
+  AutoUpdateKinematicState: 0
+  AutoSetKinematicOnDespawn: 0
 --- !u!1 &2488931309122615890
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,7 +580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2015807905
+  GlobalObjectIdHash: 2221861088
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1

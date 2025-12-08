@@ -70,6 +70,7 @@ public class PlayerMovement : NetworkBehaviour
     }
     void Start()
     {
+        if(!IsOwner) return;
         PlayerInputHandler = GetComponent<PlayerInputHandler>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -123,7 +124,7 @@ public class PlayerMovement : NetworkBehaviour
             crouching = true;
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             if (grounded)
-                rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+                rb.linearVelocity = Vector3.down * 5f;
         }
         else if (!PlayerInputHandler.CrouchTriggered)
         {
@@ -159,13 +160,13 @@ public class PlayerMovement : NetworkBehaviour
     {
         moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
         if (grounded)
-            rb.linearVelocity = moveDir.normalized * moveSpeed * 10f *tickTime;
+            rb.linearVelocity = 10f * moveSpeed * tickTime * moveDir.normalized;
         else if (!grounded)
-            rb.linearVelocity = moveDir.normalized * moveSpeed * 10f * tickTime * airMultiplier;
+            rb.linearVelocity = 10f * airMultiplier * moveSpeed * tickTime * moveDir.normalized;
         clientMovementData[currentTick % BUFFERSIZE] = new MovementData
         {
             tick = currentTick,
-            movementDirection = moveDir.normalized * moveSpeed * 10f * tickTime,
+            movementDirection = 10f * moveSpeed * tickTime * moveDir.normalized,
             position = transform.position,
             Grounded = grounded,
 
@@ -173,7 +174,8 @@ public class PlayerMovement : NetworkBehaviour
 
         if (currentTick < 2) return;
 
-        MoveServerRpc(clientMovementData[currentTick % BUFFERSIZE], clientMovementData[(currentTick - 1) % BUFFERSIZE], new ServerRpcParams { Receive = new ServerRpcReceiveParams { SenderClientId = OwnerClientId } });
+        MoveServerRpc(clientMovementData[currentTick % BUFFERSIZE], clientMovementData[(currentTick - 1) % BUFFERSIZE],
+            new ServerRpcParams { Receive = new ServerRpcReceiveParams { SenderClientId = OwnerClientId } });
     }
     private void SpeedControl()
     { 
@@ -199,11 +201,10 @@ public class PlayerMovement : NetworkBehaviour
     {
         Vector3 startPosition = transform.position;
 
-        Vector3 moveVector = lastMovementData.movementDirection * moveSpeed;
+        Vector3 moveVector = lastMovementData.movementDirection;
         Physics.simulationMode = SimulationMode.Script;
         transform.position = lastMovementData.position;
-        moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        rb.linearVelocity = moveDir.normalized * moveSpeed * 10f * tickTime;
+        rb.linearVelocity = moveVector;
         Vector3 correctPosition = transform.position;
         transform.position = startPosition;
         Physics.simulationMode = SimulationMode.FixedUpdate;
