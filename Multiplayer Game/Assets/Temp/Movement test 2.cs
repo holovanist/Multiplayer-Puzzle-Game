@@ -30,7 +30,6 @@ public class MovementTest2 : NetworkBehaviour
     private const int BUFFERSIZE = 1024;
     private MovementData[] clientMovementData = new MovementData[BUFFERSIZE];
     float maxPositionError = 0.5f;
-    Vector2 CurrentRotation;
     private void Awake()
     {
         tickTime = 1f / tickRate;
@@ -132,7 +131,6 @@ public class MovementTest2 : NetworkBehaviour
         //applies vertical rotation to camera
         verticalRotation = Mathf.Clamp(verticalRotation - mouseYRotation, -upDownLookRange, upDownLookRange);
         MainCamera.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
-        //CurrentRotation = new(MainCamera.localRotation.x, transform.localPosition.y);
     }
     [ServerRpc]
     private void MoveServerRpc(MovementData currentMovementData, MovementData lastMovementData, ServerRpcParams parameters)
@@ -140,11 +138,11 @@ public class MovementTest2 : NetworkBehaviour
         Vector3 startPosition = transform.position;
 
         Vector3 moveVector = lastMovementData.movementDirection.normalized * walkSpeed;
-        //Physics.simulationMode = SimulationMode.Script;
+        Physics.simulationMode = SimulationMode.Script;
         transform.position = lastMovementData.position;
         characterController.Move(moveVector);
         Vector3 correctPosition = transform.position;
-        //Physics.simulationMode = SimulationMode.FixedUpdate;
+        Physics.simulationMode = SimulationMode.FixedUpdate;
 
         if(Vector2.Distance(correctPosition, currentMovementData.position) > maxPositionError)
         {
@@ -162,18 +160,18 @@ public class MovementTest2 : NetworkBehaviour
     {
         Vector3 correctPosition = clientMovementData[(activationTick - 1) % BUFFERSIZE].position;
 
-        //Physics.simulationMode = SimulationMode.Script;
+        Physics.simulationMode = SimulationMode.Script;
         while (activationTick <= currentTick)
         {
             Vector3 moveVector = clientMovementData[(activationTick - 1) % BUFFERSIZE].movementDirection.normalized * walkSpeed;
             transform.position = correctPosition;
             characterController.Move(moveVector);
-            //Physics.Simulate(Time.fixedDeltaTime);
+            Physics.Simulate(Time.fixedDeltaTime);
             correctPosition = transform.position;
             clientMovementData[activationTick % BUFFERSIZE].position = correctPosition;
             activationTick++;
         }
-        //Physics.simulationMode = SimulationMode.FixedUpdate;
+        Physics.simulationMode = SimulationMode.FixedUpdate;
 
         transform.position = correctPosition;
     }
@@ -182,14 +180,12 @@ public class MovementTest2 : NetworkBehaviour
         public int tick;
         public Vector3 movementDirection;
         public Vector3 position;
-        public Vector2 rotation;
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {
             serializer.SerializeValue(ref tick);
             serializer.SerializeValue(ref movementDirection);
             serializer.SerializeValue(ref position);
-            serializer.SerializeValue(ref rotation);
         }
     }
 }

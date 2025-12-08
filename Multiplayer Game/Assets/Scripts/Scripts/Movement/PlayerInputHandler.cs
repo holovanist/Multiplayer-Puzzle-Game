@@ -14,6 +14,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] string sprint = "Sprint";
     [SerializeField] string pause = "Pause";
     [SerializeField] string leftClick = "Left Click";
+    [SerializeField] string crouch = "Crouch";
 
     InputAction movementAction;
     InputAction rotationAction;
@@ -21,6 +22,7 @@ public class PlayerInputHandler : MonoBehaviour
     InputAction sprintAction;
     InputAction pauseAction; 
     InputAction leftClickAction; 
+    InputAction crouchAction;
 
     public Vector2 MovementInput {  get; private set; }
     public Vector2 RotationInput { get; private set; }
@@ -28,6 +30,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool SprintTriggered { get; private set; }
     public bool PauseTriggered { get; private set; }
     public bool LeftClickTriggered { get; private set; }
+    public bool CrouchTriggered {  get; private set; }
 
 
     void Start()
@@ -39,6 +42,7 @@ public class PlayerInputHandler : MonoBehaviour
         sprintAction = mapReference.FindAction(sprint);
         pauseAction = mapReference.FindAction(pause);
         leftClickAction = mapReference.FindAction(leftClick);
+        crouchAction = mapReference.FindAction(crouch);
 
         SubscribeActionValuesToInputEvents();
     }
@@ -61,6 +65,9 @@ public class PlayerInputHandler : MonoBehaviour
 
         leftClickAction.performed += inputInfo => LeftClickTriggered = true;
         leftClickAction.canceled += inputInfo => LeftClickTriggered = false;
+
+        crouchAction.performed += inputInfo => CrouchTriggered = true;
+        crouchAction.canceled += inputInfo => CrouchTriggered = false;
     }
     void OnEnable()
     {

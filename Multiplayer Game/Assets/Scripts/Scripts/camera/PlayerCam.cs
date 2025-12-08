@@ -17,22 +17,20 @@ namespace NewMovment
 
         public Transform orientatiion;
 
+        PlayerInputHandler PlayerInputHandler;
+
         float xRotation;
         float yRotation;
-        public StarterAssetsInputs _input;
-        InputAction MousePos;
-
-        private void Awake()
+        private void Start()
         {
-            MousePos = InputSystem.actions.FindAction("Look");
-            Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+            PlayerInputHandler = GetComponent<PlayerInputHandler>();
+            PlayerInputHandler.LockCursor();
         }
         private void Update()
         {
             if (!IsOwner) return;
-            float mouseX = -MousePos.ReadValue<Vector2>().x * sensX;
-            float mouseY = MousePos.ReadValue<Vector2>().y * sensY;
+            float mouseX = PlayerInputHandler.RotationInput.x * sensX * Time.deltaTime;
+            float mouseY = -PlayerInputHandler.RotationInput.y * sensY * Time.deltaTime;
 
             yRotation += mouseX;
 
@@ -41,6 +39,15 @@ namespace NewMovment
 
             transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
             orientatiion.rotation = Quaternion.Euler(0, yRotation, 0);
+
+            if(PlayerInputHandler.PauseTriggered)
+            {
+                PlayerInputHandler.UnlockCursor();
+            }    
+            if(PlayerInputHandler.LeftClickTriggered)
+            {
+                PlayerInputHandler.LockCursor();
+            }
         }
         void OnEnable()
         {
@@ -53,8 +60,7 @@ namespace NewMovment
         }
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false; 
+            PlayerInputHandler.LockCursor();
 
         }
     }
