@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d3e030f0101b74b992175de3e1f16c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
+  ShowTopMostFoldoutHeaderGroup: 1
   playerControls: {fileID: -944628639613478452, guid: e728662279d222c44b3f63240faecbd5, type: 3}
   actionMapName: Player
   movement: Movement
@@ -162,7 +163,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &6905509509336239396
 MonoBehaviour:
@@ -180,9 +181,9 @@ MonoBehaviour:
   walkSpeed: 50
   sprintSpeed: 10
   GroundDrag: 4
-  jumpForce: 0.5
+  jumpForce: 10
   jumpCooldown: 0
-  airMultiplier: 0.25
+  airMultiplier: 1
   crouchSpeed: 2.5
   crouchYScale: 0.5
   playerHeight: 2
@@ -412,6 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d3e030f0101b74b992175de3e1f16c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
+  ShowTopMostFoldoutHeaderGroup: 1
   playerControls: {fileID: -944628639613478452, guid: e728662279d222c44b3f63240faecbd5, type: 3}
   actionMapName: Player
   movement: Movement
@@ -654,4 +656,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  cam: {fileID: 3023895447358487511}
+  cam: {fileID: 6401039311699872081}

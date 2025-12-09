@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputHandler : MonoBehaviour
+public class PlayerInputHandler : NetworkBehaviour
 {
     [Header("Input Action Asset")]
     [SerializeField] InputActionAsset playerControls;
@@ -15,6 +16,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] string pause = "Pause";
     [SerializeField] string leftClick = "Left Click";
     [SerializeField] string crouch = "Crouch";
+    [SerializeField] string interact = "Interact";
 
     InputAction movementAction;
     InputAction rotationAction;
@@ -23,6 +25,7 @@ public class PlayerInputHandler : MonoBehaviour
     InputAction pauseAction; 
     InputAction leftClickAction; 
     InputAction crouchAction;
+    InputAction interactAction;
 
     public Vector2 MovementInput {  get; private set; }
     public Vector2 RotationInput { get; private set; }
@@ -31,10 +34,12 @@ public class PlayerInputHandler : MonoBehaviour
     public bool PauseTriggered { get; private set; }
     public bool LeftClickTriggered { get; private set; }
     public bool CrouchTriggered {  get; private set; }
+    public bool InteractTriggered {  get; private set; }
 
 
     void Start()
     {
+        if(!IsLocalPlayer) return;
         InputActionMap mapReference = playerControls.FindActionMap(actionMapName);
         movementAction = mapReference.FindAction(movement);
         rotationAction = mapReference.FindAction(rotation);
@@ -43,6 +48,7 @@ public class PlayerInputHandler : MonoBehaviour
         pauseAction = mapReference.FindAction(pause);
         leftClickAction = mapReference.FindAction(leftClick);
         crouchAction = mapReference.FindAction(crouch);
+        interactAction = mapReference.FindAction(interact);
 
         SubscribeActionValuesToInputEvents();
     }
@@ -68,6 +74,9 @@ public class PlayerInputHandler : MonoBehaviour
 
         crouchAction.performed += inputInfo => CrouchTriggered = true;
         crouchAction.canceled += inputInfo => CrouchTriggered = false;
+        
+        interactAction.performed += inputInfo => InteractTriggered = true;
+        interactAction.canceled += inputInfo => InteractTriggered = false;
     }
     void OnEnable()
     {
@@ -75,7 +84,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
     void OnDisable()
     {
-        playerControls.FindActionMap(actionMapName).Disable();
+        //playerControls.FindActionMap(actionMapName).Disable();
     }
     public void LockCursor()
     {

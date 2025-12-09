@@ -62,8 +62,7 @@ public class PlayerMovement : NetworkBehaviour
         crouching,
         air
     }
-    [HideInInspector]
-    public bool crouching; 
+    public bool crouching { get; set; } 
     private void Awake()
     {
         tickTime = 1f / tickRate;
@@ -80,6 +79,11 @@ public class PlayerMovement : NetworkBehaviour
     }
     private void Update()
     {
+        Debug.Log(transform.up);
+        if(PlayerInputHandler == null)
+        PlayerInputHandler = GetComponent<PlayerInputHandler>();
+        if(rb == null)
+        rb = GetComponent<Rigidbody>();
         if (!IsLocalPlayer) return;
         time += Time.deltaTime;
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
@@ -95,6 +99,9 @@ public class PlayerMovement : NetworkBehaviour
     private void FixedUpdate()
     {
         if(!IsLocalPlayer) return;
+        moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+
         if (grounded)
             timer += Time.fixedDeltaTime;
         else timer = 0;
@@ -158,7 +165,6 @@ public class PlayerMovement : NetworkBehaviour
 
     private void MovePlayer()
     {
-        moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
         if (grounded)
             rb.linearVelocity = 10f * moveSpeed * tickTime * moveDir.normalized;
         else if (!grounded)
@@ -174,8 +180,7 @@ public class PlayerMovement : NetworkBehaviour
 
         if (currentTick < 2) return;
 
-        MoveServerRpc(clientMovementData[currentTick % BUFFERSIZE], clientMovementData[(currentTick - 1) % BUFFERSIZE],
-            new ServerRpcParams { Receive = new ServerRpcReceiveParams { SenderClientId = OwnerClientId } });
+        //MoveServerRpc(clientMovementData[currentTick % BUFFERSIZE], clientMovementData[(currentTick - 1) % BUFFERSIZE],new ServerRpcParams { Receive = new ServerRpcReceiveParams { SenderClientId = OwnerClientId } });
     }
     private void SpeedControl()
     { 
@@ -190,7 +195,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
-        rb.AddForce(jumpForce * tickTime * transform.up, ForceMode.Impulse);
+        rb.AddForce(jumpForce * transform.up, ForceMode.Impulse);
     }
     private void ResetJump()
     {
@@ -211,13 +216,7 @@ public class PlayerMovement : NetworkBehaviour
 
         if (Vector2.Distance(correctPosition, currentMovementData.position) > maxPositionError)
         {
-            ReconciliateClientRpc(currentMovementData.tick, new ClientRpcParams
-            {
-                Send = new ClientRpcSendParams
-                {
-                    TargetClientIds = new List<ulong>() { parameters.Receive.SenderClientId }
-                }
-            });
+            ReconciliateClientRpc(currentMovementData.tick, new ClientRpcParams {Send = new ClientRpcSendParams{TargetClientIds = new List<ulong>() { parameters.Receive.SenderClientId }}});
         }
     }
     [ClientRpc]

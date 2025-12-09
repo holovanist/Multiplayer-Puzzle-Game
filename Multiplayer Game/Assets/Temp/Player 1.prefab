@@ -110,7 +110,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.49
+  m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -137,7 +137,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
@@ -339,7 +339,8 @@ GameObject:
   - component: {fileID: 6940259456307495028}
   - component: {fileID: 2563711192122288148}
   - component: {fileID: 6223892543888947827}
-  - component: {fileID: 5345712384400043002}
+  - component: {fileID: 1728009451403205968}
+  - component: {fileID: 3105299248829677177}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -388,7 +389,7 @@ MonoBehaviour:
   RotationMaxInterpolationTime: 0.1
   ScaleLerpSmoothing: 1
   ScaleMaxInterpolationTime: 0.1
-  AuthorityMode: 0
+  AuthorityMode: 1
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
   SyncPositionX: 1
@@ -422,6 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d3e030f0101b74b992175de3e1f16c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
+  ShowTopMostFoldoutHeaderGroup: 1
   playerControls: {fileID: -944628639613478452, guid: e728662279d222c44b3f63240faecbd5, type: 3}
   actionMapName: Player
   movement: Movement
@@ -431,6 +433,7 @@ MonoBehaviour:
   pause: Pause
   leftClick: Left Click
   crouch: Crouch
+  interact: Interact
 --- !u!143 &6940259456307495028
 CharacterController:
   m_ObjectHideFlags: 0
@@ -463,7 +466,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406399660994918037}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31e0eee67cda6ae45a46cc8bb2c2b729, type: 3}
   m_Name: 
@@ -475,7 +478,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406399660994918037}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c4489922681c9142849d99f56d466dc, type: 3}
   m_Name: 
@@ -489,7 +492,13 @@ MonoBehaviour:
   upDownLookRange: 80
   characterController: {fileID: 6940259456307495028}
   MainCamera: {fileID: 2545245934183074654}
---- !u!114 &5345712384400043002
+  crouchDivider: 2
+  crouchYScale: 0.5
+  playerHeight: 2
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &1728009451403205968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -498,19 +507,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 1406399660994918037}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ddb0d1a1681eae45bbcd0423d086533, type: 3}
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MovementTest2
-  ShowTopMostFoldoutHeaderGroup: 1
-  walkSpeed: 3
-  sprintMultiplier: 2
-  jumpForce: 5
-  gravityMultiplier: 1
-  mouseSensitivity: 0.1
-  upDownLookRange: 80
-  characterController: {fileID: 6940259456307495028}
-  MainCamera: {fileID: 1626623598384536113}
-  tickRate: 60
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 83b06ea6bef795e4eb3eedfc4799764e, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &3105299248829677177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406399660994918037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cbe0374477781a4cb37c0a338d01696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::player.Interact
+  interactRange: 4
+  InteractText: {fileID: 0}
 --- !u!1 &4243825152771828104
 GameObject:
   m_ObjectHideFlags: 0

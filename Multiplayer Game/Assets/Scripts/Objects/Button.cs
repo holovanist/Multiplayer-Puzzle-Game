@@ -8,6 +8,7 @@ public class Button : MonoBehaviour
     public string animationTriggerDown;
     public ButtonController BC;
     int ObjectsOnButton;
+    //update to use Raycast instead
     private void OnCollisionEnter(Collision collision)
     {
         ObjectsOnButton++;

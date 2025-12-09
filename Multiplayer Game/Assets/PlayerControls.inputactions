@@ -7,15 +7,6 @@
             "id": "f82248f8-1f9d-4426-91f6-61eb01a06f9f",
             "actions": [
                 {
-                    "name": "Inteact",
-                    "type": "Button",
-                    "id": "ef2fc055-be29-4ebc-b0e7-ea58d36f9443",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Movement",
                     "type": "PassThrough",
                     "id": "5a11ec50-9881-4705-a67b-f5e304d9df9e",
@@ -77,20 +68,18 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "05d02f02-f0ff-46c6-bd5c-4b1fc5b55505",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "9ee9de08-b24c-49a3-956c-46b0be59f278",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Inteact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "2D Vector",
                     "id": "8e5dd170-1053-4062-9e3d-a241c5fbd606",
@@ -209,6 +198,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ac306a24-1f98-493e-9347-2aa001a64766",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

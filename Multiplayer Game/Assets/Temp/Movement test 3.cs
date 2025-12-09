@@ -18,7 +18,19 @@ public class MovementTest3 : NetworkBehaviour
     PlayerInputHandler PlayerInputHandler;
     Vector3 currentMovement;
     float verticalRotation;
-    float CurrentSpeed => walkSpeed * (PlayerInputHandler.SprintTriggered ? sprintMultiplier : 1);
+    float CurrentSpeed => walkSpeed * (PlayerInputHandler.SprintTriggered ? sprintMultiplier : 1) / (PlayerInputHandler.CrouchTriggered ? crouchDivider : 1); 
+    
+    [Header("Crouching")]
+    public float crouchDivider;
+    public float crouchYScale;
+    private float startYScale;
+    bool crouching; 
+    
+    [Header("Ground Check")]
+    public float playerHeight;
+    public LayerMask whatIsGround;
+    //bool grounded;
+
     void Start()
     {
         if (!IsOwner)
@@ -26,17 +38,19 @@ public class MovementTest3 : NetworkBehaviour
             MainCamera.GetComponent<Camera>().enabled = false;
             MainCamera.gameObject.GetComponent<AudioListener>().enabled = false;
         }
+        startYScale = transform.localScale.y;
         PlayerInputHandler = GetComponent<PlayerInputHandler>();
         PlayerInputHandler.LockCursor();
     }
     void Update()
     {
+        //grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
         HandleMovement();
         HandleRotation();
     }
     Vector3 CalculateworldDirection()
     {
-        Vector3 inputDirection = new Vector3(PlayerInputHandler.MovementInput.x, 0f, PlayerInputHandler.MovementInput.y);
+        Vector3 inputDirection = new(PlayerInputHandler.MovementInput.x, 0f, PlayerInputHandler.MovementInput.y);
         Vector3 worldirection = transform.TransformDirection(inputDirection);
         return worldirection.normalized;
     }
@@ -62,7 +76,19 @@ public class MovementTest3 : NetworkBehaviour
         currentMovement.z = worldDirection.z * CurrentSpeed;
 
         HandleJumping();
-        characterController.Move(currentMovement * Time.deltaTime);
+        characterController.Move(currentMovement * Time.deltaTime); 
+        if (PlayerInputHandler.CrouchTriggered && !crouching)
+        {
+            crouching = true;
+            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+                float newPos = transform.localPosition.y - crouchYScale;
+                transform.position = new(transform.position.x, newPos, transform.position.z);
+        }
+        else if (!PlayerInputHandler.CrouchTriggered)
+        {
+            crouching = false;
+            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+        }
     }
     void HandleRotation()
     {
