@@ -8,24 +8,53 @@ public class Button : MonoBehaviour
     public string animationTriggerDown;
     public ButtonController BC;
     int ObjectsOnButton;
+    public bool Oppisite;
+    public bool ButtonsActive {  get; set; }
     //update to use Raycast instead
-    private void OnCollisionEnter(Collision collision)
+    private void Start()
     {
-        ObjectsOnButton++;
-        BC.buttonStateChanged = true;
-        pressed = true;
-        if (anim != null)
-            anim.SetTrigger(animationTriggerDown);
+        anim = GetComponent<Animator>();
     }
-    private void OnCollisionExit(Collision collision)
+    private void OnCollisionEnter()
     {
-        ObjectsOnButton--;
-        if (ObjectsOnButton == 0 )
+        ButtonInteraction();
+    }
+    private void OnCollisionExit()
+    {
+        ButtonInteraction();
+    }    
+    private void OnTriggerEnter()
+    {
+        ButtonInteraction();
+    }
+    private void OnTriggerExit()
+    {
+        ButtonInteraction();
+    }
+    void ButtonInteraction()
+    {
+        if (!pressed)
         {
+            ObjectsOnButton--;
+            if (ObjectsOnButton == 0)
+            {
+                BC.buttonStateChanged = true;
+                pressed = false;
+                if (!Oppisite) ButtonsActive = true;
+                else ButtonsActive = false;
+                if (anim != null)
+                    anim.SetTrigger(animationTriggerUp);
+            }
+        }
+        else
+        {
+            ObjectsOnButton++;
             BC.buttonStateChanged = true;
-            pressed = false;
+            pressed = true;
+            if (!Oppisite) ButtonsActive = true;
+            else ButtonsActive = false;
             if (anim != null)
-                anim.SetTrigger(animationTriggerUp);
+                anim.SetTrigger(animationTriggerDown);
         }
     }
 }

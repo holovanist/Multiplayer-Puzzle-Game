@@ -3,53 +3,71 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace player
-{
 #if ENABLE_INPUT_SYSTEM
-    [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(PlayerInputHandler))]
 #endif
-    public class Interact : MonoBehaviour
+public class Interact : MonoBehaviour
+{
+    private InputAction _Interact;
+
+    [SerializeField]
+    float interactRange = 4;
+    [SerializeField]
+    TextMeshProUGUI InteractText;
+    public float InteractDelay;
+    public GameObject _Camera;
+    float timer = 0;
+    // Start is called before the first frame update
+    void Start()
     {
-        private PlayerInputHandler _input;
+        if (InteractText != null)
+            InteractText.enabled = false;
+        _Interact = GetComponent<PlayerInputHandler>().playerControls.FindAction("Interact");
+    }
 
-        [SerializeField]
-        float interactRange = 4;
-        [SerializeField]
-        TextMeshProUGUI InteractText;
-        public float InteractDelay;
-        float timer = 0;
-        // Start is called before the first frame update
-        void Start()
+    // Update is called once per frame
+    void Update()
+    {
+        timer += Time.deltaTime;
+        if(_Interact.IsPressed())
+            LeverInteraction();
+    }
+    private void LeverInteraction()
+    {
+        Ray ray = new(_Camera.transform.position, _Camera.transform.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
         {
-            if (InteractText != null)
-                InteractText.enabled = false;
-            _input = GetComponent<PlayerInputHandler>();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            timer += Time.deltaTime;
-            Ray ray = new(Camera.main.transform.position, Camera.main.transform.forward);
-            if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
+            if (hit.collider.gameObject.CompareTag("Lever"))
             {
-                if (hit.collider.gameObject.CompareTag("Lever"))
+                Lever InteractObject = hit.collider.gameObject.GetComponent<Lever>();
+                if (InteractText != null)
+                    InteractText.enabled = true;
+                if(!InteractObject.HoldLever)
                 {
-                    if(InteractText != null)
-                        InteractText.enabled = true;
-                    if (_input.InteractTriggered  && timer > InteractDelay)
+                    if (timer > InteractDelay)
                     {
                         timer = 0;
-                        //needs a small cooldown
                         if (InteractText != null)
                             InteractText.enabled = false;
-                        hit.collider.gameObject.GetComponent<Lever>().OnInteract();
+                        InteractObject.OnInteract();
                     }
                 }
                 else
                 {
-                    if (InteractText != null)
-                        InteractText.enabled = false;
+                    if (timer > InteractDelay)
+                    {
+                        if (InteractText != null)
+                            InteractText.enabled = false;
+                        InteractObject.OnInteract();
+                        if(InteractObject.LeverActive)
+                        {
+                            timer = -1;
+                        }
+                        else if (InteractObject.timer > InteractObject.HoldTime && !InteractObject.LeverActive)
+                        {
+                            timer = 0;
+                        }
+                    }
                 }
             }
             else
@@ -57,6 +75,11 @@ namespace player
                 if (InteractText != null)
                     InteractText.enabled = false;
             }
+        }
+        else
+        {
+            if (InteractText != null)
+                InteractText.enabled = false;
         }
     }
 }

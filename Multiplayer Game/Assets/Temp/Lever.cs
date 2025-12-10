@@ -8,19 +8,47 @@ public class Lever : NetworkBehaviour
     public string animationTriggerUp;
     public string animationTriggerDown;
     public LeverController LC;
+    public bool HoldLever;
+    public float HoldTime;
+    public bool Oppisite;
+    public float timer {  get; set; }
+    public bool LeverActive { get; set; }
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
     public void OnInteract()
     {
+        timer += Time.deltaTime;
         if(!pulled)
         {
-            pulled = true;
-            LC.LeverStateChanged = true;
-            if (anim != null)
-                anim.SetTrigger(animationTriggerDown);
+            if (!HoldLever)
+            {
+                pulled = true;
+                LC.LeverStateChanged = true;
+                if(!Oppisite) LeverActive = true;
+                else LeverActive = false;
+                if (anim != null)
+                    anim.SetTrigger(animationTriggerDown);
+            }
+            else if (timer > HoldTime)
+            {
+                pulled = true;
+                timer = 0;
+                LC.LeverStateChanged = true;
+                if (!Oppisite) LeverActive = true;
+                else LeverActive = false;
+                if (anim != null)
+                    anim.SetTrigger(animationTriggerDown);
+                return;
+            }  
         }
         else
         {
             pulled = false;
             LC.LeverStateChanged = true;
+            if (Oppisite) LeverActive = true;
+            else LeverActive = false;
             if (anim != null)
                 anim.SetTrigger(animationTriggerUp);
         }

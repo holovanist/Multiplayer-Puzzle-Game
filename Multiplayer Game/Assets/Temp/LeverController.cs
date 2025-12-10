@@ -4,7 +4,6 @@ using UnityEngine;
 public class LeverController : NetworkBehaviour
 {
     public Lever[] Levers;
-    public bool oppisite;
     Animator anim;
     public int NumberOfLeversActive { get; set; }
     public int NumberOfLeversDisabled { get; set; }
@@ -30,11 +29,11 @@ public class LeverController : NetworkBehaviour
         NumberOfLeversActive = 0;
         for (int i = 0; i < Levers.Length; i++)
         {
-            if (Levers[i].pulled == true)
+            if (Levers[i].LeverActive == true)
             {
                 NumberOfLeversActive++;
             }
-            if (Levers[i].pulled == false)
+            if (Levers[i].LeverActive == false)
             {
                 NumberOfLeversDisabled++;
             }

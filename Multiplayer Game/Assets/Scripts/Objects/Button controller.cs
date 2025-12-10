@@ -29,11 +29,11 @@ public class ButtonController : NetworkBehaviour
         NumberOfButtonsActive = 0;
         for (int i = 0; i < buttons.Length; i++)
         {
-            if(buttons[i].pressed == true)
+            if(buttons[i].ButtonsActive == true)
             {
                 NumberOfButtonsActive++;
             }
-            if (buttons[i].pressed == false)
+            if (buttons[i].ButtonsActive == false)
             {
                 NumberOfButtonsDisabled++;
             }

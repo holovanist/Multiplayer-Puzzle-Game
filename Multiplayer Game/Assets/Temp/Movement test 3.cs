@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class MovementTest3 : NetworkBehaviour
 {
@@ -14,11 +15,10 @@ public class MovementTest3 : NetworkBehaviour
     [Header("References")]
     [SerializeField] CharacterController characterController;
     [SerializeField] Camera MainCamera;
-
-    PlayerInputHandler PlayerInputHandler;
+    PlayerInputHandler Input;
     Vector3 currentMovement;
     float verticalRotation;
-    float CurrentSpeed => walkSpeed * (PlayerInputHandler.SprintTriggered ? sprintMultiplier : 1) / (PlayerInputHandler.CrouchTriggered ? crouchDivider : 1); 
+    float CurrentSpeed => walkSpeed * (Input.SprintTriggered ? sprintMultiplier : 1) / (Input.CrouchTriggered ? crouchDivider : 1); 
     
     [Header("Crouching")]
     public float crouchDivider;
@@ -39,8 +39,8 @@ public class MovementTest3 : NetworkBehaviour
             MainCamera.gameObject.GetComponent<AudioListener>().enabled = false;
         }
         startYScale = transform.localScale.y;
-        PlayerInputHandler = GetComponent<PlayerInputHandler>();
-        PlayerInputHandler.LockCursor();
+        Input = GetComponent<PlayerInputHandler>();
+        Input.LockCursor();
     }
     void Update()
     {
@@ -50,7 +50,7 @@ public class MovementTest3 : NetworkBehaviour
     }
     Vector3 CalculateworldDirection()
     {
-        Vector3 inputDirection = new(PlayerInputHandler.MovementInput.x, 0f, PlayerInputHandler.MovementInput.y);
+        Vector3 inputDirection = new(Input.MovementInput.x, 0f, Input.MovementInput.y);
         Vector3 worldirection = transform.TransformDirection(inputDirection);
         return worldirection.normalized;
     }
@@ -59,7 +59,7 @@ public class MovementTest3 : NetworkBehaviour
         if (characterController.isGrounded)
         {
             currentMovement.y = -0.5f;
-            if (PlayerInputHandler.JumpTriggered)
+            if (Input.JumpTriggered)
             {
                 currentMovement.y = jumpForce;
             }
@@ -77,14 +77,12 @@ public class MovementTest3 : NetworkBehaviour
 
         HandleJumping();
         characterController.Move(currentMovement * Time.deltaTime); 
-        if (PlayerInputHandler.CrouchTriggered && !crouching)
+        if (Input.CrouchTriggered && !crouching)
         {
             crouching = true;
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-                float newPos = transform.localPosition.y - crouchYScale;
-                transform.position = new(transform.position.x, newPos, transform.position.z);
         }
-        else if (!PlayerInputHandler.CrouchTriggered)
+        else if (!Input.CrouchTriggered)
         {
             crouching = false;
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
@@ -92,8 +90,8 @@ public class MovementTest3 : NetworkBehaviour
     }
     void HandleRotation()
     {
-        float mouseXRotation = PlayerInputHandler.RotationInput.x * mouseSensitivity;
-        float mouseYRotation = PlayerInputHandler.RotationInput.y * mouseSensitivity;
+        float mouseXRotation = Input.RotationInput.x * mouseSensitivity;
+        float mouseYRotation = Input.RotationInput.y * mouseSensitivity;
 
         //applies horizontal rotation
         transform.Rotate(0, mouseXRotation, 0);

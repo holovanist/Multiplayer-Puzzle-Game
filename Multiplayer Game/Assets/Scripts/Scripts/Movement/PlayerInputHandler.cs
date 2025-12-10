@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : NetworkBehaviour
 {
     [Header("Input Action Asset")]
-    [SerializeField] InputActionAsset playerControls;
+    public InputActionAsset playerControls;
     [Header("Action Map Name Reference")]
     [SerializeField] string actionMapName = "Player";
     [Header("Action Name References")]
@@ -82,10 +82,10 @@ public class PlayerInputHandler : NetworkBehaviour
     {
         playerControls.FindActionMap(actionMapName).Enable();
     }
-    void OnDisable()
+/*    void OnDisable()
     {
-        //playerControls.FindActionMap(actionMapName).Disable();
-    }
+        playerControls.FindActionMap(actionMapName).Disable();
+    }*/
     public void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
