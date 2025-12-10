@@ -1068,10 +1068,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Welcome to Scavenge the Abandoned Planet! In this game, you and your teammate
-    will have to complete puzzles to open doors and get to the next levels. One player
-    will be above the other player and both players have to communicate to each other
-    how to complete each puzzle.
+  m_text: Welcome to Foriaetan! In this game, you and your teammate will have to
+    complete puzzles to open doors and get to the next levels. One player will be
+    above the other player and both players have to communicate to each other how
+    to complete each puzzle.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1595,7 +1595,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Scavenge the Abandoned Planet
+  m_text: Foriaetan
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
