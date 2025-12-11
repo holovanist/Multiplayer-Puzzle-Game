@@ -2221,13 +2221,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lever
   ShowTopMostFoldoutHeaderGroup: 1
-  pulled: 0
+  LC: {fileID: 193095861}
   animationTriggerUp: 
   animationTriggerDown: 
-  LC: {fileID: 193095861}
+  IsButton: 1
+  WasPulled: 0
+  BasicButtonTime: 1
+  MaxButtonTime: 10
   HoldLever: 1
   HoldTime: 5
   Oppisite: 0
+  pulled: 0
 --- !u!65 &1826985975
 BoxCollider:
   m_ObjectHideFlags: 0

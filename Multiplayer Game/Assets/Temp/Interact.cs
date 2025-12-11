@@ -31,7 +31,12 @@ public class Interact : MonoBehaviour
         timer += Time.deltaTime;
         if(_Interact.IsPressed())
             LeverInteraction();
+        else if(TempLever != null)
+        {
+            TempLever.Interact = false;
+        }
     }
+    Lever TempLever;
     private void LeverInteraction()
     {
         Ray ray = new(_Camera.transform.position, _Camera.transform.forward);
@@ -42,6 +47,9 @@ public class Interact : MonoBehaviour
                 Lever InteractObject = hit.collider.gameObject.GetComponent<Lever>();
                 if (InteractText != null)
                     InteractText.enabled = true;
+                TempLever = InteractObject;
+                if(!InteractObject.WasPulled)
+                InteractObject.Interact = true;
                 if(!InteractObject.HoldLever)
                 {
                     if (timer > InteractDelay)
@@ -54,7 +62,13 @@ public class Interact : MonoBehaviour
                 }
                 else
                 {
-                    if (timer > InteractDelay)
+                    if(InteractObject.IsButton && InteractObject.HoldLever)
+                    {
+                        if (InteractText != null)
+                            InteractText.enabled = false;
+                        InteractObject.OnInteract();
+                    }
+                    else if (timer > InteractDelay)
                     {
                         if (InteractText != null)
                             InteractText.enabled = false;
@@ -63,7 +77,7 @@ public class Interact : MonoBehaviour
                         {
                             timer = -1;
                         }
-                        else if (InteractObject.timer > InteractObject.HoldTime && !InteractObject.LeverActive)
+                        else if (InteractObject.Timer > InteractObject.HoldTime && !InteractObject.LeverActive)
                         {
                             timer = 0;
                         }

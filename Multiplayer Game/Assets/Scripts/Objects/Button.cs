@@ -15,46 +15,50 @@ public class Button : MonoBehaviour
     {
         anim = GetComponent<Animator>();
     }
-    private void OnCollisionEnter()
+    private void OnCollisionEnter(Collision collision)
     {
-        ButtonInteraction();
+        ObjectsOnButton++;
+        pressed = true;
+        if (!Oppisite) ButtonsActive = true;
+        else ButtonsActive = false;
+        BC.ButtonStateChanged = true;
+        if (anim != null)
+            anim.SetTrigger(animationTriggerDown);
     }
-    private void OnCollisionExit()
+    private void OnCollisionExit(Collision collision)
     {
-        ButtonInteraction();
-    }    
-    private void OnTriggerEnter()
-    {
-        ButtonInteraction();
-    }
-    private void OnTriggerExit()
-    {
-        ButtonInteraction();
-    }
-    void ButtonInteraction()
-    {
-        if (!pressed)
+        ObjectsOnButton--;
+        if (ObjectsOnButton == 0)
         {
-            ObjectsOnButton--;
-            if (ObjectsOnButton == 0)
-            {
-                BC.buttonStateChanged = true;
-                pressed = false;
-                if (!Oppisite) ButtonsActive = true;
-                else ButtonsActive = false;
-                if (anim != null)
-                    anim.SetTrigger(animationTriggerUp);
-            }
-        }
-        else
-        {
-            ObjectsOnButton++;
-            BC.buttonStateChanged = true;
-            pressed = true;
-            if (!Oppisite) ButtonsActive = true;
+            pressed = false;
+            if (Oppisite) ButtonsActive = true;
             else ButtonsActive = false;
+            BC.ButtonStateChanged = true;
             if (anim != null)
-                anim.SetTrigger(animationTriggerDown);
+                anim.SetTrigger(animationTriggerUp);
+        }
+    }    
+    private void OnTriggerEnter(Collider collider)
+    {
+        ObjectsOnButton++;
+        pressed = true;
+        if (!Oppisite) ButtonsActive = true;
+        else ButtonsActive = false;
+        BC.ButtonStateChanged = true;
+        if (anim != null)
+            anim.SetTrigger(animationTriggerDown);
+    }
+    private void OnTriggerExit(Collider collider)
+    {
+        ObjectsOnButton--;
+        if (ObjectsOnButton == 0)
+        {
+            pressed = false;
+            if (Oppisite) ButtonsActive = true;
+            else ButtonsActive = false;
+            BC.ButtonStateChanged = true;
+            if (anim != null)
+                anim.SetTrigger(animationTriggerUp);
         }
     }
 }

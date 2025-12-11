@@ -8,7 +8,7 @@ public class ButtonController : NetworkBehaviour
     public int NumberOfButtonsActive { get; set; }
     public int NumberOfButtonsDisabled { get; set; }
     public string animationBool;
-    public bool buttonStateChanged {  get; set; }
+    public bool ButtonStateChanged {  get; set; }
 
     private void Start()
     {
@@ -17,9 +17,10 @@ public class ButtonController : NetworkBehaviour
 
     private void Update()
     {
-        if (buttons != null && buttonStateChanged)
+        if (buttons != null && ButtonStateChanged)
         {
             ButtonUpdater();
+            ButtonStateChanged = false;
         }
     }
 
@@ -46,6 +47,5 @@ public class ButtonController : NetworkBehaviour
                 anim.SetBool(animationBool, false);
 
         }
-        buttonStateChanged = false;
     }
 }
