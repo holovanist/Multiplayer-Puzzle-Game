@@ -2224,10 +2224,10 @@ MonoBehaviour:
   LC: {fileID: 193095861}
   animationTriggerUp: 
   animationTriggerDown: 
-  IsButton: 1
+  IsButton: 0
   WasPulled: 0
   BasicButtonTime: 1
-  MaxButtonTime: 10
+  MaxButtonTime: 0
   HoldLever: 1
   HoldTime: 5
   Oppisite: 0
