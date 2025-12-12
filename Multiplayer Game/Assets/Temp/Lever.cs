@@ -6,6 +6,7 @@ public class Lever : NetworkBehaviour
     [Header("References")]
     Animator anim;
     public LeverController LC;
+    public InteractiveButtons IB;
     public string animationTriggerUp;
     public string animationTriggerDown;
     [Header("Button")]
@@ -37,8 +38,9 @@ public class Lever : NetworkBehaviour
         if(ButtonCountdown <= 0 && IsButton && HoldLever && WasPulled)
         {
             if (Oppisite) LeverActive = true;
-            else LeverActive = false;
-            LC.LeverStateChanged = true;
+            else LeverActive = false; 
+            if (LC != null) LC.LeverStateChanged = true;
+            if (IB != null) IB.LeverStateChanged = true;
             WasPulled = false;
             pulled = false;
         }
@@ -48,7 +50,8 @@ public class Lever : NetworkBehaviour
         {
             if (Oppisite) LeverActive = true;
             else LeverActive = false;
-            LC.LeverStateChanged = true; 
+            if(LC != null) LC.LeverStateChanged = true;
+            if (IB != null) IB.LeverStateChanged = true;
             WasPulled = false;
             pulled = false;
         }
@@ -64,7 +67,8 @@ public class Lever : NetworkBehaviour
             if (!HoldLever && !IsButton)
             {
                 pulled = true;
-                LC.LeverStateChanged = true;
+                if (LC != null) LC.LeverStateChanged = true;
+                if (IB != null) IB.LeverStateChanged = true;
                 if (!Oppisite) LeverActive = true;
                 else LeverActive = false;
                 if (anim != null)
@@ -74,7 +78,8 @@ public class Lever : NetworkBehaviour
             {
                 pulled = true;
                 Timer = 0;
-                LC.LeverStateChanged = true;
+                if (LC != null) LC.LeverStateChanged = true;
+                if (IB != null) IB.LeverStateChanged = true;
                 if (!Oppisite) LeverActive = true;
                 else LeverActive = false;
                 if (anim != null)
@@ -88,7 +93,8 @@ public class Lever : NetworkBehaviour
         else if(pulled && !WasPulled)
         {
             pulled = false;
-            LC.LeverStateChanged = true;
+            if (LC != null) LC.LeverStateChanged = true;
+            if (IB != null) IB.LeverStateChanged = true;
             if (Oppisite) LeverActive = true;
             else LeverActive = false;
             if (anim != null)
@@ -102,7 +108,8 @@ public class Lever : NetworkBehaviour
             BasicButtonTimer = BasicButtonTime;
             pulled = true; 
             WasPulled = true;
-            LC.LeverStateChanged = true;
+            if (LC != null) LC.LeverStateChanged = true;
+            if (IB != null) IB.LeverStateChanged = true;
             if (!Oppisite) LeverActive = true;
             else LeverActive = false;
             if (anim != null)
@@ -120,7 +127,8 @@ public class Lever : NetworkBehaviour
             else
             pulled = true;
             Timer = 0;
-            LC.LeverStateChanged = true;
+            if (LC != null) LC.LeverStateChanged = true;
+            if (IB != null) IB.LeverStateChanged = true;
             if (!Oppisite) LeverActive = true;
             else LeverActive = false;
             if (anim != null)
