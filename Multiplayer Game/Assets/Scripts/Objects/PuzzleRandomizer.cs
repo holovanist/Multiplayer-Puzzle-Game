@@ -4,9 +4,9 @@ using UnityEngine;
 public class PuzzleRandomizer : MonoBehaviour
 {
     public List<GameObject> PuzzleObjects;
-    List<GameObject> StaticPuzzleObjects = new();
+    readonly List<GameObject> StaticPuzzleObjects = new();
     public List<Transform> PuzzleSpawnLocations;
-    List<GameObject> SpawnedObjects = new();
+    readonly List<GameObject> SpawnedObjects = new();
     public bool temp;
     public bool temp1;
     void Start()

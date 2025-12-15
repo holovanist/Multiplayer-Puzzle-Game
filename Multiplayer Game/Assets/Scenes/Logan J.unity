@@ -1131,7 +1131,7 @@ Transform:
   m_GameObject: {fileID: 670249829}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalPosition: {x: 6, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1387,6 +1387,8 @@ GameObject:
   m_Component:
   - component: {fileID: 927217771}
   - component: {fileID: 927217770}
+  - component: {fileID: 927217772}
+  - component: {fileID: 927217773}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1437,6 +1439,104 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &927217772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927217769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40fd89f0cc79fdd4ead0bf31c4d7f420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShapeRandomizer
+  ShapesToRandomize:
+  - ObjectSpawned: 0
+    PuzzleObjects:
+    - {fileID: 7608009003383700147, guid: 829302af54f1b0146ba9e71eb126b760, type: 3}
+    - {fileID: 7608009003383700147, guid: 2680d091c5ba6364fbc5a163da8e1762, type: 3}
+    - {fileID: 7608009003383700147, guid: 80eb9eb6f5a1f5c40ab26681cb7723ed, type: 3}
+    - {fileID: 7608009003383700147, guid: 71bb392f6f9ad334d94f31b7a5267e99, type: 3}
+    PuzzleSpawnLocations: {fileID: 670249830}
+    SpawnedObjects: {fileID: 0}
+  - ObjectSpawned: 0
+    PuzzleObjects:
+    - {fileID: 7608009003383700147, guid: 279f0287efb81b647b01144705b54b46, type: 3}
+    - {fileID: 7608009003383700147, guid: 26ad22343107a824294e2e6da9389c65, type: 3}
+    - {fileID: 7608009003383700147, guid: 75c643a11c76d1f4e947f18f6e540cb5, type: 3}
+    - {fileID: 7608009003383700147, guid: 4657184dc17a3fb41ab36d36c8912181, type: 3}
+    PuzzleSpawnLocations: {fileID: 1271364502}
+    SpawnedObjects: {fileID: 0}
+  - ObjectSpawned: 0
+    PuzzleObjects:
+    - {fileID: 7608009003383700147, guid: 163cacc9a17c8e74e83e8b46b90180ac, type: 3}
+    - {fileID: 7608009003383700147, guid: 83d88a028bb3fa14695b272fdee4c1f6, type: 3}
+    - {fileID: 7608009003383700147, guid: 2438a9719a81c7c40be2d701bdbbcb80, type: 3}
+    - {fileID: 7608009003383700147, guid: 2ad7271f5a6492d4780216b0512ef6af, type: 3}
+    PuzzleSpawnLocations: {fileID: 1937680362}
+    SpawnedObjects: {fileID: 0}
+  - ObjectSpawned: 0
+    PuzzleObjects:
+    - {fileID: 7608009003383700147, guid: e2dd5bed0c2589442af6e4a0a0fdfdfb, type: 3}
+    - {fileID: 7608009003383700147, guid: 76b9f0843a7ecef4283f8bc56ac42a95, type: 3}
+    - {fileID: 7608009003383700147, guid: 42ba708e01dd0464b8760d058cef203c, type: 3}
+    - {fileID: 7608009003383700147, guid: af4328a5454bb034187036aeb0075c5c, type: 3}
+    PuzzleSpawnLocations: {fileID: 1642756785}
+    SpawnedObjects: {fileID: 0}
+  SpawnPuzzleObjects: 0
+  RemovePuzzle: 0
+  ScrollPuzzle: 0
+  PuzzleObjects: 
+  UpdateShape: 0
+--- !u!114 &927217773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927217769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8edbf698885d0ac42b80c00f9d4a5d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShapePuzzle
+  ShapesToRandomize:
+  - ObjectSpawned: 0
+    PuzzleObjects:
+    - {fileID: 7608009003383700147, guid: 829302af54f1b0146ba9e71eb126b760, type: 3}
+    - {fileID: 7608009003383700147, guid: 2680d091c5ba6364fbc5a163da8e1762, type: 3}
+    - {fileID: 7608009003383700147, guid: 80eb9eb6f5a1f5c40ab26681cb7723ed, type: 3}
+    - {fileID: 7608009003383700147, guid: 71bb392f6f9ad334d94f31b7a5267e99, type: 3}
+    PuzzleSpawnLocations: {fileID: 0}
+    SpawnedObjects: {fileID: 0}
+  - ObjectSpawned: 0
+    PuzzleObjects:
+    - {fileID: 7608009003383700147, guid: 279f0287efb81b647b01144705b54b46, type: 3}
+    - {fileID: 7608009003383700147, guid: 26ad22343107a824294e2e6da9389c65, type: 3}
+    - {fileID: 7608009003383700147, guid: 75c643a11c76d1f4e947f18f6e540cb5, type: 3}
+    - {fileID: 7608009003383700147, guid: 4657184dc17a3fb41ab36d36c8912181, type: 3}
+    PuzzleSpawnLocations: {fileID: 0}
+    SpawnedObjects: {fileID: 0}
+  - ObjectSpawned: 0
+    PuzzleObjects:
+    - {fileID: 7608009003383700147, guid: 163cacc9a17c8e74e83e8b46b90180ac, type: 3}
+    - {fileID: 7608009003383700147, guid: 83d88a028bb3fa14695b272fdee4c1f6, type: 3}
+    - {fileID: 7608009003383700147, guid: 2438a9719a81c7c40be2d701bdbbcb80, type: 3}
+    - {fileID: 7608009003383700147, guid: 2ad7271f5a6492d4780216b0512ef6af, type: 3}
+    PuzzleSpawnLocations: {fileID: 0}
+    SpawnedObjects: {fileID: 0}
+  - ObjectSpawned: 0
+    PuzzleObjects:
+    - {fileID: 7608009003383700147, guid: e2dd5bed0c2589442af6e4a0a0fdfdfb, type: 3}
+    - {fileID: 7608009003383700147, guid: 76b9f0843a7ecef4283f8bc56ac42a95, type: 3}
+    - {fileID: 7608009003383700147, guid: 42ba708e01dd0464b8760d058cef203c, type: 3}
+    - {fileID: 7608009003383700147, guid: af4328a5454bb034187036aeb0075c5c, type: 3}
+    PuzzleSpawnLocations: {fileID: 0}
+    SpawnedObjects: {fileID: 0}
+  SpawnPuzzleObjects: 0
+  RemovePuzzle: 0
+  PuzzleObjects: 
 --- !u!1 &1247492649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,7 +1691,7 @@ Transform:
   m_GameObject: {fileID: 1271364501}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalPosition: {x: 12, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1989,7 +2089,7 @@ Transform:
   m_GameObject: {fileID: 1642756784}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: 0}
+  m_LocalPosition: {x: 24, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2810,7 +2910,7 @@ Transform:
   m_GameObject: {fileID: 1937680361}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: 0, z: 0}
+  m_LocalPosition: {x: 18, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
