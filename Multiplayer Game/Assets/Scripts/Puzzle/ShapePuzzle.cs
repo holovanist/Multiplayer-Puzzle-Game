@@ -8,11 +8,16 @@ public class ShapePuzzle : MonoBehaviour
     public bool RemovePuzzle;
     public List<int> PuzzleObjects;
     int CorrectShapeCount;
-    int IncorectShapeCount;
     ShapeRandomizer Randomizer;
+    Animator anim;
+    public string animationTrigger1;
+    public string animationTrigger2;
+    public string animationTrigger3;
+    public string animationTrigger4;
     private void Start()
     {
         Randomizer = GetComponent<ShapeRandomizer>();
+        anim = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -36,21 +41,27 @@ public class ShapePuzzle : MonoBehaviour
         if(Randomizer.UpdateShape)
         {
             CorrectShapeCount = 0;
-            IncorectShapeCount = 0;
             for (int i = 0;i < PuzzleObjects.Count;i++)
             {
                 if (Randomizer.PuzzleObjects[i] == PuzzleObjects[i])
                 {
                     CorrectShapeCount++;
-                }else if (Randomizer.PuzzleObjects[i] != PuzzleObjects[i])
-                {
-                    IncorectShapeCount++;
                 }
             }
         }
         if(CorrectShapeCount == PuzzleObjects.Count)
         {
-            Debug.Log("Correct");
+            if(anim != null)
+            {
+                anim.SetBool(animationTrigger1, true);
+            }
+        }
+        else
+        {
+            if (anim != null)
+            {
+                anim.SetBool(animationTrigger1, false);
+            }
         }
     }
     public void SpawnPuzzle()
