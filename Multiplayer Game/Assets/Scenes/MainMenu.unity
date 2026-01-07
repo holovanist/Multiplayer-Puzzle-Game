@@ -1467,7 +1467,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Welcome to Forlaetan! In this game, you and your teammate will have to
-    complete puzzles to open doors and get to the next levels. One player will be
+    complete puzzles to open doors and get to the next level. One player will be
     above the other player and both players have to communicate to each other how
     to complete each puzzle.
   m_isRightToLeft: 0
