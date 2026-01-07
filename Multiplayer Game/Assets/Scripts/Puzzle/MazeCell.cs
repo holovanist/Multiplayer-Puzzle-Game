@@ -6,28 +6,26 @@ public class MazeCell : MonoBehaviour
     [SerializeField] GameObject rightWall;
     [SerializeField] GameObject frontWall;
     [SerializeField] GameObject backWall;
-    [SerializeField] GameObject unvisitedBlock;
     public bool visited {  get; private set; }
 
     public void Visit()
     {
         visited = true;
-        unvisitedBlock.SetActive(false);
     }
     public void ClearLeftWall()
     {
-        leftWall.SetActive(false);
+        Destroy(leftWall);
     }
     public void ClearRightWall()
     {
-        rightWall.SetActive(false);
+        Destroy(rightWall);
     }
     public void ClearFrontWall()
     {
-        frontWall.SetActive(false);
+        Destroy(frontWall);
     }
     public void ClearBackWall()
     {
-        backWall.SetActive(false);
+        Destroy(backWall);
     }
 }
