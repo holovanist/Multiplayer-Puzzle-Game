@@ -1,11 +1,11 @@
 using Unity.Netcode;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class RPC : NetworkBehaviour
 {
     InputAction P;
+    public InputActionAsset input;
     [Rpc(SendTo.Server)]
     public void PingRpc(int pingCount)
     {
@@ -15,7 +15,7 @@ public class RPC : NetworkBehaviour
         PongRpc(pingCount, "PONG!");
     }
 
-    [Rpc(SendTo.NotServer)]
+    [Rpc(SendTo.ClientsAndHost)]
     void PongRpc(int pingCount, string message)
     {
         Debug.Log($"Received pong from server for ping {pingCount} and message {message}");
@@ -23,8 +23,7 @@ public class RPC : NetworkBehaviour
 
     void Update()
     {
-        if (IsOwner)
-            P ??= InputSystem.actions.FindAction("Test");
+            P ??= input.FindAction("Enter");
         if (IsOwner && P.WasPressedThisFrame())
         {
             // Client -> Server because PingRpc sends to Server

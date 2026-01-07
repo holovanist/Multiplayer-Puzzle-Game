@@ -11,6 +11,8 @@ public class TextChatTest : NetworkBehaviour
     public GameObject Chat;
     public TextMeshProUGUI ChatText;
     public ScrollRect ScrollRect;
+    string username;
+    public UsernameObject Username;
 
     public InputActionAsset input;
     InputAction Escape;
@@ -24,6 +26,9 @@ public class TextChatTest : NetworkBehaviour
     {
         Chat.SetActive(false);
     }
+    string Chattext;
+    string ServerText;
+    string ServerUsername;
     void Update()
     {
         if(Escape.IsPressed())
@@ -32,10 +37,15 @@ public class TextChatTest : NetworkBehaviour
         }
         if(Enter.WasPressedThisFrame())
         {
-            string Chattext;
             Chattext = inputField.text;
-            if(Chattext != "")
-            ChatText.text += "\n" + "(Player 1)"+ Chattext;
+            ServerText = Chattext;
+                username = Username.Username;
+            if (Chattext != "" && ServerText != null)
+            {
+                SendChatRPC(Chattext, username);
+            }
+            Debug.Log(ServerText);
+            inputField.text = "";
         }
         else if(Enter.WasReleasedThisFrame())
         {
@@ -43,4 +53,11 @@ public class TextChatTest : NetworkBehaviour
         }
 
     }
+    [Rpc(SendTo.ClientsAndHost)]
+    public void SendChatRPC(string Chattext, string username)
+    {
+        ServerUsername = username;
+        ServerText = Chattext;
+        ChatText.text += "\n" + "("+ ServerUsername + ")" + ServerText;
+    }    
 }
