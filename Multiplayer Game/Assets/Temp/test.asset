@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc7434f39fb48545af675a7ff25544d, type: 3}
   m_Name: test
   m_EditorClassIdentifier: Assembly-CSharp::Multiplayertest
-  Username: Test
+  Username: 

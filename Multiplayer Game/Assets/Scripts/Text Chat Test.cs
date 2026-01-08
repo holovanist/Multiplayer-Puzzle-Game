@@ -44,7 +44,6 @@ public class TextChatTest : NetworkBehaviour
             {
                 SendChatRPC(Chattext, username);
             }
-            Debug.Log(ServerText);
             inputField.text = "";
         }
         else if(Enter.WasReleasedThisFrame())
@@ -56,6 +55,7 @@ public class TextChatTest : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     public void SendChatRPC(string Chattext, string username)
     {
+        Debug.Log(ServerUsername);
         ServerUsername = username;
         ServerText = Chattext;
         ChatText.text += "\n" + "("+ ServerUsername + ")" + ServerText;
