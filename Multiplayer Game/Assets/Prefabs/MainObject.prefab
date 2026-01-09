@@ -57,12 +57,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d3e030f0101b74b992175de3e1f16c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
+  ShowTopMostFoldoutHeaderGroup: 1
   playerControls: {fileID: -944628639613478452, guid: e728662279d222c44b3f63240faecbd5, type: 3}
   actionMapName: Gameplay
   movement: Movement
   rotation: Rotation
   jump: Jump
   sprint: Sprint
+  pause: Pause
+  leftClick: Left Click
+  crouch: Crouch
+  interact: Interact
 --- !u!1 &2908704707184140336
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,5 +98,58 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7532533046125975517}
+  - {fileID: 432732525324177904}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5824328393932010528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 432732525324177904}
+  - component: {fileID: 1715797091062084208}
+  m_Layer: 0
+  m_Name: MazeSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &432732525324177904
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824328393932010528}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -38.848057, y: -0.5, z: 18.34535}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2877598482617493438}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1715797091062084208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824328393932010528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c072b2162cc73b459586e46a4ab1625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MazeRandomizer
+  mazePrefabs:
+  - {fileID: 8851230402342010254, guid: bc8301cb61ef2104480786d70517912d, type: 3}
+  - {fileID: 8585850434097572832, guid: 87057f2ede181e14bbe5bf201b173cc7, type: 3}
+  - {fileID: 1842962988462876209, guid: 6e578b462be2ece4a968ed80ee43e24c, type: 3}
+  - {fileID: 8501655055319965350, guid: fce730d3401fe7b498ed25c4edabd793, type: 3}
+  - {fileID: 2502591507969660466, guid: 31fe22713aa91b246bbc519053a66d68, type: 3}
+  mazeSpawnLocation: {fileID: 0}
+  spawnMaze: 0
