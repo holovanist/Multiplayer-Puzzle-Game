@@ -3,16 +3,24 @@ using UnityEngine;
 
 public class Request : MonoBehaviour
 {
-    public GameObject[] ListOfPotentialObject1;
-    public GameObject[] ListOfPotentialObject2;
-    GameObject[] Side1 = new GameObject[3];
-    GameObject[] Side2 = new GameObject[3];
+    [SerializeField] GameObject[] ListOfPotentialObject1;
+    [SerializeField] GameObject[] ListOfPotentialObject2;
+    public GameObject[] Side1 { get; private set; } = new GameObject[3];
+    public GameObject[] Side2 { get; private set; } = new GameObject[3];
     int[] SelectedObject1 = new int[3];
     int[] SelectedObject2 = new int[3];
     public bool PuzzleReset;
+    public int ObjectsGivenToCreature {  get; set; }
+
+    [SerializeField] Animator anim;
+    [SerializeField] string PuzzleComplete;
+    [SerializeField] string UncompletePuzzle;
+    bool PuzzleDone;
 
     private void Start()
     {
+        PuzzleDone = false;
+        ObjectsGivenToCreature = 0;
         for (int i = 0; i < 3; i++)
         {
             SelectedObject1[i] = (Random.Range(0, ListOfPotentialObject1.Length));
@@ -24,6 +32,16 @@ public class Request : MonoBehaviour
     }
     private void Update()
     {
+        if(ObjectsGivenToCreature == 6 && !PuzzleDone)
+        {
+            anim.SetTrigger(PuzzleComplete);
+            PuzzleDone = true;
+        }
+        if(PuzzleDone && ObjectsGivenToCreature != 6)
+        {
+            anim.SetTrigger(UncompletePuzzle);
+            PuzzleDone = false; 
+        }
         if (PuzzleReset)
             ResetPuzzle();
         if (Side1[0] == null || Side1[1] == null || Side1[2] == null || Side2[0] == null || Side2[1] == null || Side2[2] == null)

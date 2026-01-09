@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Popuptextfield : MonoBehaviour
 {
-    public TMP_InputField inputField;
-    public TextMeshProUGUI Text;
-    public UsernameObject test;
-    public GameObject TextField;
+    [SerializeField] TMP_InputField inputField;
+    [SerializeField] TextMeshProUGUI Text;
+    [SerializeField] UsernameObject test;
+    [SerializeField] GameObject TextField;
     string text;
     string oldtext;
     bool TextBoxOpen;
