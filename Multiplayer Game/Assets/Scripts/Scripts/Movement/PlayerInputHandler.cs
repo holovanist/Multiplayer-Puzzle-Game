@@ -36,7 +36,6 @@ public class PlayerInputHandler : NetworkBehaviour
     public bool CrouchTriggered {  get; private set; }
     public bool InteractTriggered {  get; private set; }
 
-
     void Start()
     {
         if(!IsLocalPlayer) return;
@@ -80,12 +79,14 @@ public class PlayerInputHandler : NetworkBehaviour
     }
     void OnEnable()
     {
+        if (!IsLocalPlayer) return;
         playerControls.FindActionMap(actionMapName).Enable();
     }
-/*    void OnDisable()
+    void OnDisable()
     {
+        if(!IsLocalPlayer) return;
         playerControls.FindActionMap(actionMapName).Disable();
-    }*/
+    }
     public void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;

@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PickupObjects : MonoBehaviour
 {
+    private InputAction _Interact;
     [SerializeField] float pickupDistance = 2;
     [SerializeField] float holdDistance = 2;
     public bool playerCanPickupObjects = true;
@@ -15,13 +13,17 @@ public class PickupObjects : MonoBehaviour
     private Rigidbody hitRigidbody;
     private bool holdingObject = false;
     private bool spinMeRoundBabyRightRound = false;
+    private void Start()
+    {
+        _Interact = GetComponent<PlayerInputHandler>().playerControls.FindAction("Interact");
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !holdingObject)
+        if (_Interact.WasPressedThisFrame() && !holdingObject)
         {
             AttemptToPickupObject();
             
-        } else if (Input.GetKeyDown(KeyCode.E) && holdingObject)
+        } else if (_Interact.WasPressedThisFrame() && holdingObject)
         {
             DropObject();
         }
@@ -37,11 +39,11 @@ public class PickupObjects : MonoBehaviour
         float distance = Vector3.Distance(holdPosition, hitTransform.position);
         if (distance > 0.05f)
         {
-            hitRigidbody.velocity = (velDirection * 5 * distance);
+            hitRigidbody.linearVelocity = (5 * distance * velDirection);
         }
         else
         {
-            hitRigidbody.velocity = Vector3.zero;
+            hitRigidbody.linearVelocity = Vector3.zero;
             hitRigidbody.MovePosition(holdPosition);
         }
         if (!spinMeRoundBabyRightRound)

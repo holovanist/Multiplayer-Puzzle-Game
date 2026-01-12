@@ -146,11 +146,11 @@
                 },
                 {
                     "name": "",
-                    "id": "2e9862bd-0a12-4135-b4d4-7438710803a9",
-                    "path": "<Mouse>/delta",
+                    "id": "17caebe0-db53-4166-9e9e-e335d58b2f1c",
+                    "path": "<Pointer>/delta",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse;Keyboard",
                     "action": "Rotation",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -253,6 +253,11 @@
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
                     "isOptional": false,
                     "isOR": false
                 }
