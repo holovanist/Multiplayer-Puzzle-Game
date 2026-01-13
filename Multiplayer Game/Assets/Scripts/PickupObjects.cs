@@ -36,6 +36,7 @@ public class PickupObjects : MonoBehaviour
     private void HoldingObject()
     {
         Vector3 holdPosition = cameraTransform.position + cameraTransform.forward * holdDistance;
+        if(Parent != null)
         Parent.transform.position = holdPosition;
         Vector3 velDirection = Vector3.Normalize(holdPosition - hitTransform.position);
         float distance = Vector3.Distance(holdPosition, hitTransform.position);

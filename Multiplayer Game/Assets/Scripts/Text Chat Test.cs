@@ -17,6 +17,7 @@ public class TextChatTest : NetworkBehaviour
     public InputActionAsset input;
     InputAction Escape;
     InputAction Enter;
+    public int MaxMessagesSent;
     private void Awake()
     {
         Escape = input.FindAction("Pause");
@@ -35,7 +36,7 @@ public class TextChatTest : NetworkBehaviour
         {
             Chat.SetActive(true);
         }
-        if(Enter.WasPressedThisFrame())
+        if(Enter.WasPressedThisFrame() && MaxMessagesSent > 0)
         {
             Chattext = inputField.text;
             ServerText = Chattext;
