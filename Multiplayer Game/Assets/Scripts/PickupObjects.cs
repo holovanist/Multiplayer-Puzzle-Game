@@ -82,7 +82,6 @@ public class PickupObjects : MonoBehaviour
     {
         holdingObject = true;
         hitRigidbody.useGravity = false;
-        Debug.Log("pickedup object");
     }
     private void DropObject()
     {
@@ -91,6 +90,5 @@ public class PickupObjects : MonoBehaviour
         holdingObject = false;
         hitRigidbody.useGravity = true;
         hitObject.transform.parent = null;
-        Debug.Log("dropped object");
     }
 }
