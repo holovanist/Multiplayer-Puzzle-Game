@@ -112,11 +112,11 @@ public class PickupObjects : MonoBehaviour
         hitRigidbody.useGravity = true;
         hitObject.transform.parent = null;
     }
-    private void OnTriggerEnter(Collider collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player") && holdingObject)
         {
-            //DropObject();
+            DropObject();
         }
     }
 }
