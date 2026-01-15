@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 6165344112453978118}
   - component: {fileID: 2162574024225519996}
   - component: {fileID: 8031568792337734639}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 2545245934183074654}
   - component: {fileID: 2090237573684263356}
   - component: {fileID: 2073780572174844684}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 3105299248829677177}
   - component: {fileID: 7935179698491295662}
   - component: {fileID: 4283639570353789829}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -490,11 +490,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 347d0d1a0dce8c34cb454862cd789f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupObjects
-  pickupDistance: 2
-  holdDistance: 2
+  pickupDistance: 6
+  holdDistance: 3
   playerCanPickupObjects: 1
   cameraTransform: {fileID: 1626623598384536113}
   Parent: {fileID: 5926449336612916000}
+  multiplier: 10
+  MaxholdDistance: 6
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 129
+  PickupLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &4283639570353789829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,9 +542,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5926449336612916000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: PickupObjectHolder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -601,7 +609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 341537954
+  GlobalObjectIdHash: 956701731
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1

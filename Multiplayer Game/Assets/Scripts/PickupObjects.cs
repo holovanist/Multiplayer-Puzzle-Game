@@ -8,12 +8,17 @@ public class PickupObjects : MonoBehaviour
     public bool playerCanPickupObjects = true;
     [SerializeField] Transform cameraTransform;
     [SerializeField] Transform Parent;
+    [SerializeField] float multiplier;
+    [SerializeField] float MaxholdDistance;
+    [SerializeField] LayerMask layerMask;
+    [SerializeField] LayerMask PickupLayerMask;
     private GameObject hitObject;
     private Transform hitTransform;
     private Rigidbody hitRigidbody;
     private bool holdingObject = false;
     private bool spinMeRoundBabyRightRound = false;
     private InputAction _Interact;
+    RaycastHit hit;
     private void Start()
     {
         _Interact = GetComponent<PlayerInputHandler>().playerControls.FindAction("Interact");
@@ -35,14 +40,30 @@ public class PickupObjects : MonoBehaviour
     }
     private void HoldingObject()
     {
-        Vector3 holdPosition = cameraTransform.position + cameraTransform.forward * holdDistance;
-        if(Parent != null)
-        Parent.transform.position = holdPosition;
+        Vector3 holdPosition;
+        if (Physics.Raycast(transform.position, cameraTransform.forward, out hit, holdDistance , layerMask))
+        {
+            holdPosition = hit.point + new Vector3(0, .6f,0);
+            hitTransform.position = holdPosition;
+        }
+        else
+        {
+        holdPosition = cameraTransform.position + cameraTransform.forward * holdDistance;
+
+        }
+        if (Parent != null)
+        {
+            hitTransform.parent = Parent.transform;
+        }
+        if (Vector3.Distance(holdPosition, hitTransform.position) > MaxholdDistance)
+        {
+            DropObject();
+        }
         Vector3 velDirection = Vector3.Normalize(holdPosition - hitTransform.position);
         float distance = Vector3.Distance(holdPosition, hitTransform.position);
         if (distance > 0.05f)
         {
-            hitRigidbody.linearVelocity = (5 * distance * velDirection);
+            hitRigidbody.linearVelocity = (multiplier * distance * velDirection);
         }
         else
         {
@@ -62,7 +83,7 @@ public class PickupObjects : MonoBehaviour
     StoredObjectData SOD;
     private void AttemptToPickupObject()
     {
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out RaycastHit hit, pickupDistance))
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out RaycastHit hit, pickupDistance, PickupLayerMask))
         {
             
             if (hit.collider.TryGetComponent(out StoredObjectData storedObjectData) && hit.collider.TryGetComponent(out Rigidbody rigidbody) && storedObjectData.isPickupable && !storedObjectData.IsInTunnel)
@@ -90,5 +111,12 @@ public class PickupObjects : MonoBehaviour
         holdingObject = false;
         hitRigidbody.useGravity = true;
         hitObject.transform.parent = null;
+    }
+    private void OnTriggerEnter(Collider collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            //DropObject();
+        }
     }
 }

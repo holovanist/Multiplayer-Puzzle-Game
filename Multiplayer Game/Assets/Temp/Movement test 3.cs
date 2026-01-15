@@ -82,11 +82,13 @@ public class MovementTest3 : NetworkBehaviour
         {
             crouching = true;
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+            GameObject.FindGameObjectWithTag("PickupObjectHolder").transform.localScale = new Vector3(1,2,1);
         }
         else if (!Input.CrouchTriggered)
         {
             crouching = false;
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+            GameObject.FindGameObjectWithTag("PickupObjectHolder").transform.localScale = new Vector3(1, 1, 1);
         }
     }
     void HandleRotation()
