@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class SpaceWhaleAnimation : MonoBehaviour
@@ -10,7 +11,7 @@ public class SpaceWhaleAnimation : MonoBehaviour
     Vector3 lastPosition;
     void Start()
     {
-        lastPosition = followObject.position;
+        RecalcuateHeadPosition();
     }
     void Update()
     {
@@ -22,6 +23,10 @@ public class SpaceWhaleAnimation : MonoBehaviour
     }
     void RecalcuateHeadPosition()
     {
-
+        //calcuates rotation for bone1(root bone) to look at
+        Quaternion lookRotation = Quaternion.LookRotation((followObject.position - bone1.position).normalized);
+        bone1.localRotation = lookRotation;
+        //corrects rotation
+        bone1.localEulerAngles = new Vector3((bone1.localEulerAngles.x - 90), bone1.localEulerAngles.y * -1, bone1.localEulerAngles.z);
     }
 }

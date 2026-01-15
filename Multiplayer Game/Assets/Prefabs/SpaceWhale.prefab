@@ -186,8 +186,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2546976697268938846}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000044029953, y: 1, z: -5.8017107e-15, w: 0.00000013315805}
-  m_LocalPosition: {x: 0, y: -0.14105143, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -197,7 +197,7 @@ Transform:
   - {fileID: 2432264093293939761}
   - {fileID: 1359599657725199828}
   m_Father: {fileID: 3186521502014435992}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &2614807063538458276
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +273,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3291672010605860225}
+  - component: {fileID: 40027864252753921}
   m_Layer: 0
   m_Name: SpaceWhale
   m_TagString: Untagged
@@ -297,6 +298,23 @@ Transform:
   - {fileID: 8870988063218949654}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &40027864252753921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3350890525658714892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b3b81e8f64579e49b3d7a19fffb10d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpaceWhaleAnimation
+  followObject: {fileID: 2153808300354841884}
+  bone1: {fileID: 2402748345238508130}
+  bone2: {fileID: 4749181413304712008}
+  bone3: {fileID: 2495801173803172502}
+  bone4: {fileID: 86552657409594284}
 --- !u!1 &3535970744631524010
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +401,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4231593700802447522}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: -17}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
@@ -432,7 +450,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8870988063218949654}
-  - component: {fileID: 8123041318568672702}
   m_Layer: 0
   m_Name: SpaceWhale
   m_TagString: Untagged
@@ -449,7 +466,7 @@ Transform:
   m_GameObject: {fileID: 4362536614721043623}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 54.745144, y: 155.1, z: 269.135}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -457,23 +474,6 @@ Transform:
   - {fileID: 7111152604553551008}
   m_Father: {fileID: 3291672010605860225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8123041318568672702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4362536614721043623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b3b81e8f64579e49b3d7a19fffb10d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpaceWhaleAnimation
-  followObject: {fileID: 2153808300354841884}
-  bone1: {fileID: 2402748345238508130}
-  bone2: {fileID: 4749181413304712008}
-  bone3: {fileID: 2495801173803172502}
-  bone4: {fileID: 86552657409594284}
 --- !u!1 &4485104466740897698
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,8 +530,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5035913535085922158}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
