@@ -25,7 +25,7 @@ public class PickupObjects : NetworkBehaviour
     {
         _Interact = GetComponent<PlayerInputHandler>().playerControls.FindAction("Interact");
     }
-    void FixedUpdate()
+    private void Update()
     {
         if (_Interact.WasPressedThisFrame() && !holdingObject)
         {
@@ -34,12 +34,15 @@ public class PickupObjects : NetworkBehaviour
         } else if (_Interact.WasPressedThisFrame() && holdingObject )
         {
             PressedInteractRPC();
-        }
+        }   
         if(InteractPressed)
         {
             DropObject();
             
         }
+    }
+    void FixedUpdate()
+    {
         if (holdingObject)
         {
             HoldingObject();
@@ -121,16 +124,6 @@ public class PickupObjects : NetworkBehaviour
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out RaycastHit hit, pickupDistance, PickupLayerMask))
             hit.transform.parent = Parent;
     }
-    [Rpc(SendTo.Server)]
-    private void UnparentObjectRPC(NetworkObjectReference target)
-    {
-        if (target.TryGet(out NetworkObject targetObject))
-        {
-            targetObject.GetComponent<Rigidbody>().useGravity = true;
-            targetObject.transform.parent = null;
-        }
-        InteractPressed = false;
-    }
     [Rpc(SendTo.ClientsAndHost)]
     private void PickupObjectRPC(NetworkObjectReference target)
     {
@@ -145,6 +138,16 @@ public class PickupObjects : NetworkBehaviour
             hitRigidbody.useGravity = false;
         }
     }
+    [Rpc(SendTo.Server)]
+    private void UnparentObjectRPC(NetworkObjectReference target)
+    {
+        if (target.TryGet(out NetworkObject targetObject))
+        {
+            targetObject.GetComponent<Rigidbody>().useGravity = true;
+            targetObject.transform.parent = null;
+            InteractPressed = false;
+        }
+    }
     private void DropObject()
     {
         if (SOD !=null)
@@ -154,6 +157,7 @@ public class PickupObjects : NetworkBehaviour
         {
             hitRigidbody.useGravity = true;
             hitObject.transform.parent = null;
+            InteractPressed = false;
         }
         else if (IsClient)
         {
