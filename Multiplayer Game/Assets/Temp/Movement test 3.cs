@@ -1,7 +1,5 @@
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 
 public class MovementTest3 : NetworkBehaviour
 {
@@ -47,7 +45,10 @@ public class MovementTest3 : NetworkBehaviour
     {
         //grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
         HandleMovement();
-        HandleRotation();
+        if(IsServer)
+            HandleRotation();
+        else
+            HandleRotationRPC(Input.RotationInput.x * mouseSensitivity, Input.RotationInput.y * mouseSensitivity);
     }
     Vector3 CalculateworldDirection()
     {
@@ -96,6 +97,16 @@ public class MovementTest3 : NetworkBehaviour
         float mouseXRotation = Input.RotationInput.x * mouseSensitivity;
         float mouseYRotation = Input.RotationInput.y * mouseSensitivity;
 
+        //applies horizontal rotation
+        transform.Rotate(0, mouseXRotation, 0);
+
+        //applies vertical rotation to camera
+        verticalRotation = Mathf.Clamp(verticalRotation - mouseYRotation, -upDownLookRange, upDownLookRange);
+        MainCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+    }
+    [Rpc(SendTo.ClientsAndHost)]
+    void HandleRotationRPC(float mouseXRotation, float mouseYRotation)
+    {
         //applies horizontal rotation
         transform.Rotate(0, mouseXRotation, 0);
 

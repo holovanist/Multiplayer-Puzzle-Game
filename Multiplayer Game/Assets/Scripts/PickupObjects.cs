@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PickupObjects : MonoBehaviour
+public class PickupObjects : NetworkBehaviour
 {
     [SerializeField] float pickupDistance = 2;
     [SerializeField] float holdDistance = 2;
@@ -18,25 +19,36 @@ public class PickupObjects : MonoBehaviour
     private bool holdingObject = false;
     private bool spinMeRoundBabyRightRound = false;
     private InputAction _Interact;
+    bool InteractPressed;
     RaycastHit hit;
     private void Start()
     {
         _Interact = GetComponent<PlayerInputHandler>().playerControls.FindAction("Interact");
     }
-    void Update()
+    void FixedUpdate()
     {
         if (_Interact.WasPressedThisFrame() && !holdingObject)
         {
             AttemptToPickupObject();
             
-        } else if (_Interact.WasPressedThisFrame() && holdingObject || holdingObject && SOD.IsInTunnel)
+        } else if (_Interact.WasPressedThisFrame() && holdingObject )
+        {
+            PressedInteractRPC();
+        }
+        if(InteractPressed)
         {
             DropObject();
+            
         }
         if (holdingObject)
         {
             HoldingObject();
         }
+    }
+    [Rpc(SendTo.Server)]
+    private void PressedInteractRPC()
+    {
+        InteractPressed = true;
     }
     private void HoldingObject()
     {
@@ -48,12 +60,15 @@ public class PickupObjects : MonoBehaviour
         }
         else
         {
-        holdPosition = cameraTransform.position + cameraTransform.forward * holdDistance;
+         holdPosition = cameraTransform.position + cameraTransform.forward * holdDistance;
 
         }
         if (Parent != null)
         {
-            hitTransform.parent = Parent.transform;
+            if (IsHost)
+                hitTransform.parent = Parent.transform;                
+            else if (IsClient)
+                ParentObjectRPC();
         }
         if (Vector3.Distance(holdPosition, hitTransform.position) > MaxholdDistance)
         {
@@ -88,29 +103,65 @@ public class PickupObjects : MonoBehaviour
             
             if (hit.collider.TryGetComponent(out StoredObjectData storedObjectData) && hit.collider.TryGetComponent(out Rigidbody rigidbody) && storedObjectData.isPickupable && !storedObjectData.IsInTunnel)
             {
-                hit.transform.parent = Parent;
-                SOD = storedObjectData;
-                hitObject = storedObjectData.gameObject;
-                hitTransform = hitObject.transform;
-                hitRigidbody = rigidbody;
+                if (IsHost)
+                    hit.transform.parent = Parent;
+                else if (IsClient)
+                    ParentObjectRPC();
                 spinMeRoundBabyRightRound = storedObjectData.spinMeRoundBabyRightRound;
                 storedObjectData.IsHeld = true;
-                PickupObject();
+                GameObject target = hit.transform.gameObject;
+                var targetObject = target.GetComponent<NetworkObject>();
+                PickupObjectRPC(targetObject);
             }
         }
     }
-    private void PickupObject()
+    [Rpc(SendTo.Server)]
+    private void ParentObjectRPC()
+    {
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out RaycastHit hit, pickupDistance, PickupLayerMask))
+            hit.transform.parent = Parent;
+    }
+    [Rpc(SendTo.Server)]
+    private void UnparentObjectRPC(NetworkObjectReference target)
+    {
+        if (target.TryGet(out NetworkObject targetObject))
+        {
+            targetObject.GetComponent<Rigidbody>().useGravity = true;
+            targetObject.transform.parent = null;
+        }
+        InteractPressed = false;
+    }
+    [Rpc(SendTo.ClientsAndHost)]
+    private void PickupObjectRPC(NetworkObjectReference target)
     {
         holdingObject = true;
-        hitRigidbody.useGravity = false;
+        if (target.TryGet(out NetworkObject targetObject))
+        {
+            StoredObjectData temp = targetObject.GetComponent<StoredObjectData>();
+            SOD = temp;
+            hitObject = temp.gameObject;
+            hitTransform = hitObject.transform;
+            hitRigidbody = targetObject.GetComponent<Rigidbody>();
+            hitRigidbody.useGravity = false;
+        }
     }
     private void DropObject()
     {
         if (SOD !=null)
         SOD.IsHeld = false;
         holdingObject = false;
-        hitRigidbody.useGravity = true;
-        hitObject.transform.parent = null;
+        if (IsHost)
+        {
+            hitRigidbody.useGravity = true;
+            hitObject.transform.parent = null;
+        }
+        else if (IsClient)
+        {
+            hitRigidbody.useGravity = true;
+            GameObject target = hitRigidbody.transform.gameObject;
+            var targetObject = target.GetComponent<NetworkObject>();
+            UnparentObjectRPC(targetObject);
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {

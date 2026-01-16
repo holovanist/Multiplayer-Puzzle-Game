@@ -300,37 +300,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1358599040917479501}
   m_Enabled: 1
---- !u!1 &1743334881882834098
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5926449336612916000}
-  m_Layer: 8
-  m_Name: GameObject
-  m_TagString: PickupObjectHolder
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5926449336612916000
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1743334881882834098}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6376913922186582293}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4243825152771828104
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +341,7 @@ Transform:
   m_Children:
   - {fileID: 4962478173724767943}
   - {fileID: 1626623598384536113}
-  - {fileID: 5926449336612916000}
+  - {fileID: 2639020701665338401}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4387298741276897725
@@ -572,6 +541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 347d0d1a0dce8c34cb454862cd789f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupObjects
+  ShowTopMostFoldoutHeaderGroup: 1
   pickupDistance: 6
   holdDistance: 3
   playerCanPickupObjects: 1
@@ -638,3 +608,34 @@ MonoBehaviour:
   leftClick: Left Click
   crouch: Crouch
   interact: Interact
+--- !u!1 &5143893378438057111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2639020701665338401}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: PickupObjectHolder
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2639020701665338401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5143893378438057111}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.5993, y: 0, z: 20.25362}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6376913922186582293}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
