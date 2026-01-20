@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7647021479122931124}
   - component: {fileID: 7662947100910134325}
   m_Layer: 0
-  m_Name: SoundSignal
+  m_Name: CorrectSignal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
