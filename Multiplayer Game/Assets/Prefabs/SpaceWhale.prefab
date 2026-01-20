@@ -46,7 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b3b81e8f64579e49b3d7a19fffb10d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceWhaleAnimation
+  followDistance: 75
+  maxMoveSpeed: 1
+  constFollow: 0
   followObject: {fileID: 2153808300354841884}
+  spaceWhaleObject: {fileID: 1352458622619174740}
   bone1: {fileID: 2048681351992167085}
   bone2: {fileID: 1274997497196933734}
   bone3: {fileID: 807330407309803624}

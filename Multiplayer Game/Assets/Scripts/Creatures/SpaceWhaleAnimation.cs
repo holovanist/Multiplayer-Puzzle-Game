@@ -3,7 +3,10 @@ using UnityEngine;
 
 public class SpaceWhaleAnimation : MonoBehaviour
 {
+    [SerializeField] float followDistance = 75f;
+    [SerializeField] float maxMoveSpeed = 1f;
     [SerializeField] Transform followObject;
+    [SerializeField] Transform spaceWhaleObject;
     [SerializeField] Transform bone1;
     [SerializeField] Transform bone2;
     [SerializeField] Transform bone3;
@@ -13,7 +16,7 @@ public class SpaceWhaleAnimation : MonoBehaviour
     {
         RecalcuateHeadPosition();
     }
-    void Update()
+    void FixedUpdate()
     {
         if (followObject.position != lastPosition)
         {
@@ -26,10 +29,23 @@ public class SpaceWhaleAnimation : MonoBehaviour
         //calcuates rotation for bone1(root bone) to look at
         Quaternion lookRotation = Quaternion.LookRotation((followObject.position - bone1.position).normalized);
         bone1.rotation = lookRotation;
-
-
-        //Vector3 correctedRotation = new Vector3(lookRotation.eulerAngles.x, lookRotation.eulerAngles.z, lookRotation.eulerAngles.y);
-        //corrects rotation
-        //bone1.localEulerAngles = new Vector3((bone1.localEulerAngles.x - 90), bone1.localEulerAngles.y, bone1.localEulerAngles.z);
+        //sets position to stay withing bounds.
+        float dist = (Vector3.Distance(spaceWhaleObject.position, followObject.position));
+        if (dist > followDistance)
+        {
+            if (dist >= followDistance * 1.2f)
+            {
+                spaceWhaleObject.position = followObject.position;
+                Debug.Log("Distance too long, lag protection triggered! Lower Movespeed! Space whales DONT need to that fast you psycho!!!!");
+            }
+            else
+            {
+                for (int i = 0; Vector3.Distance(spaceWhaleObject.position, followObject.position) > followDistance; i++)
+                {
+                    spaceWhaleObject.position = Vector3.MoveTowards(spaceWhaleObject.position, followObject.position, 1f);
+                }
+            }
+                
+        }
     }
 }
