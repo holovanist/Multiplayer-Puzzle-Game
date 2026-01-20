@@ -16,13 +16,14 @@ public class TunnelTravel : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.tag);
         if (!other.CompareTag("Tunnel")) return;
         if(!MoveToPoint)
         {
             MoveToPoint = true;
             tn = other.gameObject.GetComponentInParent<Tunnel>();
             if( tn != null)
-            tn.enterPoint = other.gameObject.transform;
+            tn.EnterPoint = other.gameObject.transform;
             SOD.IsInTunnel = true;
         }
         else 
@@ -44,14 +45,18 @@ public class TunnelTravel : MonoBehaviour
     Vector3 dir;
     private void Update()
     {
+        if(!MoveToPoint && SOD.IsInTunnel)
+        {
+            SOD.IsInTunnel = false;
+        }
         if (MoveToPoint && tn !=null && !SOD.IsHeld)
         {
-            if (tn.Point1.position == tn.enterPoint.position)
+            if (tn.Point1.position == tn.EnterPoint.position)
             {
                 point1 = true;
                 transform.position = Vector3.MoveTowards(transform.position, tn.Point2.position, speed * Time.deltaTime);
             }
-            if (tn.Point2.position == tn.enterPoint.position)
+            if (tn.Point2.position == tn.EnterPoint.position)
             {
                 point1 = false;
                 transform.position = Vector3.MoveTowards(transform.position, tn.Point1.position, speed * Time.deltaTime);

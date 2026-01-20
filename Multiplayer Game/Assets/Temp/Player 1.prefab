@@ -311,10 +311,8 @@ GameObject:
   - component: {fileID: 6376913922186582293}
   - component: {fileID: 4387298741276897725}
   - component: {fileID: 8183472659379777016}
-  - component: {fileID: 5394073489957995162}
   - component: {fileID: 8817595819599394930}
   - component: {fileID: 144034495949649357}
-  - component: {fileID: 4735757471609488298}
   - component: {fileID: 1473126660509924138}
   - component: {fileID: 6731184418999034383}
   - component: {fileID: 4976615698037156284}
@@ -356,7 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2075552551
+  GlobalObjectIdHash: 3482853921
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -415,29 +413,6 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &5394073489957995162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4243825152771828104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10d3e030f0101b74b992175de3e1f16c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
-  ShowTopMostFoldoutHeaderGroup: 1
-  playerControls: {fileID: -944628639613478452, guid: e728662279d222c44b3f63240faecbd5, type: 3}
-  actionMapName: Player
-  movement: Movement
-  rotation: Rotation
-  jump: Jump
-  sprint: Sprint
-  pause: Pause
-  leftClick: Left Click
-  crouch: Crouch
-  interact: Interact
 --- !u!143 &8817595819599394930
 CharacterController:
   m_ObjectHideFlags: 0
@@ -484,35 +459,13 @@ MonoBehaviour:
   upDownLookRange: 80
   characterController: {fileID: 8817595819599394930}
   MainCamera: {fileID: 2545245934183074654}
+  PlayerModel: {fileID: 548367212254628025}
   crouchDivider: 2
   crouchYScale: 0.5
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 128
---- !u!114 &4735757471609488298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4243825152771828104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10d3e030f0101b74b992175de3e1f16c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
-  ShowTopMostFoldoutHeaderGroup: 1
-  playerControls: {fileID: -944628639613478452, guid: e728662279d222c44b3f63240faecbd5, type: 3}
-  actionMapName: Player
-  movement: Movement
-  rotation: Rotation
-  jump: Jump
-  sprint: Sprint
-  pause: Pause
-  leftClick: Left Click
-  crouch: Crouch
-  interact: Interact
 --- !u!114 &1473126660509924138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,7 +515,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4243825152771828104}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -592,7 +545,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4243825152771828104}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10d3e030f0101b74b992175de3e1f16c, type: 3}
   m_Name: 

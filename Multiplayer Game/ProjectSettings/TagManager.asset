@@ -7,7 +7,7 @@ TagManager:
   - CinemachineTarget
   - Lever
   - Tunnel
-  - PickupObjectHolder
+  - PickupObject
   layers:
   - Default
   - TransparentFX

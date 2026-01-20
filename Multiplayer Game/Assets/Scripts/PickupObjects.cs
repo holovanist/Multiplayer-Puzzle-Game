@@ -19,7 +19,7 @@ public class PickupObjects : NetworkBehaviour
     private bool holdingObject = false;
     private bool spinMeRoundBabyRightRound = false;
     private InputAction _Interact;
-    bool InteractPressed;
+    GameObject target;
     RaycastHit hit;
     private void Start()
     {
@@ -33,13 +33,31 @@ public class PickupObjects : NetworkBehaviour
             
         } else if (_Interact.WasPressedThisFrame() && holdingObject )
         {
-            PressedInteractRPC();
+            if (IsLocalPlayer)
+            {
+                if (SOD != null)
+                    SOD.IsHeld = false;
+                NotHoldingRPC();
+                hitRigidbody.useGravity = true;
+                target = hitRigidbody.transform.gameObject;
+                var targetObject = target.GetComponent<NetworkObject>();
+                DropObjectRPC(targetObject);
+            }
         }   
-        if(InteractPressed)
+        if(SOD != null && SOD.IsInTunnel)
         {
-            DropObject();
-            
+            hitRigidbody.useGravity = true;
+            SOD.IsHeld = false;
+            NotHoldingRPC();
+            target = hitRigidbody.transform.gameObject;
+            var targetObject = target.GetComponent<NetworkObject>();
+            DropObjectRPC(targetObject);
         }
+    }
+    [Rpc(SendTo.Everyone)]
+    private void NotHoldingRPC()
+    {
+        holdingObject = false;
     }
     void FixedUpdate()
     {
@@ -47,11 +65,6 @@ public class PickupObjects : NetworkBehaviour
         {
             HoldingObject();
         }
-    }
-    [Rpc(SendTo.Server)]
-    private void PressedInteractRPC()
-    {
-        InteractPressed = true;
     }
     private void HoldingObject()
     {
@@ -67,15 +80,18 @@ public class PickupObjects : NetworkBehaviour
 
         }
         if (Parent != null)
-        {
-            if (IsHost)
-                hitTransform.parent = Parent.transform;                
-            else if (IsClient)
+        {               
                 ParentObjectRPC();
         }
         if (Vector3.Distance(holdPosition, hitTransform.position) > MaxholdDistance)
         {
-            DropObject();
+            if (IsLocalPlayer && !IsOwnedByServer)
+            {
+                hitRigidbody.useGravity = true;
+                target = hitRigidbody.transform.gameObject;
+                var targetObject = target.GetComponent<NetworkObject>();
+                DropObjectRPC(targetObject);
+            }
         }
         Vector3 velDirection = Vector3.Normalize(holdPosition - hitTransform.position);
         float distance = Vector3.Distance(holdPosition, hitTransform.position);
@@ -109,10 +125,11 @@ public class PickupObjects : NetworkBehaviour
                 if (IsHost)
                     hit.transform.parent = Parent;
                 else if (IsClient)
+                {
                     ParentObjectRPC();
+                }
                 spinMeRoundBabyRightRound = storedObjectData.spinMeRoundBabyRightRound;
-                storedObjectData.IsHeld = true;
-                GameObject target = hit.transform.gameObject;
+                target = hit.transform.gameObject;
                 var targetObject = target.GetComponent<NetworkObject>();
                 PickupObjectRPC(targetObject);
             }
@@ -124,7 +141,7 @@ public class PickupObjects : NetworkBehaviour
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out RaycastHit hit, pickupDistance, PickupLayerMask))
             hit.transform.parent = Parent;
     }
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.Everyone)]
     private void PickupObjectRPC(NetworkObjectReference target)
     {
         holdingObject = true;
@@ -132,6 +149,7 @@ public class PickupObjects : NetworkBehaviour
         {
             StoredObjectData temp = targetObject.GetComponent<StoredObjectData>();
             SOD = temp;
+            SOD.IsHeld = true;
             hitObject = temp.gameObject;
             hitTransform = hitObject.transform;
             hitRigidbody = targetObject.GetComponent<Rigidbody>();
@@ -139,39 +157,22 @@ public class PickupObjects : NetworkBehaviour
         }
     }
     [Rpc(SendTo.Server)]
-    private void UnparentObjectRPC(NetworkObjectReference target)
+    private void DropObjectRPC(NetworkObjectReference target)
     {
+
         if (target.TryGet(out NetworkObject targetObject))
         {
             targetObject.GetComponent<Rigidbody>().useGravity = true;
             targetObject.transform.parent = null;
-            InteractPressed = false;
-        }
-    }
-    private void DropObject()
-    {
-        if (SOD !=null)
-        SOD.IsHeld = false;
-        holdingObject = false;
-        if (IsHost)
-        {
-            hitRigidbody.useGravity = true;
-            hitObject.transform.parent = null;
-            InteractPressed = false;
-        }
-        else if (IsClient)
-        {
-            hitRigidbody.useGravity = true;
-            GameObject target = hitRigidbody.transform.gameObject;
-            var targetObject = target.GetComponent<NetworkObject>();
-            UnparentObjectRPC(targetObject);
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Player") && holdingObject)
         {
-            DropObject();
+            GameObject target = hitRigidbody.transform.gameObject;
+            var targetObject = target.GetComponent<NetworkObject>();
+            DropObjectRPC(targetObject);
         }
     }
 }

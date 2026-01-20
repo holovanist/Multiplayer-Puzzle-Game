@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MovementTest3 : NetworkBehaviour
 {
@@ -14,6 +15,7 @@ public class MovementTest3 : NetworkBehaviour
     [Header("References")]
     [SerializeField] CharacterController characterController;
     [SerializeField] Camera MainCamera;
+    [SerializeField] GameObject PlayerModel;
     PlayerInputHandler Input;
     Vector3 currentMovement;
     float verticalRotation;
@@ -23,6 +25,10 @@ public class MovementTest3 : NetworkBehaviour
     public float crouchDivider;
     public float crouchYScale;
     private float startYScale;
+    float PlayerHeight;
+    float CrouchHeight;
+    float camPosition;
+    float CrouchCamPosition;
     bool crouching; 
     
     [Header("Ground Check")]
@@ -37,6 +43,15 @@ public class MovementTest3 : NetworkBehaviour
             MainCamera.GetComponent<Camera>().enabled = false;
             MainCamera.gameObject.GetComponent<AudioListener>().enabled = false;
         }
+        if(IsLocalPlayer)
+        {
+            GetComponent<PlayerInput>().enabled = true;
+            GetComponent<PlayerInputHandler>().enabled = true;
+        }
+        PlayerHeight = characterController.height;
+        CrouchHeight = characterController.height / 2;
+        camPosition = MainCamera.transform.position.y;
+        CrouchCamPosition = MainCamera.transform.position.y / 2;
         startYScale = transform.localScale.y;
         Input = GetComponent<PlayerInputHandler>();
         Input.LockCursor();
@@ -79,17 +94,19 @@ public class MovementTest3 : NetworkBehaviour
 
         HandleJumping();
         characterController.Move(currentMovement * Time.deltaTime); 
-        if (Input.CrouchTriggered && !crouching)
+        if (Input.CrouchTriggered && !crouching && PlayerModel != null)
         {
             crouching = true;
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            GameObject.FindGameObjectWithTag("PickupObjectHolder").transform.localScale = new Vector3(1,2,1);
+            PlayerModel.transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+            characterController.height = CrouchHeight; 
+            MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, CrouchCamPosition, MainCamera.transform.position.z);
         }
-        else if (!Input.CrouchTriggered)
+        else if (!Input.CrouchTriggered && PlayerModel != null)
         {
             crouching = false;
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-            GameObject.FindGameObjectWithTag("PickupObjectHolder").transform.localScale = new Vector3(1, 1, 1);
+            PlayerModel.transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+            characterController.height = PlayerHeight;
+            MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, camPosition, MainCamera.transform.position.z);
         }
     }
     void HandleRotation()
