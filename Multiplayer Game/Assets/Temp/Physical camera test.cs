@@ -6,14 +6,13 @@ public class Physicalcameratest : MonoBehaviour
     public RenderTexture texture;
     public Material material;
     public Camera cam;
+    [SerializeField] int MaterialNumber;
     private void Start()
     {
-        RenderTexture test = new RenderTexture(texture);
+        RenderTexture test = new(texture);
         cam.targetTexture = test;
-        Material mat = new Material(material);
-        mat.mainTexture = test;
-        GetComponent<MeshRenderer>().material = mat;
-        Material mymat = GetComponent<Renderer>().material;
+        GetComponent<Renderer>().materials[MaterialNumber].mainTexture = test;
+        Material mymat = GetComponent<Renderer>().materials[MaterialNumber];
         mymat.SetTexture("_EmissionMap", test);
     }
 }

@@ -27,6 +27,8 @@ public class PickupObjects : NetworkBehaviour
     }
     private void Update()
     {
+        if(hitRigidbody == null && hitObject != null)
+            hitRigidbody = hitObject.GetComponent<Rigidbody>();
         if (_Interact.WasPressedThisFrame() && !holdingObject)
         {
             AttemptToPickupObject();
@@ -68,6 +70,10 @@ public class PickupObjects : NetworkBehaviour
     }
     private void HoldingObject()
     {
+        if(SOD.ChangeRotation)
+        {
+            //hitObject.transform.localRotation = SOD.RotationOffset;
+        }
         Vector3 holdPosition;
         if (Physics.Raycast(transform.position, cameraTransform.forward, out hit, holdDistance , layerMask))
         {
@@ -144,7 +150,6 @@ public class PickupObjects : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     private void PickupObjectRPC(NetworkObjectReference target)
     {
-        holdingObject = true;
         if (target.TryGet(out NetworkObject targetObject))
         {
             StoredObjectData temp = targetObject.GetComponent<StoredObjectData>();
@@ -155,6 +160,7 @@ public class PickupObjects : NetworkBehaviour
             hitRigidbody = targetObject.GetComponent<Rigidbody>();
             hitRigidbody.useGravity = false;
         }
+        holdingObject = true;
     }
     [Rpc(SendTo.Server)]
     private void DropObjectRPC(NetworkObjectReference target)
@@ -165,6 +171,7 @@ public class PickupObjects : NetworkBehaviour
             targetObject.GetComponent<Rigidbody>().useGravity = true;
             targetObject.transform.parent = null;
         }
+        hitObject = null;
     }
     private void OnCollisionEnter(Collision collision)
     {
