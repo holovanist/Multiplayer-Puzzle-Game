@@ -99,14 +99,14 @@ public class MovementTest3 : NetworkBehaviour
             crouching = true;
             PlayerModel.transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             characterController.height = CrouchHeight; 
-            MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, CrouchCamPosition, MainCamera.transform.position.z);
+            MainCamera.transform.localPosition = new Vector3(MainCamera.transform.localPosition.x, CrouchCamPosition, MainCamera.transform.localPosition.z);
         }
         else if (!Input.CrouchTriggered && PlayerModel != null)
         {
             crouching = false;
             PlayerModel.transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
             characterController.height = PlayerHeight;
-            MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, camPosition, MainCamera.transform.position.z);
+            MainCamera.transform.localPosition = new Vector3(MainCamera.transform.localPosition.x, camPosition, MainCamera.transform.localPosition.z);
         }
     }
     void HandleRotation()
