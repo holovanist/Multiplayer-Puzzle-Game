@@ -1,19 +1,22 @@
 using Unity.Mathematics;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class SpaceWhaleAnimation : MonoBehaviour
 {
     [SerializeField] float followDistance = 75f;
-    [SerializeField] float maxMoveSpeed = 1f;
+    [SerializeField] Transform[] objectChain = new Transform[5];
     [SerializeField] Transform followObject;
     [SerializeField] Transform spaceWhaleObject;
     [SerializeField] Transform bone1;
     [SerializeField] Transform bone2;
     [SerializeField] Transform bone3;
     [SerializeField] Transform bone4;
+    List <float> followDistanceChain;
     Vector3 lastPosition;
     void Start()
     {
+        CalcuateFollowDistances();
         RecalcuateHeadPosition();
     }
     void FixedUpdate()
@@ -21,12 +24,13 @@ public class SpaceWhaleAnimation : MonoBehaviour
         if (followObject.position != lastPosition)
         {
             lastPosition = followObject.position;
-            RecalcuateHeadPosition();
+            TurnObjects();
+            FollowObjects();
         }
     }
     void RecalcuateHeadPosition()
     {
-        //calcuates rotation for bone1(root bone) to look at
+        /*//calcuates rotation for bone1(root bone) to look at
         Quaternion lookRotation = Quaternion.LookRotation((followObject.position - bone1.position).normalized);
         bone1.rotation = lookRotation;
         //sets position to stay withing bounds.
@@ -46,6 +50,44 @@ public class SpaceWhaleAnimation : MonoBehaviour
                 }
             }
                 
+        }*/
+    }
+    void TurnObjects()
+    {
+        if (objectChain.Length >= 2)
+        {
+            for (int i = 0; i < objectChain.Length - 1; i++)
+            {
+                quaternion lookDir = Quaternion.LookRotation((objectChain[i].position - objectChain[i + 1].position).normalized);
+
+
+
+                objectChain[i].rotation = lookDir;
+            }
+        }
+    }
+    void FollowObjects()
+    {
+        //sets position to stay withing bounds.
+        for (int i = 0; i < objectChain.Length - 1; i++)
+        {
+            float dist = (Vector3.Distance(objectChain[i].position, objectChain[i + 1].position));
+            if (dist > followDistance)
+            {
+                for (int j = 0; Vector3.Distance(objectChain[i].position, objectChain[i + 1].position) > followDistance; j++)
+                {
+                    objectChain[i].position = Vector3.MoveTowards(objectChain[i].position, objectChain[i + 1].position, 0.05f);
+                }
+            }
+        }
+
+    }
+    void CalcuateFollowDistances()
+    {
+        for (int i = 0; i < objectChain.Length - 1; i++)
+        {
+            float dist = (Vector3.Distance(objectChain[i].position, objectChain[i + 1].position));
+            //followDistanceChain 
         }
     }
 }
