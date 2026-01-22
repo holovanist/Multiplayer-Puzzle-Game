@@ -7,17 +7,12 @@ public class SpaceWhaleAnimation : MonoBehaviour
     [SerializeField] float followDistance = 75f;
     [SerializeField] Transform[] objectChain = new Transform[5];
     [SerializeField] Transform followObject;
-    [SerializeField] Transform spaceWhaleObject;
-    [SerializeField] Transform bone1;
-    [SerializeField] Transform bone2;
-    [SerializeField] Transform bone3;
-    [SerializeField] Transform bone4;
-    List <float> followDistanceChain;
+    List <float> followDistanceChain = new List<float>();
     Vector3 lastPosition;
     void Start()
     {
+        lastPosition = followObject.position;
         CalcuateFollowDistances();
-        RecalcuateHeadPosition();
     }
     void FixedUpdate()
     {
@@ -28,32 +23,9 @@ public class SpaceWhaleAnimation : MonoBehaviour
             FollowObjects();
         }
     }
-    void RecalcuateHeadPosition()
-    {
-        /*//calcuates rotation for bone1(root bone) to look at
-        Quaternion lookRotation = Quaternion.LookRotation((followObject.position - bone1.position).normalized);
-        bone1.rotation = lookRotation;
-        //sets position to stay withing bounds.
-        float dist = (Vector3.Distance(spaceWhaleObject.position, followObject.position));
-        if (dist > followDistance)
-        {
-            if (dist >= followDistance * 1.2f)
-            {
-                spaceWhaleObject.position = followObject.position;
-                Debug.Log("Distance too long, lag protection triggered! Lower Movespeed! Space whales DONT need to that fast you psycho!!!!");
-            }
-            else
-            {
-                for (int i = 0; Vector3.Distance(spaceWhaleObject.position, followObject.position) > followDistance; i++)
-                {
-                    spaceWhaleObject.position = Vector3.MoveTowards(spaceWhaleObject.position, followObject.position, 1f);
-                }
-            }
-                
-        }*/
-    }
     void TurnObjects()
     {
+        //rotates segment to look at the segment in front
         if (objectChain.Length >= 2)
         {
             for (int i = 0; i < objectChain.Length - 1; i++)
@@ -68,26 +40,27 @@ public class SpaceWhaleAnimation : MonoBehaviour
     }
     void FollowObjects()
     {
-        //sets position to stay withing bounds.
+        //sets segment positions to stay withing bounds.
         for (int i = 0; i < objectChain.Length - 1; i++)
         {
             float dist = (Vector3.Distance(objectChain[i].position, objectChain[i + 1].position));
-            if (dist > followDistance)
+            if (dist > followDistanceChain[i])
             {
-                for (int j = 0; Vector3.Distance(objectChain[i].position, objectChain[i + 1].position) > followDistance; j++)
+                for (int j = 0; Vector3.Distance(objectChain[i].position, objectChain[i + 1].position) > followDistanceChain[i]; j++)
                 {
                     objectChain[i].position = Vector3.MoveTowards(objectChain[i].position, objectChain[i + 1].position, 0.05f);
                 }
             }
         }
-
     }
     void CalcuateFollowDistances()
     {
+        //sets follow distance for each object in chain based off start position
         for (int i = 0; i < objectChain.Length - 1; i++)
         {
             float dist = (Vector3.Distance(objectChain[i].position, objectChain[i + 1].position));
-            //followDistanceChain 
+            //add calucated distance for segment to list
+            followDistanceChain.Add(dist);
         }
     }
 }
