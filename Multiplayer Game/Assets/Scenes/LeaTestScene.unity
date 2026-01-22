@@ -1090,6 +1090,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpaceWhale
       objectReference: {fileID: 0}
+    - target: {fileID: 6455421221222018446, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6455421221222018446, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6455421221222018446, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7478752581470519391, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7478752581470519391, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7478752581470519391, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7478752581470519391, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8578206028033527344, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1

@@ -41,14 +41,14 @@ public class SpaceWhaleAnimation : MonoBehaviour
     void FollowObjects()
     {
         //sets segment positions to stay withing bounds.
-        for (int i = 0; i < objectChain.Length - 1; i++)
+        for (int i = objectChain.Length - 1; i > 0; i--)
         {
-            float dist = (Vector3.Distance(objectChain[i].position, objectChain[i + 1].position));
-            if (dist > followDistanceChain[i])
+            float dist = (Vector3.Distance(objectChain[i - 1].position, objectChain[i].position));
+            if (dist > followDistanceChain[i - 1])
             {
-                for (int j = 0; Vector3.Distance(objectChain[i].position, objectChain[i + 1].position) > followDistanceChain[i]; j++)
+                for (int j = 0; Vector3.Distance(objectChain[i - 1].position, objectChain[i].position) > followDistanceChain[i - 1]; j++)
                 {
-                    objectChain[i].position = Vector3.MoveTowards(objectChain[i].position, objectChain[i + 1].position, 0.05f);
+                    objectChain[i -1].position = Vector3.MoveTowards(objectChain[i - 1].position, objectChain[i].position, 0.05f);
                 }
             }
         }
