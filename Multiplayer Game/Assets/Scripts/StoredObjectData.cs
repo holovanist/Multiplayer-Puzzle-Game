@@ -9,5 +9,5 @@ public class StoredObjectData : MonoBehaviour
     public bool IsHeld {  get; set; }
     public bool IsInTunnel {  get; set; }
 
-    public Vector3 RotationOffset;
+    public Quaternion RotationOffset;
 }
