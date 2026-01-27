@@ -65,6 +65,37 @@ Transform:
   - {fileID: 4947967434224929564}
   m_Father: {fileID: 3291672010605860225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2720477285811088280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6148090796167422309}
+  m_Layer: 0
+  m_Name: Offset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6148090796167422309
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2720477285811088280}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1764867598679505134}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3350890525658714892
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +128,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2153808300354841884}
   - {fileID: 5289163150872895031}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -113,14 +143,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b3b81e8f64579e49b3d7a19fffb10d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceWhaleAnimation
-  followDistance: 75
   objectChain:
   - {fileID: 6788975737840130307}
   - {fileID: 4703423635551153921}
   - {fileID: 4514177847701177408}
   - {fileID: 1764867598679505134}
-  - {fileID: 2153808300354841884}
-  followObject: {fileID: 2153808300354841884}
 --- !u!114 &6913845849086945128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,11 +160,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53a9ba193d40d24f89d9be669754d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceWhaleAI
-  SWFollowObject: {fileID: 2153808300354841884}
+  SWBone1: {fileID: 1764867598679505134}
+  SWBone1OffSet: {fileID: 6148090796167422309}
   PivotFollowObject: {fileID: 2815224021688329120}
   PivotOffset1: {fileID: 4924432280486073976}
   PivotOffset2: {fileID: 1666105372413269236}
-  run: 0
+  moveSpeed: 0.1
+  rotationSpeed: 0.01
+  moveWhale: 1
 --- !u!95 &6444439221169073761
 Animator:
   serializedVersion: 7
@@ -223,37 +253,6 @@ Transform:
   - {fileID: 2815224021688329120}
   m_Father: {fileID: 5289163150872895031}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5035913535085922158
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2153808300354841884}
-  m_Layer: 0
-  m_Name: FollowObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2153808300354841884
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5035913535085922158}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3291672010605860225}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4836882866192313591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -272,7 +271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e49e7dc7208fdd046b3570fee9703e65, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 40
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e49e7dc7208fdd046b3570fee9703e65, type: 3}
       propertyPath: m_LocalRotation.w
@@ -308,7 +307,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -2639638324218457063, guid: e49e7dc7208fdd046b3570fee9703e65, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 6148090796167422309}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e49e7dc7208fdd046b3570fee9703e65, type: 3}
       insertIndex: -1

@@ -1,26 +1,36 @@
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SpaceWhaleAI : MonoBehaviour
 {
-    [SerializeField] Transform SWFollowObject;
+    [SerializeField] Transform SWBone1;
+    [SerializeField] Transform SWBone1OffSet;
     [SerializeField] Transform PivotFollowObject;
     [SerializeField] Transform PivotOffset1;
     [SerializeField] Transform PivotOffset2;
-    [SerializeField] float moveSpeed = 10;
-    [SerializeField] bool run;
+    [SerializeField] float moveSpeed = 1;
+    [SerializeField] float rotationSpeed = 0.01f;
+    [SerializeField] bool useSetSpeed = true;
+    public bool moveWhale = true;
+    Transform target;
     bool state1 = true;
-    bool canFlipState = false;
+    private void Start()
+    {
+        target = PivotFollowObject;
+    }
     void FixedUpdate()
     {
-        if (run)
+        if (moveWhale)
         {
             Figure8Patrol();
-            MoveWhale();
+            MoveWhale(useSetSpeed);
         }
     }
     void Figure8Patrol()
     {
+        //rotates pivots at set speed based off current state
         if (state1)
         {
             PivotOffset1.eulerAngles = new Vector3 (0f, PivotOffset1.eulerAngles.y + 0.25f, 0f);
@@ -36,6 +46,7 @@ public class SpaceWhaleAI : MonoBehaviour
     }
     void SwitchF8PatrolSide()
     {
+        //switches the piviot point between the two sides when a full loop is completed
         if (state1)
         {
             state1 = false;
@@ -45,14 +56,33 @@ public class SpaceWhaleAI : MonoBehaviour
             state1 = true;
             PivotFollowObject.parent = PivotOffset1;
         }
+        //zeros out pivot rotations to counteract float drift
         PivotOffset1.eulerAngles = Vector3.zero;
         PivotOffset2.eulerAngles = Vector3.zero;
-        Debug.Log("Switched State");
     }
-    void MoveWhale()
+    void MoveWhale(bool UseSetSpeed)
     {
-        SWFollowObject.position = Vector3.MoveTowards(SWFollowObject.position, PivotFollowObject.position, moveSpeed);
-        //Debug.Log(Vector3.Distance(SWFollowObject.position, PivotFollowObject.position));
+        float appliedSpeed = moveSpeed;
+        //rotates towards target with max rotation speed
+        quaternion targetRotation = Quaternion.LookRotation(SWBone1.position - target.position);
+        SWBone1.rotation = Quaternion.Lerp(SWBone1.rotation, targetRotation, rotationSpeed);
+
+        //adds extra movespeed based off distance
+        if (!UseSetSpeed)
+        {
+            Debug.Log("Ran!");
+            appliedSpeed += ((Vector3.Distance(SWBone1.position, target.position) - 100) * 0.0001f);
+            //clamps appliedSpeed at 1.5x the set move speed
+            if (appliedSpeed > moveSpeed * 1.5) appliedSpeed = moveSpeed * 1.5f; Debug.Log("Clamped!");
+        }
+
+
+        //moves forward based off current rotation at set move speed
+        Vector3 moveDir = SWBone1OffSet.position - SWBone1.position;
+        SWBone1.position = SWBone1.position + (moveDir * appliedSpeed);
+
+        //moves forward based off current rotation at varying move speed based off distance
+        //SWBone1.position = SWBone1.position + (moveDir * (moveSpeed + (Vector3.Distance(SWBone1.position, target.position) * 0.0001f)));
     }
     private void OnDrawGizmos()
     {

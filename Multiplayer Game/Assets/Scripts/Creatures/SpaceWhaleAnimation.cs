@@ -4,24 +4,17 @@ using System.Collections.Generic;
 
 public class SpaceWhaleAnimation : MonoBehaviour
 {
-    [SerializeField] float followDistance = 75f;
     [SerializeField] Transform[] objectChain = new Transform[5];
-    [SerializeField] Transform followObject;
     List <float> followDistanceChain = new List<float>();
     Vector3 lastPosition;
     void Start()
     {
-        lastPosition = followObject.position;
         CalcuateFollowDistances();
     }
     void FixedUpdate()
     {
-        if (followObject.position != lastPosition)
-        {
-            lastPosition = followObject.position;
-            TurnObjects();
-            FollowObjects();
-        }
+        TurnObjects();
+        FollowObjects();
     }
     void TurnObjects()
     {
@@ -30,10 +23,8 @@ public class SpaceWhaleAnimation : MonoBehaviour
         {
             for (int i = 0; i < objectChain.Length - 1; i++)
             {
+                //quaternion lookDir = Quaternion.RotateTowards(objectChain[i].rotation, objectChain[i + 1].rotation, 20f);
                 quaternion lookDir = Quaternion.LookRotation((objectChain[i].position - objectChain[i + 1].position).normalized);
-
-
-
                 objectChain[i].rotation = lookDir;
             }
         }
@@ -48,7 +39,12 @@ public class SpaceWhaleAnimation : MonoBehaviour
             {
                 for (int j = 0; Vector3.Distance(objectChain[i - 1].position, objectChain[i].position) > followDistanceChain[i - 1]; j++)
                 {
-                    objectChain[i -1].position = Vector3.MoveTowards(objectChain[i - 1].position, objectChain[i].position, 0.05f);
+                    objectChain[i -1].position = Vector3.MoveTowards(objectChain[i - 1].position, objectChain[i].position, 0.2f);
+                    if (j > 40)
+                    {
+                        Debug.Log("TURN DOWN THE MOVESPEED YOU PSYCHO. YOU TRIGGERED THE LAG PROTECTION");
+                        return;
+                    }
                 }
             }
         }
