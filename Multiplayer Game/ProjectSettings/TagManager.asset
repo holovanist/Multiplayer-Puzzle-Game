@@ -8,6 +8,8 @@ TagManager:
   - Lever
   - Tunnel
   - PickupObject
+  - PickupObjectHolder
+  - swPivotFollowObject
   layers:
   - Default
   - TransparentFX
