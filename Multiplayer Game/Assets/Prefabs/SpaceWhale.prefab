@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2815224021688329120}
   m_Layer: 0
   m_Name: PivotFollowObject
-  m_TagString: Untagged
+  m_TagString: swPivotFollowObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,13 +160,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53a9ba193d40d24f89d9be669754d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceWhaleAI
-  SWBone1: {fileID: 1764867598679505134}
-  SWBone1OffSet: {fileID: 6148090796167422309}
-  PivotFollowObject: {fileID: 2815224021688329120}
-  PivotOffset1: {fileID: 4924432280486073976}
-  PivotOffset2: {fileID: 1666105372413269236}
-  moveSpeed: 0.1
+  swBone1: {fileID: 1764867598679505134}
+  swBone1Offset: {fileID: 6148090796167422309}
+  pivotOffset1: {fileID: 4924432280486073976}
+  pivotOffset2: {fileID: 1666105372413269236}
+  moveSpeed: 0.07
+  maxExtraMoveSpeedMultiplier: 1.2
   rotationSpeed: 0.01
+  useSetSpeed: 1
   moveWhale: 1
 --- !u!95 &6444439221169073761
 Animator:
