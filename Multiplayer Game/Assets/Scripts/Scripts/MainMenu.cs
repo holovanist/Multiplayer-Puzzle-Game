@@ -5,13 +5,15 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
 
+    public int nextScene;
+
     void Start()
     {
 
     }
     public void LoadHostSelect()
     {
-        SceneManager.LoadSceneAsync(0);
+        SceneManager.LoadSceneAsync(nextScene);
     }
 
     public void ExitGame()
