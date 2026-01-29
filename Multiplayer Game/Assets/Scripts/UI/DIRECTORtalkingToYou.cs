@@ -16,6 +16,8 @@ public class DIRECTORtalkingToYou : MonoBehaviour
     public TMP_Text text;
 
     public int nextScene;
+
+    [SerializeField] public bool suddenVanish = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,6 +27,7 @@ public class DIRECTORtalkingToYou : MonoBehaviour
 
         GetComponent<AudioSource>().volume = 1;
 
+        GetComponent<SpriteRenderer>().enabled = true;
     }
 
     public void TriggerDialogue()
@@ -51,7 +54,14 @@ public class DIRECTORtalkingToYou : MonoBehaviour
 
         if (currentSentance == evilVanish)
         {
-            GetComponent<Animator>().SetBool("appear", false);
+            if (suddenVanish)
+            {
+                GetComponent<SpriteRenderer>().enabled = false;
+            }
+            else
+            {
+                GetComponent<Animator>().SetBool("appear", false);
+            }
 
             GetComponent<AudioSource>().volume = 0;
         }
