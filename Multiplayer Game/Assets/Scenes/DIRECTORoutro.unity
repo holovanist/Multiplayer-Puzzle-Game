@@ -717,6 +717,7 @@ MonoBehaviour:
   - thank you for your services, soon we will have choked out strife itself.
   currentSentance: 0
   evilVanish: 11
+  turnMusicOff: 7
   text: {fileID: 1852825054}
   nextScene: 2
   suddenVanish: 1

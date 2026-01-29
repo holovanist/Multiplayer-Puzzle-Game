@@ -13,6 +13,8 @@ public class DIRECTORtalkingToYou : MonoBehaviour
 
     [SerializeField] public int evilVanish = 0;
 
+    [SerializeField] public int turnMusicOff = 0;
+
     public TMP_Text text;
 
     public int nextScene;
@@ -63,6 +65,11 @@ public class DIRECTORtalkingToYou : MonoBehaviour
                 GetComponent<Animator>().SetBool("appear", false);
             }
 
+            
+        }
+
+        if (currentSentance == turnMusicOff)
+        {
             GetComponent<AudioSource>().volume = 0;
         }
     }
