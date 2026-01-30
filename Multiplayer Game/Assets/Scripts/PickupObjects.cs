@@ -81,10 +81,10 @@ public class PickupObjects : NetworkBehaviour
          holdPosition = cameraTransform.position + cameraTransform.forward * holdDistance;
 
         }
-        if (Parent != null && hitObject.transform.parent == null)
+/*        if (Parent != null && hitObject.transform.parent == null)
         {               
                 //ParentObjectRPC();
-        }
+        }*/
         if (Vector3.Distance(holdPosition, hitTransform.position) > MaxholdDistance)
         {
             if (IsLocalPlayer)
@@ -170,6 +170,7 @@ public class PickupObjects : NetworkBehaviour
             targetObject.transform.parent = null;
         }
         hitObject = null;
+        hitTransform = null;
     }
     private void OnCollisionEnter(Collision collision)
     {
