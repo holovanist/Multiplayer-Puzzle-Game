@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class PhysicalCamera : MonoBehaviour
@@ -7,7 +8,8 @@ public class PhysicalCamera : MonoBehaviour
     public Material material;
     public Camera cam;
     [SerializeField] int MaterialNumber;
-    public void SetTexture()
+    [Rpc(SendTo.Everyone)]
+    public void SetTextureRPC()
     {
         RenderTexture test = new(texture);
         cam.targetTexture = test;

@@ -9,13 +9,14 @@ public class RPC : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void PingRpc(int pingCount)
     {
+        Debug.Log("Server");
         // Server -> Clients because PongRpc sends to NotServer
         // Note: This will send to all clients.
         // Sending to the specific client that requested the pong will be discussed in the next section.
         PongRpc(pingCount, "PONG!");
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.NotServer)]
     void PongRpc(int pingCount, string message)
     {
         Debug.Log($"Received pong from server for ping {pingCount} and message {message}");

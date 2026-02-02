@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 6731184418999034383}
   - component: {fileID: 4976615698037156284}
   - component: {fileID: 451590609345412552}
+  - component: {fileID: 1737727180782704499}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: PlayerObject
@@ -561,6 +562,20 @@ MonoBehaviour:
   leftClick: Left Click
   crouch: Crouch
   interact: Interact
+--- !u!114 &1737727180782704499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4243825152771828104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a5331440c16f724b8a6d51cda096b3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RPC
+  ShowTopMostFoldoutHeaderGroup: 1
+  input: {fileID: -944628639613478452, guid: e728662279d222c44b3f63240faecbd5, type: 3}
 --- !u!1 &5143893378438057111
 GameObject:
   m_ObjectHideFlags: 0

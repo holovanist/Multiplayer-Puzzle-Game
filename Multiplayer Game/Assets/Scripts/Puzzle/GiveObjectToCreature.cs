@@ -11,6 +11,7 @@ public class GiveObjectToCreature : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        if(request.Side1 == null) return;
         for (int i = 0; request.Side1.Length > 0; i++)
         {
             if (request.Side1[i] == collision.gameObject && Side1)

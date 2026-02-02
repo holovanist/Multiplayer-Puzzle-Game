@@ -40,26 +40,29 @@ public class PickupObjects : NetworkBehaviour
                 if (SOD != null)
                     SOD.IsHeld = false;
                 NotHoldingRPC();
-                hitRigidbody.useGravity = true;
                 target = hitRigidbody.transform.gameObject;
                 var targetObject = target.GetComponent<NetworkObject>();
+                hitObject = null;
+                hitTransform = null; 
                 DropObjectRPC(targetObject);
             }
         }   
         if(SOD != null && SOD.IsInTunnel)
         {
-            hitRigidbody.useGravity = true;
             SOD.IsHeld = false;
             NotHoldingRPC();
             target = hitRigidbody.transform.gameObject;
             var targetObject = target.GetComponent<NetworkObject>();
+            hitObject = null;
+            hitTransform = null;
             DropObjectRPC(targetObject);
         }
     }
     [Rpc(SendTo.Everyone)]
     private void NotHoldingRPC()
     {
-        holdingObject = false;
+        holdingObject = false; 
+        hitRigidbody.useGravity = true;
     }
     void FixedUpdate()
     {
@@ -92,9 +95,10 @@ public class PickupObjects : NetworkBehaviour
                 if (SOD != null)
                     SOD.IsHeld = false;
                 NotHoldingRPC();
-                hitRigidbody.useGravity = true;
                 target = hitRigidbody.transform.gameObject;
-                var targetObject = target.GetComponent<NetworkObject>();
+                var targetObject = target.GetComponent<NetworkObject>(); 
+                hitObject = null;
+                hitTransform = null;
                 DropObjectRPC(targetObject);
             }
         }
@@ -163,25 +167,23 @@ public class PickupObjects : NetworkBehaviour
     [Rpc(SendTo.Server)]
     private void DropObjectRPC(NetworkObjectReference target)
     {
-
         if (target.TryGet(out NetworkObject targetObject))
         {
             targetObject.GetComponent<Rigidbody>().useGravity = true;
             targetObject.transform.parent = null;
         }
-        hitObject = null;
-        hitTransform = null;
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("PickupObject") && holdingObject)
+        if(collision.gameObject.CompareTag("PickupObject") && hitObject == collision.gameObject)
         {
             if (SOD != null)
                 SOD.IsHeld = false;
             NotHoldingRPC();
-            hitRigidbody.useGravity = true;
             target = hitRigidbody.transform.gameObject;
             var targetObject = target.GetComponent<NetworkObject>();
+            hitObject = null;
+            hitTransform = null;
             DropObjectRPC(targetObject);
         }
     }
