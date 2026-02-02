@@ -2520,7 +2520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfc0eb02efdce3429d391f2c3101fd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::maxsGoToSceneCode
-  nextScene: 2
+  nextScene: 6
 --- !u!1 &1537344822
 GameObject:
   m_ObjectHideFlags: 0
