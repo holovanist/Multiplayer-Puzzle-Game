@@ -1,4 +1,5 @@
-using System.Globalization;
+using System.Linq;
+using System.Net;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -48,5 +49,12 @@ public class PlayerNetwork : NetworkBehaviour
                 message = "hello"
             };
         }
+    }
+    public string GetLocalIPv4()
+    {
+        return Dns.GetHostEntry(Dns.GetHostName())
+        .AddressList.First(
+        f => f.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+        .ToString();
     }
 }

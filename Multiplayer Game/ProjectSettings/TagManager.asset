@@ -11,6 +11,8 @@ TagManager:
   - PickupObjectHolder
   - swPivotFollowObject
   - PlayerObject
+  - Physical Camera view
+  - Physical Camera
   layers:
   - Default
   - TransparentFX

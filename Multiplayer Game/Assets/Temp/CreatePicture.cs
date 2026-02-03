@@ -25,26 +25,41 @@ public class CreatePicture : NetworkBehaviour
         {
             if(Pictures.Count > MaxPictures)
             {
-                Destroy(Pictures[0]);
+                DestroyObjectRpc(Pictures[0]);
                 Pictures.RemoveAt(0);
             }
             TakePictureRpc();
+            if(Picture != null)
+            Pictures.Add(Picture);
         }
     }
     GameObject Picture;
-    [Rpc(SendTo.Owner)]
+    [Rpc(SendTo.Server)]
     public void TakePictureRpc()
     {
-        Cam.transform.SetPositionAndRotation(transform.position, transform.rotation);
         Picture = Instantiate(PicturePrefab, transform.position, Quaternion.identity);
-        Pictures.Add(Picture);
-        SpawnObjectRpc();
-        Picture.GetComponent<PhysicalCamera>().cam = Cam.GetComponent<Camera>();
-        Picture.GetComponent<PhysicalCamera>().SetTextureRPC();
+        Picture.GetComponent<NetworkObject>().Spawn();
+        var targetObject = Picture.GetComponent<NetworkObject>();
+        SetTextureRpc(targetObject);
+    }
+    [Rpc(SendTo.Everyone)]
+    public void SetTextureRpc(NetworkObjectReference target)
+    {
+        if (Cam == null) Cam = GameObject.FindGameObjectWithTag("Physical Camera view");
+        Cam.transform.SetPositionAndRotation(transform.position, transform.rotation);
+        if (target.TryGet(out NetworkObject targetObject))
+        {
+            Picture = targetObject.gameObject;
+            Picture.GetComponent<PhysicalCamera>().cam = Cam.GetComponent<Camera>();
+            Picture.GetComponent<PhysicalCamera>().SetTextureRPC();
+        }
     }
     [Rpc(SendTo.Server)]
-    public void SpawnObjectRpc()
-    { 
-        Picture.GetComponent<NetworkObject>().Spawn();
+    public void DestroyObjectRpc(NetworkObjectReference target)
+    {
+        if (target.TryGet(out NetworkObject targetObject))
+        {
+            Destroy(targetObject.gameObject);
+        }
     }
 }

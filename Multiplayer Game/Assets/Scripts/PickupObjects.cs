@@ -78,7 +78,7 @@ public class PickupObjects : NetworkBehaviour
         {
             holdPosition = hit.point + new Vector3(-(cameraTransform.forward.x / 3), .6f, -(cameraTransform.forward.z / 3));
             hitTransform.position = holdPosition;
-        }
+        }   
         else
         {
          holdPosition = cameraTransform.position + cameraTransform.forward * holdDistance;
@@ -96,15 +96,19 @@ public class PickupObjects : NetworkBehaviour
                     SOD.IsHeld = false;
                 NotHoldingRPC();
                 target = hitRigidbody.transform.gameObject;
-                var targetObject = target.GetComponent<NetworkObject>(); 
                 hitObject = null;
                 hitTransform = null;
+                var targetObject = target.GetComponent<NetworkObject>(); 
                 DropObjectRPC(targetObject);
             }
         }
         Vector3 velDirection = Vector3.Normalize(holdPosition - hitTransform.position);
         float distance = Vector3.Distance(holdPosition, hitTransform.position);
-        if (distance > 0.05f)
+        if (hitObject.CompareTag("Physical Camera"))
+        {
+            hitTransform.position = holdPosition;
+        }
+        else if (distance > 0.05f)
         {
             hitRigidbody.linearVelocity = (multiplier * distance * velDirection);
         }
@@ -175,7 +179,7 @@ public class PickupObjects : NetworkBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("PickupObject") && hitObject == collision.gameObject)
+        if(collision.gameObject.CompareTag("PickupObject") && hitObject == collision.gameObject || collision.gameObject.CompareTag("Physical Camera") && hitObject == collision.gameObject)
         {
             if (SOD != null)
                 SOD.IsHeld = false;
