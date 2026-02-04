@@ -13,6 +13,7 @@ TagManager:
   - PlayerObject
   - Physical Camera view
   - Physical Camera
+  - NetworkManager
   layers:
   - Default
   - TransparentFX

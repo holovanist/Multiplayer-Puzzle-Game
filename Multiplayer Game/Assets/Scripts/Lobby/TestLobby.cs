@@ -18,6 +18,7 @@ public class TestLobby : NetworkBehaviour
     private float lobbyUpdateTimer;
     private string playerName;
     private bool host;
+    public TMP_InputField IPInput;
     private UnityTransport unityTransport;
     NetworkManager networkManager;
 
@@ -220,7 +221,6 @@ public class TestLobby : NetworkBehaviour
             Data = new Dictionary<string, PlayerDataObject>
             {
                 {"PlayerName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member,playerName) },
-                {"Ipv4", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member,GetLocalIPv4()) },
                 {"Host", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member,host.ToString()) }
             }
         };
@@ -256,13 +256,6 @@ public class TestLobby : NetworkBehaviour
         {
             Debug.Log(e);
         }
-    }
-    public string GetLocalIPv4()
-    {
-        return Dns.GetHostEntry(Dns.GetHostName())
-        .AddressList.First(
-        f => f.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-        .ToString();
     }
 
     public async void UpdatePlayerName(string newPlayerName)
@@ -335,24 +328,20 @@ public class TestLobby : NetworkBehaviour
     public TextMeshProUGUI t;
     private void JoinLobby()
     {
-            string ip = "127.0.0.1";
             foreach (Player player in joinedLobby.Players)
             {
                 Debug.Log(player.Data["Host"].Value);
                 if (player.Data["Host"].Value == "True")
                 {
-                    Debug.Log("2");
-                    ip = player.Data["Ipv4"].Value;
+
                 }
             }
-            t.text = ip;
-            Debug.Log(ip);
-            unityTransport.SetConnectionData(ip, 7777);
+            unityTransport.SetConnectionData(IPInput.text, 7777);
             networkManager.StartClient();
     }
     public void CreateLobbyServer()
     {
-        unityTransport.SetConnectionData(GetLocalIPv4(), 7777);
+        unityTransport.SetConnectionData(IPInput.text, 7777);
         networkManager.StartHost();
     }
 }

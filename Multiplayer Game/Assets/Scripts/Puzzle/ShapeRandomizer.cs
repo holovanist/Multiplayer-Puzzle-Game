@@ -51,10 +51,12 @@ public class ShapeRandomizer : MonoBehaviour
     }
     public void ResetPuzzle()
     {
+        PuzzleObjects.Clear();
         for (int i = 0; i < ShapesToRandomize.Count; i++)
         {
             Destroy(ShapesToRandomize[i].SpawnedObjects);
-        } 
+            ShapesToRandomize[i].SpawnedObjects = null;
+        }
     }
     public void SpawnNextObject()
     {
