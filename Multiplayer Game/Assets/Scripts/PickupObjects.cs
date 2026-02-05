@@ -50,12 +50,12 @@ public class PickupObjects : NetworkBehaviour
         if(SOD != null && SOD.IsInTunnel)
         {
             SOD.IsHeld = false;
-            NotHoldingRPC();
+            NonHoldingRPC();
             target = hitRigidbody.transform.gameObject;
             var targetObject = target.GetComponent<NetworkObject>();
+            ObjectInTunnelRPC(targetObject);
             hitObject = null;
             hitTransform = null;
-            DropObjectRPC(targetObject);
         }
     }
     [Rpc(SendTo.Everyone)]
@@ -63,6 +63,11 @@ public class PickupObjects : NetworkBehaviour
     {
         holdingObject = false; 
         hitRigidbody.useGravity = true;
+    }    
+    [Rpc(SendTo.Everyone)]
+    private void NonHoldingRPC()
+    {
+        holdingObject = false; 
     }
     void FixedUpdate()
     {
@@ -174,6 +179,14 @@ public class PickupObjects : NetworkBehaviour
         if (target.TryGet(out NetworkObject targetObject))
         {
             targetObject.GetComponent<Rigidbody>().useGravity = true;
+            targetObject.transform.parent = null;
+        }
+    }    
+    [Rpc(SendTo.Server)]
+    private void ObjectInTunnelRPC(NetworkObjectReference target)
+    {
+        if (target.TryGet(out NetworkObject targetObject))
+        {
             targetObject.transform.parent = null;
         }
     }
