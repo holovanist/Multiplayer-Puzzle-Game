@@ -19,6 +19,7 @@ public class TunnelTravel : MonoBehaviour
         if (!other.CompareTag("Tunnel")) return;
         if(!MoveToPoint)
         {
+            rb.useGravity = false;
             MoveToPoint = true;
             tn = other.gameObject.GetComponentInParent<Tunnel>();
             if( tn != null)
@@ -27,6 +28,7 @@ public class TunnelTravel : MonoBehaviour
         }
         else 
         {
+            rb.useGravity = true;
             MoveToPoint = false;
             SOD.IsInTunnel = false;
             if(point1 && tn != null)
