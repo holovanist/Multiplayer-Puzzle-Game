@@ -73,7 +73,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -876546973899608171, guid: af980e347b043d743ad1a09b02f89f93, type: 3}
-  - {fileID: 2100000, guid: 5fee1c069f860e647aaed414adec1e03, type: 2}
+  - {fileID: 2100000, guid: 9efc73b21373a9840aada66763d932b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TunnelTravel
   speed: 10
   MoveToPoint: 0
-  pushMultiplier: 10
+  pushMultiplier: 1
 --- !u!114 &4871974913771494227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0451062443716448bd98366e31bb26f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Physicalcameratest
-  texture: {fileID: 8400000, guid: d6ab55cb0a22d1f4f9b77dc305db3db2, type: 2}
+  texture: {fileID: 8400000, guid: 4a70e459135d112489bd87f053ea61b5, type: 2}
   material: {fileID: 2100000, guid: 9efc73b21373a9840aada66763d932b5, type: 2}
   cam: {fileID: 0}
   MaterialNumber: 1

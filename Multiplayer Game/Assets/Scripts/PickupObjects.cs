@@ -42,8 +42,6 @@ public class PickupObjects : NetworkBehaviour
                 NotHoldingRPC();
                 target = hitRigidbody.transform.gameObject;
                 var targetObject = target.GetComponent<NetworkObject>();
-                hitObject = null;
-                hitTransform = null; 
                 DropObjectRPC(targetObject);
             }
         }   
@@ -54,19 +52,21 @@ public class PickupObjects : NetworkBehaviour
             target = hitRigidbody.transform.gameObject;
             var targetObject = target.GetComponent<NetworkObject>();
             ObjectInTunnelRPC(targetObject);
-            hitObject = null;
-            hitTransform = null;
         }
     }
     [Rpc(SendTo.Everyone)]
     private void NotHoldingRPC()
     {
-        holdingObject = false; 
+        holdingObject = false;
+        hitObject = null;
+        hitTransform = null;
         hitRigidbody.useGravity = true;
     }    
     [Rpc(SendTo.Everyone)]
     private void NonHoldingRPC()
     {
+        hitObject = null;
+        hitTransform = null;
         holdingObject = false; 
     }
     void FixedUpdate()
@@ -101,8 +101,6 @@ public class PickupObjects : NetworkBehaviour
                     SOD.IsHeld = false;
                 NotHoldingRPC();
                 target = hitRigidbody.transform.gameObject;
-                hitObject = null;
-                hitTransform = null;
                 var targetObject = target.GetComponent<NetworkObject>(); 
                 DropObjectRPC(targetObject);
             }
@@ -199,8 +197,6 @@ public class PickupObjects : NetworkBehaviour
             NotHoldingRPC();
             target = hitRigidbody.transform.gameObject;
             var targetObject = target.GetComponent<NetworkObject>();
-            hitObject = null;
-            hitTransform = null;
             DropObjectRPC(targetObject);
         }
     }

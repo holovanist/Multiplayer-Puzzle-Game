@@ -1,6 +1,7 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public class InteractiveButtons : MonoBehaviour 
+public class InteractiveButtons : NetworkBehaviour 
 {
     public Light Light;
     public AudioSource Sound;
@@ -40,29 +41,37 @@ public class InteractiveButtons : MonoBehaviour
         }
         if (NumberOfLeversActive == Levers.Length)
         {
-            if (CanEnableLight && CanPlayAudio)
-            {
-                Light.enabled = true;
-                Sound.PlayOneShot(AudioClip);
-            }
-            else if (CanPlayAudio && !CanEnableLight)
-            {
-                Sound.PlayOneShot(AudioClip);
-            }
-            else if (CanEnableLight && !CanPlayAudio)
-            {
-                Light.enabled = true;
-            }
+            LeverEnabledRpc();
         }
         else if (NumberOfLeversDisabled <= Levers.Length)
         {
             if (CanEnableLight)
             {
-                Light.enabled = false;
+                LeverDisabledRpc();
             }
         }
-
-
         LeverStateChanged = false;
+    }
+    [Rpc(SendTo.Everyone)]
+    public void LeverEnabledRpc()
+    {
+        if (CanEnableLight && CanPlayAudio)
+        {
+            Light.enabled = true;
+            Sound.PlayOneShot(AudioClip);
+        }
+        else if (CanPlayAudio && !CanEnableLight)
+        {
+            Sound.PlayOneShot(AudioClip);
+        }
+        else if (CanEnableLight && !CanPlayAudio)
+        {
+            Light.enabled = true;
+        }
+    }
+    [Rpc(SendTo.Everyone)]
+    public void LeverDisabledRpc()
+    {
+        Light.enabled = false;
     }
 }
