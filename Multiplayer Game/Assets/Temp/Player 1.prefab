@@ -3407,6 +3407,7 @@ GameObject:
   - component: {fileID: 4976615698037156284}
   - component: {fileID: 451590609345412552}
   - component: {fileID: 1737727180782704499}
+  - component: {fileID: 3179496498653447427}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: PlayerObject
@@ -3444,7 +3445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2960956818
+  GlobalObjectIdHash: 2075552551
   InScenePlacedSourceGlobalObjectIdHash: 2075552551
   DeferredDespawnTick: 0
   Ownership: 1
@@ -3665,6 +3666,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RPC
   ShowTopMostFoldoutHeaderGroup: 1
   input: {fileID: -944628639613478452, guid: e728662279d222c44b3f63240faecbd5, type: 3}
+--- !u!114 &3179496498653447427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4243825152771828104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Components.NetworkAnimator
+  ShowTopMostFoldoutHeaderGroup: 1
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 3361347340729645388}
 --- !u!1 &4251580158946440168
 GameObject:
   m_ObjectHideFlags: 0
@@ -4621,7 +4637,7 @@ Transform:
   m_GameObject: {fileID: 5697383379875344248}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -1, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6043,6 +6059,7 @@ GameObject:
   - component: {fileID: 1464260122251178150}
   - component: {fileID: 1628929340512968419}
   - component: {fileID: 6155462562896976541}
+  - component: {fileID: 3361347340729645388}
   m_Layer: 0
   m_Name: Astronaut1
   m_TagString: Untagged
@@ -6059,7 +6076,7 @@ Transform:
   m_GameObject: {fileID: 7211956355263057058}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.25}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6138,6 +6155,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!95 &3361347340729645388
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7211956355263057058}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5a8962bed7b5c4f4c82f9233945837dd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7228459299105394391
 GameObject:
   m_ObjectHideFlags: 0
@@ -7207,7 +7246,7 @@ Transform:
   m_GameObject: {fileID: 8485936986297259127}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: -1, z: -0.27}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7222,7 +7261,7 @@ Transform:
   - {fileID: 3015790781213029376}
   - {fileID: 1499799844095192769}
   m_Father: {fileID: 5034404298573799944}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.98021, y: 0, z: 0}
 --- !u!1 &8495851654969033628
 GameObject:
   m_ObjectHideFlags: 0

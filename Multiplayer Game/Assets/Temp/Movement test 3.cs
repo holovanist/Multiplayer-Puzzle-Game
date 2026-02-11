@@ -12,7 +12,7 @@ public class MovementTest3 : NetworkBehaviour
     [SerializeField] float mouseSensitivity = 0.1f;
     [SerializeField] float upDownLookRange = 80f;
 
-    [Header("References")]
+    [Header("References")]    
     [SerializeField] CharacterController characterController;
     [SerializeField] Camera MainCamera;
     [SerializeField] GameObject PlayerModel;
@@ -23,10 +23,6 @@ public class MovementTest3 : NetworkBehaviour
     
     [Header("Crouching")]
     public float crouchDivider;
-    public float crouchYScale;
-    private float startYScale;
-    float PlayerHeight;
-    float CrouchHeight;
     float camPosition;
     float CrouchCamPosition;
     bool crouching; 
@@ -35,9 +31,12 @@ public class MovementTest3 : NetworkBehaviour
     public float playerHeight;
     public LayerMask whatIsGround;
     //bool grounded;
+    Animator anim;
+
 
     void Start()
     {
+        anim = GetComponentInChildren<Animator>();
         if (!IsOwner)
         {
             MainCamera.GetComponent<Camera>().enabled = false;
@@ -48,22 +47,22 @@ public class MovementTest3 : NetworkBehaviour
             GetComponent<PlayerInput>().enabled = true;
             GetComponent<PlayerInputHandler>().enabled = true;
         }
-        PlayerHeight = characterController.height;
-        CrouchHeight = characterController.height / 2;
         camPosition = MainCamera.transform.position.y;
         CrouchCamPosition = MainCamera.transform.position.y / 2;
-        startYScale = transform.localScale.y;
         Input = GetComponent<PlayerInputHandler>();
         Input.LockCursor();
     }
-    void Update()
+    private void Update()
     {
-        //grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
-        HandleMovement();
         if(IsServer)
             HandleRotation();
         else
             HandleRotationRPC(Input.RotationInput.x * mouseSensitivity, Input.RotationInput.y * mouseSensitivity);
+    }
+    void FixedUpdate()
+    {
+        //grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        HandleMovement();
     }
     Vector3 CalculateworldDirection()
     {
@@ -73,6 +72,7 @@ public class MovementTest3 : NetworkBehaviour
     }
     void HandleJumping()
     {
+        anim.SetTrigger("Jump");
         if (characterController.isGrounded)
         {
             currentMovement.y = -0.5f;
@@ -86,27 +86,49 @@ public class MovementTest3 : NetworkBehaviour
             currentMovement.y += Physics.gravity.y * gravityMultiplier * Time.deltaTime;
         }
     }
+    float time;
     void HandleMovement()
     {
         Vector3 worldDirection = CalculateworldDirection();
         currentMovement.x = worldDirection.x * CurrentSpeed;
         currentMovement.z = worldDirection.z * CurrentSpeed;
+            if (crouching)
+            {
+                time += Time.deltaTime;
+            }
+        if(Input.MovementInput == Vector2.zero)
+        {
+            anim.SetBool("Walk", false);
 
+                if(time > 1f)
+                {
+                    anim.speed = 0f;
+                }
+
+        }
+        else
+        {
+            anim.SetBool("Walk", true);
+                anim.speed = 1f;
+        }
+        if (!crouching)
+            anim.speed = 1f;
         HandleJumping();
         characterController.Move(currentMovement * Time.deltaTime); 
-        if (Input.CrouchTriggered && !crouching && PlayerModel != null)
+        if (Input.CrouchTriggered && !crouching)
         {
             crouching = true;
-            PlayerModel.transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            characterController.height = CrouchHeight; 
+            anim.SetBool("Crouching", true);
+            anim.SetTrigger("Crouch"); 
             MainCamera.transform.localPosition = new Vector3(MainCamera.transform.localPosition.x, CrouchCamPosition, MainCamera.transform.localPosition.z);
         }
-        else if (!Input.CrouchTriggered && PlayerModel != null)
+        else if (!Input.CrouchTriggered && crouching)
         {
             crouching = false;
-            PlayerModel.transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-            characterController.height = PlayerHeight;
+            anim.SetTrigger("Stand");
+            anim.SetBool("Crouching", false); 
             MainCamera.transform.localPosition = new Vector3(MainCamera.transform.localPosition.x, camPosition, MainCamera.transform.localPosition.z);
+            time = 0f;
         }
     }
     void HandleRotation()
