@@ -24,13 +24,13 @@ public class MovementTest3 : NetworkBehaviour
     [Header("Crouching")]
     public float crouchDivider;
     float camPosition;
-    float CrouchCamPosition;
+    public Vector3 CrouchCamPosition;
     bool crouching; 
     
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    //bool grounded;
+    bool WasGrounded;
     Animator anim;
 
 
@@ -48,12 +48,44 @@ public class MovementTest3 : NetworkBehaviour
             GetComponent<PlayerInputHandler>().enabled = true;
         }
         camPosition = MainCamera.transform.position.y;
-        CrouchCamPosition = MainCamera.transform.position.y / 2;
         Input = GetComponent<PlayerInputHandler>();
         Input.LockCursor();
     }
     private void Update()
     {
+        if (Input.SprintTriggered && Input.MovementInput.y == 1)
+        {
+            anim.speed = 2;
+            anim.SetBool("BackwordsWalk", false);
+        }
+        else if (!Input.SprintTriggered && Input.MovementInput.y == 1)
+        {
+            anim.speed = 1;
+            anim.SetBool("BackwordsWalk", false);
+        }
+        else if (Input.SprintTriggered && Input.MovementInput.y == -1)
+        {
+            anim.SetBool("BackwordsWalk", true);
+            anim.speed = 2;
+        }
+        else if (!Input.SprintTriggered && Input.MovementInput.y == -1)
+        {
+            anim.SetBool("BackwordsWalk", true);
+            anim.speed = 1;
+        }
+        else if (Input.MovementInput.y == 0)
+            anim.SetBool("BackwordsWalk", false);
+        if(characterController.isGrounded && !WasGrounded)
+        {
+            anim.SetBool("Grounded", true);
+            WasGrounded = true;
+        }        
+        if(!characterController.isGrounded && WasGrounded)
+        {
+                anim.SetTrigger("Jump");
+            anim.SetBool("Grounded", false);
+            WasGrounded = false;
+        }
         if(IsServer)
             HandleRotation();
         else
@@ -72,7 +104,6 @@ public class MovementTest3 : NetworkBehaviour
     }
     void HandleJumping()
     {
-        anim.SetTrigger("Jump");
         if (characterController.isGrounded)
         {
             currentMovement.y = -0.5f;
@@ -119,14 +150,16 @@ public class MovementTest3 : NetworkBehaviour
         {
             crouching = true;
             anim.SetBool("Crouching", true);
-            anim.SetTrigger("Crouch"); 
-            MainCamera.transform.localPosition = new Vector3(MainCamera.transform.localPosition.x, CrouchCamPosition, MainCamera.transform.localPosition.z);
+            anim.SetTrigger("Crouch");
+            //lerp to new position
+            MainCamera.transform.localPosition = Vector3.Lerp(MainCamera.transform.localPosition,CrouchCamPosition, 1f);
         }
         else if (!Input.CrouchTriggered && crouching)
         {
             crouching = false;
             anim.SetTrigger("Stand");
             anim.SetBool("Crouching", false); 
+
             MainCamera.transform.localPosition = new Vector3(MainCamera.transform.localPosition.x, camPosition, MainCamera.transform.localPosition.z);
             time = 0f;
         }

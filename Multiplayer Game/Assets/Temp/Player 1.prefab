@@ -3552,7 +3552,7 @@ MonoBehaviour:
   MainCamera: {fileID: 2545245934183074654}
   PlayerModel: {fileID: 0}
   crouchDivider: 2
-  crouchYScale: 0.5
+  CrouchCamPosition: {x: 0, y: 0.1, z: 0}
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
@@ -3679,7 +3679,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Components.NetworkAnimator
   ShowTopMostFoldoutHeaderGroup: 1
-  TransitionStateInfoList: []
+  TransitionStateInfoList:
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 2081823275
+    DestinationState: 125937960
+    TransitionDuration: 0.1
+    TriggerNameHash: 125937960
+    TransitionIndex: 2
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 2081823275
+    DestinationState: 1164104572
+    TransitionDuration: 0.25
+    TriggerNameHash: -2015693266
+    TransitionIndex: 3
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 125937960
+    DestinationState: 1164104572
+    TransitionDuration: 0.25
+    TriggerNameHash: -2015693266
+    TransitionIndex: 3
+  - IsCrossFadeExit: 0
+    Layer: 1
+    OriginatingState: 2081823275
+    DestinationState: 125937960
+    TransitionDuration: 0.1
+    TriggerNameHash: 125937960
+    TransitionIndex: 0
+  - IsCrossFadeExit: 0
+    Layer: 1
+    OriginatingState: -737396462
+    DestinationState: -1201797473
+    TransitionDuration: 0.25
+    TriggerNameHash: -1518848078
+    TransitionIndex: 0
+  - IsCrossFadeExit: 0
+    Layer: 1
+    OriginatingState: -1201797473
+    DestinationState: 125937960
+    TransitionDuration: 0.25
+    TriggerNameHash: 125937960
+    TransitionIndex: 1
+  - IsCrossFadeExit: 0
+    Layer: 1
+    OriginatingState: 1164104572
+    DestinationState: -1201797473
+    TransitionDuration: 0.25
+    TriggerNameHash: -1518848078
+    TransitionIndex: 1
   m_Animator: {fileID: 3361347340729645388}
 --- !u!1 &4251580158946440168
 GameObject:
