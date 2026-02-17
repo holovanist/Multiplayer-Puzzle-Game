@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 public class MovementTest3 : NetworkBehaviour
 {
@@ -17,13 +18,14 @@ public class MovementTest3 : NetworkBehaviour
     [SerializeField] Camera MainCamera;
     [SerializeField] GameObject PlayerModel;
     PlayerInputHandler Input;
+    InputAction crouchinput;
     Vector3 currentMovement;
     float verticalRotation;
-    float CurrentSpeed => walkSpeed * (Input.SprintTriggered ? sprintMultiplier : 1) / (Input.CrouchTriggered ? crouchDivider : 1); 
+    float CurrentSpeed => walkSpeed * (Input.SprintTriggered ? sprintMultiplier : 1) / (Input.CrouchTriggered && characterController.isGrounded ? crouchDivider : 1); 
     
     [Header("Crouching")]
     public float crouchDivider;
-    float camPosition;
+    Vector3 camPosition;
     public Vector3 CrouchCamPosition;
     bool crouching; 
     
@@ -47,9 +49,10 @@ public class MovementTest3 : NetworkBehaviour
             GetComponent<PlayerInput>().enabled = true;
             GetComponent<PlayerInputHandler>().enabled = true;
         }
-        camPosition = MainCamera.transform.position.y;
+        camPosition = MainCamera.transform.localPosition;
         Input = GetComponent<PlayerInputHandler>();
         Input.LockCursor();
+        crouchinput = Input.playerControls.FindAction("Crouch");
     }
     private void Update()
     {
@@ -82,11 +85,13 @@ public class MovementTest3 : NetworkBehaviour
         }        
         if(!characterController.isGrounded && WasGrounded)
         {
-                anim.SetTrigger("Jump");
+            if (crouching) return;
+            anim.SetTrigger("Jump");
             anim.SetBool("Grounded", false);
             WasGrounded = false;
         }
-        if(IsServer)
+        HandleCrouching();
+        if (IsServer)
             HandleRotation();
         else
             HandleRotationRPC(Input.RotationInput.x * mouseSensitivity, Input.RotationInput.y * mouseSensitivity);
@@ -104,7 +109,12 @@ public class MovementTest3 : NetworkBehaviour
     }
     void HandleJumping()
     {
-        if (characterController.isGrounded)
+        if(crouching && Input.JumpTriggered)
+        {
+            crouching = false;
+            return;
+        }
+        else if (characterController.isGrounded && !crouching)
         {
             currentMovement.y = -0.5f;
             if (Input.JumpTriggered)
@@ -132,10 +142,7 @@ public class MovementTest3 : NetworkBehaviour
             anim.SetBool("Walk", false);
 
                 if(time > 1f)
-                {
                     anim.speed = 0f;
-                }
-
         }
         else
         {
@@ -145,24 +152,43 @@ public class MovementTest3 : NetworkBehaviour
         if (!crouching)
             anim.speed = 1f;
         HandleJumping();
-        characterController.Move(currentMovement * Time.deltaTime); 
-        if (Input.CrouchTriggered && !crouching)
+        characterController.Move(currentMovement * Time.deltaTime);
+        if (crouching && MainCamera.transform.localPosition != CrouchCamPosition)
+        {
+            MainCamera.transform.localPosition = Vector3.Lerp(MainCamera.transform.localPosition,CrouchCamPosition, .1f);
+        }
+        if (!crouching && MainCamera.transform.localPosition != camPosition)
+        {
+            MainCamera.transform.localPosition = Vector3.Lerp(MainCamera.transform.localPosition, camPosition, .1f);
+        }
+    }
+    void HandleCrouching()
+    {
+        if (crouchinput.WasPressedThisFrame() && !crouching && characterController.isGrounded)
         {
             crouching = true;
-            anim.SetBool("Crouching", true);
-            anim.SetTrigger("Crouch");
-            //lerp to new position
-            MainCamera.transform.localPosition = Vector3.Lerp(MainCamera.transform.localPosition,CrouchCamPosition, 1f);
+            Crouch(crouching, 1.4f, new(0, .65f, 0), 1.3f, new(0, -.5f, 0));
         }
-        else if (!Input.CrouchTriggered && crouching)
+        else if (crouchinput.WasPressedThisFrame() && crouching || Input.JumpTriggered && crouching)
         {
+            if(crouchinput.WasPressedThisFrame())
             crouching = false;
-            anim.SetTrigger("Stand");
-            anim.SetBool("Crouching", false); 
-
-            MainCamera.transform.localPosition = new Vector3(MainCamera.transform.localPosition.x, camPosition, MainCamera.transform.localPosition.z);
+            Crouch(false, 1.8f, new(0, .9f, 0), 2f, new(0, 0, 0));
             time = 0f;
         }
+
+    }
+    private void Crouch(bool Crouching, float ColliderHeight, Vector3 ColliderCenter,float CCHeight, Vector3 CCCenter)
+    {
+        if(!Crouching)
+            anim.SetTrigger("Stand");
+        else
+            anim.SetTrigger("Crouch");
+        anim.SetBool("Crouching", Crouching);
+        GetComponentInChildren<CapsuleCollider>().height = ColliderHeight;
+        GetComponentInChildren<CapsuleCollider>().center = ColliderCenter;
+        characterController.height = CCHeight;
+        characterController.center = CCCenter;
     }
     void HandleRotation()
     {
