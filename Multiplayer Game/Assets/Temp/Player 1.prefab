@@ -3445,7 +3445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3482853921
+  GlobalObjectIdHash: 2075552551
   InScenePlacedSourceGlobalObjectIdHash: 2075552551
   DeferredDespawnTick: 0
   Ownership: 1
@@ -3548,9 +3548,10 @@ MonoBehaviour:
   gravityMultiplier: 1
   mouseSensitivity: 0.1
   upDownLookRange: 80
+  anim: {fileID: 3361347340729645388}
   characterController: {fileID: 8817595819599394930}
   MainCamera: {fileID: 2545245934183074654}
-  PlayerModel: {fileID: 0}
+  PlayerModel: {fileID: 5697383379875344248}
   crouchDivider: 2
   CrouchCamPosition: {x: 0, y: 0.1, z: 0.2}
   playerHeight: 2

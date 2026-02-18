@@ -1,7 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.EnhancedTouch;
 
 public class MovementTest3 : NetworkBehaviour
 {
@@ -14,11 +13,14 @@ public class MovementTest3 : NetworkBehaviour
     [SerializeField] float upDownLookRange = 80f;
 
     [Header("References")]    
+    [SerializeField] Animator anim;
     [SerializeField] CharacterController characterController;
     [SerializeField] Camera MainCamera;
     [SerializeField] GameObject PlayerModel;
+    CapsuleCollider Collider;
     PlayerInputHandler Input;
     InputAction crouchinput;
+    InputAction Jumpinput;
     Vector3 currentMovement;
     float verticalRotation;
     float CurrentSpeed => walkSpeed * (Input.SprintTriggered ? sprintMultiplier : 1) / (Input.CrouchTriggered && characterController.isGrounded ? crouchDivider : 1); 
@@ -33,12 +35,11 @@ public class MovementTest3 : NetworkBehaviour
     public float playerHeight;
     public LayerMask whatIsGround;
     bool WasGrounded;
-    Animator anim;
 
 
     void Start()
     {
-        anim = GetComponentInChildren<Animator>();
+        Collider = GetComponentInChildren<CapsuleCollider>();
         if (!IsOwner)
         {
             MainCamera.GetComponent<Camera>().enabled = false;
@@ -46,6 +47,7 @@ public class MovementTest3 : NetworkBehaviour
         }
         if(IsLocalPlayer)
         {
+            PlayerModel.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
             GetComponent<PlayerInput>().enabled = true;
             GetComponent<PlayerInputHandler>().enabled = true;
         }
@@ -53,43 +55,12 @@ public class MovementTest3 : NetworkBehaviour
         Input = GetComponent<PlayerInputHandler>();
         Input.LockCursor();
         crouchinput = Input.playerControls.FindAction("Crouch");
+        Jumpinput = Input.playerControls.FindAction("Jump");
     }
     private void Update()
     {
-        if (Input.SprintTriggered && Input.MovementInput.y == 1)
-        {
-            anim.speed = 2;
-            anim.SetBool("BackwordsWalk", false);
-        }
-        else if (!Input.SprintTriggered && Input.MovementInput.y == 1)
-        {
-            anim.speed = 1;
-            anim.SetBool("BackwordsWalk", false);
-        }
-        else if (Input.SprintTriggered && Input.MovementInput.y == -1)
-        {
-            anim.SetBool("BackwordsWalk", true);
-            anim.speed = 2;
-        }
-        else if (!Input.SprintTriggered && Input.MovementInput.y == -1)
-        {
-            anim.SetBool("BackwordsWalk", true);
-            anim.speed = 1;
-        }
-        else if (Input.MovementInput.y == 0)
-            anim.SetBool("BackwordsWalk", false);
-        if(characterController.isGrounded && !WasGrounded)
-        {
-            anim.SetBool("Grounded", true);
-            WasGrounded = true;
-        }        
-        if(!characterController.isGrounded && WasGrounded)
-        {
-            if (crouching) return;
-            anim.SetTrigger("Jump");
-            anim.SetBool("Grounded", false);
-            WasGrounded = false;
-        }
+        HandleAnimationRPC(crouching, Input.MovementInput, Input.SprintTriggered);
+        HandleJumping();
         HandleCrouching();
         if (IsServer)
             HandleRotation();
@@ -100,6 +71,8 @@ public class MovementTest3 : NetworkBehaviour
     {
         //grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
         HandleMovement();
+
+
     }
     Vector3 CalculateworldDirection()
     {
@@ -107,18 +80,20 @@ public class MovementTest3 : NetworkBehaviour
         Vector3 worldirection = transform.TransformDirection(inputDirection);
         return worldirection.normalized;
     }
+    bool wasCrouching = false;
     void HandleJumping()
     {
-        if(crouching && Input.JumpTriggered)
+        if(crouching && Jumpinput.WasPressedThisFrame())
         {
-            crouching = false;
-            return;
+            currentMovement.y = -0.5f;
+            HandleCrouching(true);
         }
         else if (characterController.isGrounded && !crouching)
         {
-            currentMovement.y = -0.5f;
-            if (Input.JumpTriggered)
+            //currentMovement.y = -0.5f;
+            if(Jumpinput.WasPressedThisFrame() || Jumpinput.IsPressed() && !wasCrouching)
             {
+                wasCrouching = false;
                 currentMovement.y = jumpForce;
             }
         }
@@ -133,25 +108,7 @@ public class MovementTest3 : NetworkBehaviour
         Vector3 worldDirection = CalculateworldDirection();
         currentMovement.x = worldDirection.x * CurrentSpeed;
         currentMovement.z = worldDirection.z * CurrentSpeed;
-            if (crouching)
-            {
-                time += Time.deltaTime;
-            }
-        if(Input.MovementInput == Vector2.zero)
-        {
-            anim.SetBool("Walk", false);
 
-                if(time > 1f)
-                    anim.speed = 0f;
-        }
-        else
-        {
-            anim.SetBool("Walk", true);
-                anim.speed = 1f;
-        }
-        if (!crouching)
-            anim.speed = 1f;
-        HandleJumping();
         characterController.Move(currentMovement * Time.deltaTime);
         if (crouching && MainCamera.transform.localPosition != CrouchCamPosition)
         {
@@ -162,31 +119,101 @@ public class MovementTest3 : NetworkBehaviour
             MainCamera.transform.localPosition = Vector3.Lerp(MainCamera.transform.localPosition, camPosition, .1f);
         }
     }
+    [Rpc(SendTo.Everyone)]
+    private void HandleAnimationRPC(bool Crouch, Vector2 MovementInput, bool SprintTriggered)
+    {
+        if (IsLocalPlayer)
+        {
+            if (Crouch)
+            {
+                time += Time.deltaTime;
+            }
+            if (MovementInput == Vector2.zero)
+            {
+                anim.SetBool("Walk", false);
+
+                if (time > 1f)
+                    anim.speed = 0f;
+            }
+            else
+            {
+                anim.SetBool("Walk", true);
+                anim.speed = 1f;
+            }
+            if (!Crouch)
+                anim.speed = 1f;
+            if (SprintTriggered && MovementInput.y == 1)
+            {
+                anim.speed = 2;
+                anim.SetBool("BackwordsWalk", false);
+            }
+            else if (!SprintTriggered && MovementInput.y == 1)
+            {
+                anim.speed = 1;
+                anim.SetBool("BackwordsWalk", false);
+            }
+            else if (SprintTriggered && MovementInput.y == -1)
+            {
+                anim.SetBool("BackwordsWalk", true);
+                anim.speed = 2;
+            }
+            else if (!SprintTriggered && MovementInput.y == -1)
+            {
+                anim.SetBool("BackwordsWalk", true);
+                anim.speed = 1;
+            }
+            else if (MovementInput.y == 0)
+                anim.SetBool("BackwordsWalk", false);
+            if (characterController.isGrounded && !WasGrounded)
+            {
+                anim.SetBool("Grounded", true);
+                WasGrounded = true;
+            }
+            if (!characterController.isGrounded && WasGrounded)
+            {
+                if (Crouch) return;
+                anim.SetTrigger("Jump");
+                anim.SetBool("Grounded", false);
+                WasGrounded = false;
+            }
+            if (!Crouch && IsLocalPlayer)
+                anim.SetTrigger("Stand");
+            else if (IsLocalPlayer)
+                anim.SetTrigger("Crouch");
+            if (IsLocalPlayer)
+                anim.SetBool("Crouching", Crouch);
+        }
+    }    
     void HandleCrouching()
     {
         if (crouchinput.WasPressedThisFrame() && !crouching && characterController.isGrounded)
         {
             crouching = true;
-            Crouch(crouching, 1.4f, new(0, .65f, 0), 1.3f, new(0, -.5f, 0));
+            CrouchRPC(/*crouching,*/ 1.4f, new(0, .65f, 0), 1, new(0, -.5f, 0));
+            wasCrouching = true;
         }
-        else if (crouchinput.WasPressedThisFrame() && crouching || Input.JumpTriggered && crouching)
+        else if (crouchinput.WasPressedThisFrame() && crouching)
         {
             if(crouchinput.WasPressedThisFrame())
             crouching = false;
-            Crouch(false, 1.8f, new(0, .9f, 0), 2f, new(0, 0, 0));
+            wasCrouching = false;
+            CrouchRPC(/*false,*/ 1.8f, new(0, .9f, 0), 2f, new(0, 0, 0));
             time = 0f;
         }
-
-    }
-    private void Crouch(bool Crouching, float ColliderHeight, Vector3 ColliderCenter,float CCHeight, Vector3 CCCenter)
+    }    
+    void HandleCrouching(bool Jumping)
     {
-        if(!Crouching)
-            anim.SetTrigger("Stand");
-        else
-            anim.SetTrigger("Crouch");
-        anim.SetBool("Crouching", Crouching);
-        GetComponentInChildren<CapsuleCollider>().height = ColliderHeight;
-        GetComponentInChildren<CapsuleCollider>().center = ColliderCenter;
+        if (Jumping)
+        {
+            crouching = false;
+            CrouchRPC(/*false,*/ 1.8f, new(0, .9f, 0), 2f, new(0, 0, 0));
+            time = 0f;
+        }
+    }
+    private void CrouchRPC(/*bool Crouching,*/ float ColliderHeight, Vector3 ColliderCenter,float CCHeight, Vector3 CCCenter)
+    {
+        Collider.height = ColliderHeight;
+        Collider.center = ColliderCenter;
         characterController.height = CCHeight;
         characterController.center = CCCenter;
     }
