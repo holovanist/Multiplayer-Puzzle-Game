@@ -13,7 +13,7 @@ public class MovementTest3 : NetworkBehaviour
     [SerializeField] float upDownLookRange = 80f;
 
     [Header("References")]    
-    [SerializeField] Animator anim;
+    Animator anim;
     [SerializeField] CharacterController characterController;
     [SerializeField] Camera MainCamera;
     [SerializeField] GameObject PlayerModel;
@@ -39,6 +39,8 @@ public class MovementTest3 : NetworkBehaviour
 
     void Start()
     {
+        if(!IsLocalPlayer) GetComponent<MovementTest3>().enabled = false;
+        anim = GetComponentInChildren<Animator>();
         Collider = GetComponentInChildren<CapsuleCollider>();
         if (!IsOwner)
         {
@@ -62,6 +64,16 @@ public class MovementTest3 : NetworkBehaviour
         HandleAnimationRPC(crouching, Input.MovementInput, Input.SprintTriggered);
         HandleJumping();
         HandleCrouching();
+        if(crouch && crouching)
+        {
+            Crouch(/*crouching,*/ 1.4f, new(0, .65f, 0), 1, new(0, -.5f, 0));
+            crouch = false;
+        }
+        else if (uncrouch && !crouching)
+        {
+            Crouch(/*false,*/ 1.8f, new(0, .9f, 0), 2f, new(0, 0, 0));
+            uncrouch = false;
+        }
         if (IsServer)
             HandleRotation();
         else
@@ -71,8 +83,6 @@ public class MovementTest3 : NetworkBehaviour
     {
         //grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
         HandleMovement();
-
-
     }
     Vector3 CalculateworldDirection()
     {
@@ -119,7 +129,7 @@ public class MovementTest3 : NetworkBehaviour
             MainCamera.transform.localPosition = Vector3.Lerp(MainCamera.transform.localPosition, camPosition, .1f);
         }
     }
-    [Rpc(SendTo.Everyone)]
+    //[Rpc(SendTo.Everyone)]
     private void HandleAnimationRPC(bool Crouch, Vector2 MovementInput, bool SprintTriggered)
     {
         if (IsLocalPlayer)
@@ -183,21 +193,24 @@ public class MovementTest3 : NetworkBehaviour
             if (IsLocalPlayer)
                 anim.SetBool("Crouching", Crouch);
         }
-    }    
+    }
+    bool crouch;
+    bool uncrouch;
     void HandleCrouching()
     {
         if (crouchinput.WasPressedThisFrame() && !crouching && characterController.isGrounded)
         {
             crouching = true;
-            CrouchRPC(/*crouching,*/ 1.4f, new(0, .65f, 0), 1, new(0, -.5f, 0));
+            crouch = true;
             wasCrouching = true;
         }
         else if (crouchinput.WasPressedThisFrame() && crouching)
         {
             if(crouchinput.WasPressedThisFrame())
             crouching = false;
+            uncrouch = true;
             wasCrouching = false;
-            CrouchRPC(/*false,*/ 1.8f, new(0, .9f, 0), 2f, new(0, 0, 0));
+
             time = 0f;
         }
     }    
@@ -206,11 +219,11 @@ public class MovementTest3 : NetworkBehaviour
         if (Jumping)
         {
             crouching = false;
-            CrouchRPC(/*false,*/ 1.8f, new(0, .9f, 0), 2f, new(0, 0, 0));
+            Crouch(/*false,*/ 1.8f, new(0, .9f, 0), 2f, new(0, 0, 0));
             time = 0f;
         }
     }
-    private void CrouchRPC(/*bool Crouching,*/ float ColliderHeight, Vector3 ColliderCenter,float CCHeight, Vector3 CCCenter)
+    private void Crouch(/*bool Crouching,*/ float ColliderHeight, Vector3 ColliderCenter,float CCHeight, Vector3 CCCenter)
     {
         Collider.height = ColliderHeight;
         Collider.center = ColliderCenter;
