@@ -14,10 +14,10 @@ public class MovementTest3 : NetworkBehaviour
 
     [Header("References")]    
     Animator anim;
+    Crouching Crouch;
     [SerializeField] CharacterController characterController;
     [SerializeField] Camera MainCamera;
     [SerializeField] GameObject PlayerModel;
-    CapsuleCollider Collider;
     PlayerInputHandler Input;
     InputAction crouchinput;
     InputAction Jumpinput;
@@ -39,9 +39,9 @@ public class MovementTest3 : NetworkBehaviour
 
     void Start()
     {
-        if(!IsLocalPlayer) GetComponent<MovementTest3>().enabled = false;
+        Crouch = GetComponent<Crouching>();
         anim = GetComponentInChildren<Animator>();
-        Collider = GetComponentInChildren<CapsuleCollider>();
+        if(!IsLocalPlayer) GetComponent<MovementTest3>().enabled = false;
         if (!IsOwner)
         {
             MainCamera.GetComponent<Camera>().enabled = false;
@@ -66,12 +66,12 @@ public class MovementTest3 : NetworkBehaviour
         HandleCrouching();
         if(crouch && crouching)
         {
-            Crouch(/*crouching,*/ 1.4f, new(0, .65f, 0), 1, new(0, -.5f, 0));
+            Crouch.CrouchRPC(crouching, 1.4f, new(0, .65f, 0), 1, new(0, -.5f, 0));
             crouch = false;
         }
         else if (uncrouch && !crouching)
         {
-            Crouch(/*false,*/ 1.8f, new(0, .9f, 0), 2f, new(0, 0, 0));
+            Crouch.CrouchRPC(false, 1.8f, new(0, .9f, 0), 2f, new(0, 0, 0));
             uncrouch = false;
         }
         if (IsServer)
@@ -132,8 +132,8 @@ public class MovementTest3 : NetworkBehaviour
     //[Rpc(SendTo.Everyone)]
     private void HandleAnimationRPC(bool Crouch, Vector2 MovementInput, bool SprintTriggered)
     {
-        if (IsLocalPlayer)
-        {
+        /*if (IsLocalPlayer)
+        {*/
             if (Crouch)
             {
                 time += Time.deltaTime;
@@ -143,34 +143,37 @@ public class MovementTest3 : NetworkBehaviour
                 anim.SetBool("Walk", false);
 
                 if (time > 1f)
-                    anim.speed = 0f;
+                    SetAnimationSpeedRPC(0);
             }
             else
             {
                 anim.SetBool("Walk", true);
-                anim.speed = 1f;
+                SetAnimationSpeedRPC(1);
             }
             if (!Crouch)
-                anim.speed = 1f;
+            {
+                SetAnimationSpeedRPC(1);
+                time = 0f;
+            }
             if (SprintTriggered && MovementInput.y == 1)
             {
-                anim.speed = 2;
+                SetAnimationSpeedRPC(2);
                 anim.SetBool("BackwordsWalk", false);
             }
             else if (!SprintTriggered && MovementInput.y == 1)
             {
-                anim.speed = 1;
+                SetAnimationSpeedRPC(1);
                 anim.SetBool("BackwordsWalk", false);
             }
             else if (SprintTriggered && MovementInput.y == -1)
             {
                 anim.SetBool("BackwordsWalk", true);
-                anim.speed = 2;
+                SetAnimationSpeedRPC(2);
             }
             else if (!SprintTriggered && MovementInput.y == -1)
             {
                 anim.SetBool("BackwordsWalk", true);
-                anim.speed = 1;
+                SetAnimationSpeedRPC(1);
             }
             else if (MovementInput.y == 0)
                 anim.SetBool("BackwordsWalk", false);
@@ -192,7 +195,16 @@ public class MovementTest3 : NetworkBehaviour
                 anim.SetTrigger("Crouch");
             if (IsLocalPlayer)
                 anim.SetBool("Crouching", Crouch);
-        }
+       // }
+    }
+    [Rpc(SendTo.Everyone)]
+    void SetAnimationSpeedRPC(float Speed)
+    {
+        anim.speed = Speed;
+    }   
+    void UnpauseAnimation()
+    {
+
     }
     bool crouch;
     bool uncrouch;
@@ -219,16 +231,9 @@ public class MovementTest3 : NetworkBehaviour
         if (Jumping)
         {
             crouching = false;
-            Crouch(/*false,*/ 1.8f, new(0, .9f, 0), 2f, new(0, 0, 0));
+            Crouch.CrouchRPC(false, 1.8f, new(0, .9f, 0), 2f, new(0, 0, 0));
             time = 0f;
         }
-    }
-    private void Crouch(/*bool Crouching,*/ float ColliderHeight, Vector3 ColliderCenter,float CCHeight, Vector3 CCCenter)
-    {
-        Collider.height = ColliderHeight;
-        Collider.center = ColliderCenter;
-        characterController.height = CCHeight;
-        characterController.center = CCCenter;
     }
     void HandleRotation()
     {

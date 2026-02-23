@@ -7,6 +7,7 @@ public class Button : MonoBehaviour
     public string animationTriggerUp;
     public string animationTriggerDown;
     public ButtonController BC;
+    public StartNextLevel StartNextLevel;
     int ObjectsOnButton;
     public bool Oppisite;
     public bool ButtonsActive {  get; set; }
@@ -21,7 +22,10 @@ public class Button : MonoBehaviour
         pressed = true;
         if (!Oppisite) ButtonsActive = true;
         else ButtonsActive = false;
-        BC.ButtonStateChanged = true;
+        if (BC != null)
+            BC.ButtonStateChanged = true;
+        else if (StartNextLevel != null)
+            StartNextLevel.ButtonStateChanged = true;
         if (anim != null)
             anim.SetTrigger(animationTriggerDown);
     }
@@ -33,7 +37,10 @@ public class Button : MonoBehaviour
             pressed = false;
             if (Oppisite) ButtonsActive = true;
             else ButtonsActive = false;
-            BC.ButtonStateChanged = true;
+            if (BC != null)
+                BC.ButtonStateChanged = true;
+            else if (StartNextLevel != null)
+                StartNextLevel.ButtonStateChanged = true;
             if (anim != null)
                 anim.SetTrigger(animationTriggerUp);
         }
@@ -44,7 +51,10 @@ public class Button : MonoBehaviour
         pressed = true;
         if (!Oppisite) ButtonsActive = true;
         else ButtonsActive = false;
-        BC.ButtonStateChanged = true;
+        if (BC != null)
+            BC.ButtonStateChanged = true;
+        else if (StartNextLevel != null)
+            StartNextLevel.ButtonStateChanged = true;
         if (anim != null)
             anim.SetTrigger(animationTriggerDown);
     }
@@ -56,7 +66,10 @@ public class Button : MonoBehaviour
             pressed = false;
             if (Oppisite) ButtonsActive = true;
             else ButtonsActive = false;
-            BC.ButtonStateChanged = true;
+            if (BC != null)
+                BC.ButtonStateChanged = true;
+            else if (StartNextLevel != null)
+                StartNextLevel.ButtonStateChanged = true;
             if (anim != null)
                 anim.SetTrigger(animationTriggerUp);
         }

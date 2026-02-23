@@ -3408,6 +3408,7 @@ GameObject:
   - component: {fileID: 451590609345412552}
   - component: {fileID: 1737727180782704499}
   - component: {fileID: 1094928815266488116}
+  - component: {fileID: 3614893103505271305}
   m_Layer: 8
   m_Name: Player 1
   m_TagString: PlayerObject
@@ -3730,6 +3731,19 @@ MonoBehaviour:
     TriggerNameHash: -1518848078
     TransitionIndex: 1
   m_Animator: {fileID: 3361347340729645388}
+--- !u!114 &3614893103505271305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4243825152771828104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 750ea5c820de64f4cb8439414b1798af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Crouching
+  characterController: {fileID: 8817595819599394930}
 --- !u!1 &4251580158946440168
 GameObject:
   m_ObjectHideFlags: 0
