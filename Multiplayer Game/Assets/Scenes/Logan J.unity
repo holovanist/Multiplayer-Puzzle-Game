@@ -2805,7 +2805,6 @@ GameObject:
   - component: {fileID: 483902795}
   - component: {fileID: 483902793}
   - component: {fileID: 483902792}
-  - component: {fileID: 483902800}
   m_Layer: 5
   m_Name: Canvas (2)
   m_TagString: Untagged
@@ -2828,9 +2827,11 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   State:
     m_InternalValue: 0
-  HostReadyUpIndicator: {fileID: 936317373}
-  ClientReadyUpIndicator: {fileID: 1898704782}
-  test: 0
+  HostReadyIndicator: {fileID: 0}
+  HostNotReadyIndicator: {fileID: 0}
+  ClientReadyIndicator: {fileID: 0}
+  ClientNotReadyIndicator: {fileID: 0}
+  Level1: 
 --- !u!114 &483902793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2941,22 +2942,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &483902800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 483902791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d819be648f0f1cf45a4c05158958907d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Door
-  ShowTopMostFoldoutHeaderGroup: 1
-  State:
-    m_InternalValue: 0
-  test: 0
 --- !u!1001 &527585395
 PrefabInstance:
   m_ObjectHideFlags: 0
