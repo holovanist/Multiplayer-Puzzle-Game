@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerMovement : NetworkBehaviour
+public class PlayerMovementtest : NetworkBehaviour
 {
     [Header("Movement")]
     public float walkSpeed;

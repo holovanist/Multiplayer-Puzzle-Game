@@ -2,7 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MovementTest3 : NetworkBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     [Header("Player Control Parameters")]
     [SerializeField] float walkSpeed = 3.0f;
@@ -11,7 +11,7 @@ public class MovementTest3 : NetworkBehaviour
     [SerializeField] float gravityMultiplier = 1.0f;
     [SerializeField] float mouseSensitivity = 0.1f;
     [SerializeField] float upDownLookRange = 80f;
-
+    
     [Header("References")]    
     Animator anim;
     Crouching Crouch;
@@ -41,7 +41,7 @@ public class MovementTest3 : NetworkBehaviour
     {
         Crouch = GetComponent<Crouching>();
         anim = GetComponentInChildren<Animator>();
-        if(!IsLocalPlayer) GetComponent<MovementTest3>().enabled = false;
+        if(!IsLocalPlayer) GetComponent<PlayerMovement>().enabled = false;
         if (!IsOwner)
         {
             MainCamera.GetComponent<Camera>().enabled = false;
