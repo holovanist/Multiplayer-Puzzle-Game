@@ -18,6 +18,16 @@ public class ReadyUp : NetworkBehaviour
     GameObject ClientNotReadyIndicator;
     public string Level1;
     bool IsReady = false;
+    private void Start()
+    {
+        if (!GetComponent<NetworkObject>().IsSpawned)
+        SpawnRpc();
+    }
+    [Rpc(SendTo.Server)]
+    void SpawnRpc()
+    {
+        GetComponent<NetworkObject>().Spawn();
+    }
     public void Ready()
     {
         if(!IsReady && IsHost)
