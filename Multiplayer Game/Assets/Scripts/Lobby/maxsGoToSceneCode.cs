@@ -8,7 +8,7 @@ public class maxsGoToSceneCode : NetworkBehaviour
     public int nextScene;
     public void goToScene()
     {
-        NetworkManager.SceneManager.LoadScene("TestreadyUpScreen 1", LoadSceneMode.Single);
+        NetworkManager.SceneManager.LoadScene("readyUpScreen", LoadSceneMode.Single);
         //SceneManager.LoadSceneAsync(nextScene);
     }
 }

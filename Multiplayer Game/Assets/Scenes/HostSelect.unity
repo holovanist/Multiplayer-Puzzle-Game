@@ -1129,8 +1129,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 872199119}
   m_HandleRect: {fileID: 872199118}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2872,7 +2872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::maxsGoToSceneCode
   ShowTopMostFoldoutHeaderGroup: 1
-  nextScene: 13
+  nextScene: 12
 --- !u!1 &1526764152
 GameObject:
   m_ObjectHideFlags: 0
