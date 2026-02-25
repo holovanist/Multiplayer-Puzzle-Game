@@ -123,7 +123,7 @@ public class ReadyUp : NetworkBehaviour
         {
             Debug.Log("Go to Next Scene");
             DeleteLobby();
-            SceneManager.LoadScene(Level1);
+            NetworkManager.SceneManager.LoadScene(Level1, LoadSceneMode.Single);
         }
     }
 
