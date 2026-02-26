@@ -3409,6 +3409,7 @@ GameObject:
   - component: {fileID: 1737727180782704499}
   - component: {fileID: 1094928815266488116}
   - component: {fileID: 3614893103505271305}
+  - component: {fileID: 1675058193934126496}
   m_Layer: 8
   m_Name: Player 1
   m_TagString: PlayerObject
@@ -3744,6 +3745,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Crouching
   characterController: {fileID: 8817595819599394930}
+--- !u!114 &1675058193934126496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4243825152771828104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd991c0f9e77a424e9cf4e730db0ec7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
 --- !u!1 &4251580158946440168
 GameObject:
   m_ObjectHideFlags: 0
