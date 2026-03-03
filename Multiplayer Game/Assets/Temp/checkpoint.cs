@@ -1,7 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class Checkpoint : MonoBehaviour
+public class Checkpoint : NetworkBehaviour
 {
     Vector3 position;
     Quaternion rotation;
@@ -18,19 +18,47 @@ public class Checkpoint : MonoBehaviour
     }
     private void Update()
     {
-        if(Reset)
+        if (Reset)
         {
             ResetRpc();
         }
-        if(CheckpointReached)
+        if (CheckpointReached)
         {
             SetCheckpontRpc();
         }
     }
-    [Rpc(SendTo.Everyone)]
+    [Rpc(SendTo.Server)]
     void ResetRpc()
     {
         Debug.Log("Reset");
+        if (TryGetComponent<CharacterController>(out var a))
+        {
+            a.enabled = false;
+            transform.SetPositionAndRotation(position, rotation);
+            transform.localScale = scale;
+            a.enabled = true;
+            ResetFixRpc();
+        }
+        else
+        {
+            transform.SetPositionAndRotation(position, rotation);
+            transform.localScale = scale; ResetFixRpc();
+        }
+        Reset = false;
+    }
+    [Rpc(SendTo.ClientsAndHost)]
+    void SetCheckpontRpc()
+    {
+        Debug.Log("set");
+        position = transform.position;
+        rotation = transform.rotation;
+        scale = transform.localScale;
+        CheckpointReached = false;
+    }
+    [Rpc(SendTo.NotServer)]
+    void ResetFixRpc()
+    {
+        Debug.Log("Reset2");
         if (TryGetComponent<CharacterController>(out var a))
         {
             a.enabled = false;
@@ -44,14 +72,5 @@ public class Checkpoint : MonoBehaviour
             transform.localScale = scale;
         }
         Reset = false;
-    }
-    [Rpc(SendTo.ClientsAndHost)]
-    void SetCheckpontRpc()
-    {
-        Debug.Log("set");
-        position = transform.position;
-        rotation = transform.rotation;
-        scale = transform.localScale;
-        CheckpointReached = false;
     }
 }
