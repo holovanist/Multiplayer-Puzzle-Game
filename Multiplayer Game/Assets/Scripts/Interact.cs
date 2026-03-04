@@ -17,6 +17,8 @@ public class Interact : MonoBehaviour
     public float InteractDelay;
     public GameObject _Camera;
     float timer = 0;
+    Lever TempLever;
+    Monitor TempMonitor;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +38,6 @@ public class Interact : MonoBehaviour
             TempLever.Interact = false;
         }
     }
-    Lever TempLever;
     private void LeverInteraction()
     {
         Ray ray = new(_Camera.transform.position, _Camera.transform.forward);
@@ -84,6 +85,20 @@ public class Interact : MonoBehaviour
                     }
                 }
             }
+            else if (hit.collider.gameObject.CompareTag("Monitor"))
+            {
+                Monitor InteractObject = hit.collider.gameObject.GetComponent<Monitor>();
+                if (InteractText != null)
+                    InteractText.enabled = true;
+                TempMonitor = InteractObject;
+                if (timer > InteractDelay)
+                {
+                    timer = 0;
+                    if (InteractText != null)
+                        InteractText.enabled = false;
+                    InteractObject.SetBool(GetComponentInChildren<Camera>());
+                }
+            }    
             else
             {
                 if (InteractText != null)
