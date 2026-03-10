@@ -916,7 +916,7 @@ GameObject:
   - component: {fileID: 621012007}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Disable Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1056,7 +1056,7 @@ MonoBehaviour:
   HostNotReadyIndicator: {fileID: 2107252821}
   ClientReadyIndicator: {fileID: 804947253}
   ClientNotReadyIndicator: {fileID: 2052940884}
-  Level1: 
+  Level1: Level 1 Split
 --- !u!1 &782724223
 GameObject:
   m_ObjectHideFlags: 0

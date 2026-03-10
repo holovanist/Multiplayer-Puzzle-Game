@@ -10,6 +10,7 @@ public class Button : MonoBehaviour
     public StartNextLevel StartNextLevel;
     int ObjectsOnButton;
     public bool Oppisite;
+    public bool StayActive;
     public bool ButtonsActive {  get; set; }
     //update to use Raycast instead
     private void Start()
@@ -32,7 +33,7 @@ public class Button : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         ObjectsOnButton--;
-        if (ObjectsOnButton == 0)
+        if (ObjectsOnButton == 0 && !StayActive)
         {
             pressed = false;
             if (Oppisite) ButtonsActive = true;

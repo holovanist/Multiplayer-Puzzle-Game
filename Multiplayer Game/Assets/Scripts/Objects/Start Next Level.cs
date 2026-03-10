@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartNextLevel : MonoBehaviour
+public class StartNextLevel : NetworkBehaviour
 {
     public Button[] buttons;
     public bool oppisite;
@@ -9,7 +10,6 @@ public class StartNextLevel : MonoBehaviour
     public string LevelName;
     public int NumberOfButtonsActive { get; set; }
     public int NumberOfButtonsDisabled { get; set; }
-    public string animationBool;
     public bool ButtonStateChanged { get; set; }
 
     private void Start()
@@ -43,8 +43,7 @@ public class StartNextLevel : MonoBehaviour
         }
         if (anim != null)
         {
-            SceneManager.LoadScene(LevelName);
-
+            NetworkManager.SceneManager.LoadScene(LevelName, LoadSceneMode.Single);
         }
     }
 }

@@ -7,7 +7,8 @@ public class ButtonController : NetworkBehaviour
     Animator anim;
     public int NumberOfButtonsActive { get; set; }
     public int NumberOfButtonsDisabled { get; set; }
-    public string animationBool;
+    public string animationTriggerActive;
+    public string animationTriggerDisabled;
     public bool ButtonStateChanged {  get; set; }
 
     private void Start()
@@ -42,9 +43,9 @@ public class ButtonController : NetworkBehaviour
         if(anim != null)
         {
             if (NumberOfButtonsActive == buttons.Length)
-                anim.SetBool(animationBool, true);
+                anim.SetTrigger(animationTriggerActive);
             else if(NumberOfButtonsActive < buttons.Length)
-                anim.SetBool(animationBool, false);
+                anim.SetTrigger(animationTriggerDisabled);
 
         }
     }

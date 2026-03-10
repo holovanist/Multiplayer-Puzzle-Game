@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6468595850597356859}
   - component: {fileID: 6780342169778792060}
   - component: {fileID: 1371064652415363345}
+  - component: {fileID: 2300773166430927742}
   m_Layer: 0
   m_Name: FloorButton
   m_TagString: Untagged
@@ -112,3 +113,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2300773166430927742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7153958094784616034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c57a4d89bd7724e98b9b989d4af179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Button
+  pressed: 0
+  animationTriggerUp: 
+  animationTriggerDown: 
+  BC: {fileID: 0}
+  StartNextLevel: {fileID: 0}
+  Oppisite: 0
+  StayActive: 0

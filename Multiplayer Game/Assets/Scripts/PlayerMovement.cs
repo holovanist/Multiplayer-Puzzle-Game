@@ -208,10 +208,6 @@ public class PlayerMovement : NetworkBehaviour
     {
         anim.speed = Speed;
     }   
-    void UnpauseAnimation()
-    {
-
-    }
     bool crouch;
     bool uncrouch;
     void HandleCrouching()

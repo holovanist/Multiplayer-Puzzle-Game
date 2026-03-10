@@ -7,7 +7,8 @@ public class LeverController : NetworkBehaviour
     Animator anim;
     public int NumberOfLeversActive { get; set; }
     public int NumberOfLeversDisabled { get; set; }
-    public string animationBool;
+    public string animationTriggerActive;
+    public string animationTriggerDisabled;
     public bool LeverStateChanged { get; set; }
 
     private void Start()
@@ -41,9 +42,9 @@ public class LeverController : NetworkBehaviour
         if (anim != null)
         {
             if (NumberOfLeversActive == Levers.Length)
-                anim.SetBool(animationBool, true);
+                anim.SetTrigger(animationTriggerActive);
             else if (NumberOfLeversDisabled <= Levers.Length)
-                anim.SetBool(animationBool, false);
+                anim.SetTrigger(animationTriggerDisabled);
 
         }
         LeverStateChanged = false;

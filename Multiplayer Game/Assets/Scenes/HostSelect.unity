@@ -1129,8 +1129,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 872199119}
   m_HandleRect: {fileID: 872199118}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.9999999
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2977,7 +2977,7 @@ GameObject:
   - component: {fileID: 1537344823}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Disable Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3318,7 +3318,7 @@ PrefabInstance:
     - target: {fileID: 5369601102618899577, guid: 500ce52332c154d49a21c53fcca7548c, type: 3}
       propertyPath: NetworkConfig.PlayerPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4243825152771828104, guid: 15d8aa80bf040f94fab7dd4de8f575fc, type: 3}
     m_RemovedComponents:
     - {fileID: 5973289291301419, guid: 500ce52332c154d49a21c53fcca7548c, type: 3}
     m_RemovedGameObjects: []
