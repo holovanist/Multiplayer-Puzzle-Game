@@ -1,0 +1,355 @@
+fileFormatVersion: 2
+guid: 3d066c6a7bf6f5d428ef50365cde83c8
+ModelImporter:
+  serializedVersion: 24200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ButtonBake
+    second: {fileID: 2100000, guid: 58ddadf681e91514ebc527cd77686b8b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ChairBake
+    second: {fileID: 2100000, guid: aa5e35004500be144ace481879641220, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ChairMetal
+    second: {fileID: 2100000, guid: 2e54612141519f6478525231027a6367, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cheese
+    second: {fileID: 2100000, guid: 4c33da86125e92c4d8631b36722016d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ClipBoardBake
+    second: {fileID: 2100000, guid: 6f06f3a4f5efa33418887570b3f2ca24, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ClipBoardMetal
+    second: {fileID: 2100000, guid: 7967b355b07b26e4ebfbf39c51e8d8c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CupAndPenBake
+    second: {fileID: 2100000, guid: 2cc8a15409346a34eb244c503578b560, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DeskBake
+    second: {fileID: 2100000, guid: 1eddbdd4d474a48469bac75757b66623, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DeskScreenMainBase
+    second: {fileID: 2100000, guid: b2e03daa772db564682c31fd325762e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DeskScreenSideBase
+    second: {fileID: 2100000, guid: 8c90f4bb56ba6f945a2e14ef14e2c5dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GlassBake
+    second: {fileID: 2100000, guid: c367ce2b044f14e4dbe6d2b58774b5d1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: InteroirWindow
+    second: {fileID: 2100000, guid: ea94b3b7b31611944a4b7f4ea642455f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: eb8b8405a14875f4f9bb8a4732e0652d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: 5685c312b79b3b54a9e49339484fccac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NewtonsCradleBake
+    second: {fileID: 2100000, guid: 10e4a8b06ee477546bf0b9773c3763de, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NewtonsCradleGloss
+    second: {fileID: 2100000, guid: 5d11a229c1a63264a8a67cf14d793368, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RampBake
+    second: {fileID: 2100000, guid: 76e96ee68a35f2440bbeea4f8cf85897, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rat
+    second: {fileID: 2100000, guid: d52c93d9449261141906905e03c9104e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShipArmBake
+    second: {fileID: 2100000, guid: 4cd14096b2bd18a46a737431163ea404, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShipBodyBake
+    second: {fileID: 2100000, guid: 8b5e002a207f7d24083a6321c5c4865f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShipChannel
+    second: {fileID: 2100000, guid: 37b0a3f537977df4b93dad9e1b7df886, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShipDoorBake
+    second: {fileID: 2100000, guid: 78ccef62850182d43b39a96e3b23635c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShipFloor
+    second: {fileID: 2100000, guid: 08b32cb3a5901ba498f268ab2e6f2f79, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShipInteriorBake
+    second: {fileID: 2100000, guid: 52344c852c4eebe40836023c3ea56a06, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShipLight
+    second: {fileID: 2100000, guid: 3d11694f24e804c48a5236492c9a7162, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShipLightGlow
+    second: {fileID: 2100000, guid: e045ad10ece410f479fb32c69355c8dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TankBake
+    second: {fileID: 2100000, guid: df324286bad34a348b7e9aba555b6852, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WarningStripes
+    second: {fileID: 2100000, guid: bd4278ab0a5e90a41afd1ac299f71e66, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BobbleHeadBase
+    second: {fileID: 2800000, guid: 388d5b5b76215fe45a18791e4036e9db, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ButtonBaseBake
+    second: {fileID: 2800000, guid: 3b98ee51913851a44a550f464c0cd45f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ChairBake
+    second: {fileID: 2800000, guid: dfab07ea58b0d104fb3496e3f88d6abb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cheese
+    second: {fileID: 2800000, guid: a541096d3ae00db4bb78a959d0d499e4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ClipBoardBake
+    second: {fileID: 2800000, guid: 02f2614bee7ce144e88198cc5a384f45, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ControlPannelMainBaseOld
+    second: {fileID: 2800000, guid: a45b0df506a14b349a93af1fb3300590, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CupAndPenBaseBake
+    second: {fileID: 2800000, guid: bd2351e6247a24545b35e5f8a679883a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: DeskBaseBake
+    second: {fileID: 2800000, guid: 9b48f7d47e7a2de4092302fbfdcb16f2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LightBase
+    second: {fileID: 2800000, guid: 35b77e801acf2754c8f75642d8dccac2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NewtonsCradleBake
+    second: {fileID: 2800000, guid: 23b83cfd7b75c8643bb14a1027556d5b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: RampBake
+    second: {fileID: 2800000, guid: 51b975a07df88194badf49a38b924b62, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ScreenBaseMain1
+    second: {fileID: 2800000, guid: 60121c7c26d56e14e81a10e4fc855bc4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ScreenBaseSideMonitors
+    second: {fileID: 2800000, guid: 60fb29be59a90c546be37cd53fb708bd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ShipArmBaseColorBake
+    second: {fileID: 2800000, guid: f34adf198b5db1b4e91546ba6431b637, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ShipDoorBake
+    second: {fileID: 2800000, guid: db89f684a754d1f47bec172b52b56998, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ShipFloor
+    second: {fileID: 2800000, guid: 280659a16d3d5834c9bc164205048a4f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ShipMainBaseColorBake
+    second: {fileID: 2800000, guid: 6d2202931186df842bd12d6dc8b91c37, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ShipWallBase
+    second: {fileID: 2800000, guid: 8cd17603e53a6144ba8748d85dec9fd1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: TankBake
+    second: {fileID: 2800000, guid: a15c7a107cf227b4d8145f266cc71c8c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WarningStripesTileable
+    second: {fileID: 2800000, guid: 16d6d18f0f12c8f4aa9202e0c382ff96, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: e5c57781e2e0d1abac266b9d9da9a5ca_original
+    second: {fileID: 2800000, guid: 10a595fa92b7eb742b6bf7a1f9c48c3a, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
