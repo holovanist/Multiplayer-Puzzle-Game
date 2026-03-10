@@ -7391,63 +7391,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7199088262893673939}
   m_Mesh: {fileID: -6421927161762930362, guid: 0c5ae66e9e101d04b9b7cda86853a760, type: 3}
---- !u!1001 &1155186012731739639
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 8475130579660589299, guid: 8d50025ac25b0ee459d813b3a182d057, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 18.378
-      objectReference: {fileID: 0}
-    - target: {fileID: 8475130579660589299, guid: 8d50025ac25b0ee459d813b3a182d057, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -47.43761
-      objectReference: {fileID: 0}
-    - target: {fileID: 8475130579660589299, guid: 8d50025ac25b0ee459d813b3a182d057, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -615.44
-      objectReference: {fileID: 0}
-    - target: {fileID: 8475130579660589299, guid: 8d50025ac25b0ee459d813b3a182d057, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8475130579660589299, guid: 8d50025ac25b0ee459d813b3a182d057, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8475130579660589299, guid: 8d50025ac25b0ee459d813b3a182d057, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8475130579660589299, guid: 8d50025ac25b0ee459d813b3a182d057, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8475130579660589299, guid: 8d50025ac25b0ee459d813b3a182d057, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8475130579660589299, guid: 8d50025ac25b0ee459d813b3a182d057, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 8475130579660589299, guid: 8d50025ac25b0ee459d813b3a182d057, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 9139605706767864393, guid: 8d50025ac25b0ee459d813b3a182d057, type: 3}
-      propertyPath: m_Name
-      value: Camera1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8d50025ac25b0ee459d813b3a182d057, type: 3}
 --- !u!33 &1163211957146782157
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -24120,7 +24063,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 9392238}
-  - {fileID: 1155186012731739639}
   - {fileID: 5855303525319803626}
   - {fileID: 4024274130844590717}
   - {fileID: 964223505}
