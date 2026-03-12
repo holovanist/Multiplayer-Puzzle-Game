@@ -1,9 +1,11 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class Disableplayer : MonoBehaviour
+public class Disableplayer : NetworkBehaviour
 {
     void Update()
     {
+        if(!IsLocalPlayer) return;
         if (GameObject.FindGameObjectWithTag("Disable Player") != null && GetComponent<PlayerMovement>().enabled == true)
         {
             GetComponentInChildren<Camera>().enabled = false;
