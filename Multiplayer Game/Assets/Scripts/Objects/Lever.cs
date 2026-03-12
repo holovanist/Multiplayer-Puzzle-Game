@@ -5,10 +5,10 @@ public class Lever : NetworkBehaviour
 {
     [Header("References")]
     Animator anim;
-    public LeverController LC;
+    public LeverController[] LC;
     public InteractiveButtons IB;
-    public string animationTriggerUp;
-    public string animationTriggerDown;
+    public string animationActive;
+
     [Header("Button")]
     public bool IsButton;
     public bool WasPulled;
@@ -38,8 +38,14 @@ public class Lever : NetworkBehaviour
         if(ButtonCountdown <= 0 && IsButton && HoldLever && WasPulled)
         {
             if (Oppisite) LeverActive = true;
-            else LeverActive = false; 
-            if (LC != null) LC.LeverStateChanged = true;
+            else LeverActive = false;
+            if (LC != null)
+            {
+                for(int i = 0; i < LC.Length; i++)
+                {
+                    LC[i].LeverStateChanged = true;
+                }
+            }
             if (IB != null) IB.LeverStateChanged = true;
             WasPulled = false;
             pulled = false;
@@ -50,7 +56,13 @@ public class Lever : NetworkBehaviour
         {
             if (Oppisite) LeverActive = true;
             else LeverActive = false;
-            if(LC != null) LC.LeverStateChanged = true;
+            if(LC != null)
+            {
+                for (int i = 0; i < LC.Length; i++)
+                {
+                    LC[i].LeverStateChanged = true;
+                }
+            }
             if (IB != null) IB.LeverStateChanged = true;
             WasPulled = false;
             pulled = false;
@@ -67,23 +79,35 @@ public class Lever : NetworkBehaviour
             if (!HoldLever && !IsButton)
             {
                 pulled = true;
-                if (LC != null) LC.LeverStateChanged = true;
+                if (LC != null)
+                {
+                    for (int i = 0; i < LC.Length; i++)
+                    {
+                        LC[i].LeverStateChanged = true;
+                    }
+                }
                 if (IB != null) IB.LeverStateChanged = true;
                 if (!Oppisite) LeverActive = true;
                 else LeverActive = false;
                 if (anim != null)
-                    anim.SetTrigger(animationTriggerDown);
+                    anim.SetBool(animationActive, false);
             }
             else if (Timer > HoldTime && !IsButton)
             {
                 pulled = true;
                 Timer = 0;
-                if (LC != null) LC.LeverStateChanged = true;
+                if (LC != null)
+                {
+                    for (int i = 0; i < LC.Length; i++)
+                    {
+                        LC[i].LeverStateChanged = true;
+                    }
+                }
                 if (IB != null) IB.LeverStateChanged = true;
                 if (!Oppisite) LeverActive = true;
                 else LeverActive = false;
                 if (anim != null)
-                    anim.SetTrigger(animationTriggerDown);
+                    anim.SetBool(animationActive, false);
                 return;
             }
             else if (IsButton)
@@ -93,12 +117,18 @@ public class Lever : NetworkBehaviour
         else if(pulled && !WasPulled)
         {
             pulled = false;
-            if (LC != null) LC.LeverStateChanged = true;
+            if (LC != null) 
+            {                
+                for (int i = 0; i < LC.Length; i++)
+                {
+                    LC[i].LeverStateChanged = true;
+                }
+            }
             if (IB != null) IB.LeverStateChanged = true;
             if (Oppisite) LeverActive = true;
             else LeverActive = false;
             if (anim != null)
-                anim.SetTrigger(animationTriggerUp);
+                anim.SetBool(animationActive, true);
         }
     }
     void Button()
@@ -108,12 +138,18 @@ public class Lever : NetworkBehaviour
             BasicButtonTimer = BasicButtonTime;
             pulled = true; 
             WasPulled = true;
-            if (LC != null) LC.LeverStateChanged = true;
+            if (LC != null)
+            {
+                for (int i = 0; i < LC.Length; i++)
+                {
+                    LC[i].LeverStateChanged = true;
+                }
+            }
             if (IB != null) IB.LeverStateChanged = true;
             if (!Oppisite) LeverActive = true;
             else LeverActive = false;
             if (anim != null)
-                anim.SetTrigger(animationTriggerDown);
+                anim.SetBool(animationActive, false);
         }
     }    
     void HoldButton()
@@ -127,12 +163,18 @@ public class Lever : NetworkBehaviour
             else
             pulled = true;
             Timer = 0;
-            if (LC != null) LC.LeverStateChanged = true;
+            if (LC != null)
+            {
+                for (int i = 0; i < LC.Length; i++)
+                {
+                    LC[i].LeverStateChanged = true;
+                }
+            }
             if (IB != null) IB.LeverStateChanged = true;
             if (!Oppisite) LeverActive = true;
             else LeverActive = false;
             if (anim != null)
-                anim.SetTrigger(animationTriggerDown);
+                anim.SetBool(animationActive, false);
             return;
         }
     }
