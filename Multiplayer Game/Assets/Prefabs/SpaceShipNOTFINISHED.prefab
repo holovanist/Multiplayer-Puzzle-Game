@@ -203,7 +203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7865558582561711174
 Transform:
   m_ObjectHideFlags: 0
@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 7339137278499489017}
   - component: {fileID: 8280256786885147783}
   m_Layer: 0
-  m_Name: GlassBake
+  m_Name: Glass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -581,7 +581,7 @@ Transform:
   m_GameObject: {fileID: 840858523759584033}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -12.533318}
+  m_LocalPosition: {x: 0, y: 0, z: -12.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1050,8 +1050,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 16.957317, y: 0.22530648, z: 2.1305308}
-  m_Center: {x: 0.0000019073486, y: -0.0000008903444, z: 0}
+  m_Size: {x: 16.94016, y: 0.5067467, z: 2.1305308}
+  m_Center: {x: 0.008580208, y: 0.013372511, z: -1.8737056e-25}
 --- !u!1 &1845282155014075773
 GameObject:
   m_ObjectHideFlags: 0
@@ -2229,7 +2229,7 @@ Transform:
   m_GameObject: {fileID: 4120574453490204159}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.65, y: -1.17, z: -16.24}
+  m_LocalPosition: {x: 8.65, y: -1.17, z: -6.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2396,7 +2396,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5968772675243827569}
+  - {fileID: 1742241115863937348}
   - {fileID: 1522677775672375806}
   m_Father: {fileID: 6492286562555166061}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3358,6 +3358,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EscapeShipScreenStripeAnimator
   scrollingMaterial: {fileID: 2100000, guid: bd4278ab0a5e90a41afd1ac299f71e66, type: 2}
   animationScrollSpeed: -0.003
+--- !u!1 &5756245660979804170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3387714763975983780}
+  - component: {fileID: 6794257368297548607}
+  - component: {fileID: 2769525179540160946}
+  m_Layer: 0
+  m_Name: DoorTirggerBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3387714763975983780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5756245660979804170}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0.19012363, w: 0.98176014}
+  m_LocalPosition: {x: 8.65, y: -1.97, z: -6.24}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1366355039594373136}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -21.92}
+--- !u!65 &6794257368297548607
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5756245660979804170}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.87, y: 3, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2769525179540160946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5756245660979804170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6023603181e221d4b8ee88c44a87a1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShipDoorOpener
+  shipDoor: {fileID: 518767609059411798}
+  moveAmount: 2
+  doorSpeed: 0.1
 --- !u!1 &5759390015203407561
 GameObject:
   m_ObjectHideFlags: 0
@@ -4073,6 +4142,7 @@ Transform:
   - {fileID: 4201768314760747286}
   - {fileID: 6492286562555166061}
   - {fileID: 518767609059411798}
+  - {fileID: 3387714763975983780}
   - {fileID: 3340725913644384030}
   m_Father: {fileID: 593879051138966024}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4365,6 +4435,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7263682362415376337
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1742241115863937348}
+  m_Layer: 0
+  m_Name: WhaleHeartOffset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1742241115863937348
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7263682362415376337}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.96, y: -2.49, z: -0.8200016}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5968772675243827569}
+  m_Father: {fileID: 4347927476460236217}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7375727244644877875
 GameObject:
   m_ObjectHideFlags: 0
@@ -4550,6 +4652,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5968772675243827569}
   - component: {fileID: 4925304864539675286}
+  - component: {fileID: 4575161790766681639}
   m_Layer: 0
   m_Name: WhaleHeart
   m_TagString: Untagged
@@ -4566,13 +4669,13 @@ Transform:
   m_GameObject: {fileID: 7501878973313204023}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.63, y: -2.14, z: -0.82}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6314151220206231500}
   - {fileID: 9065652168906740712}
-  m_Father: {fileID: 4347927476460236217}
+  m_Father: {fileID: 1742241115863937348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4925304864539675286
 Animator:
@@ -4596,6 +4699,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4575161790766681639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7501878973313204023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e12037797c34fc0498b15ed79be48418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WhaleHeartFloatIdle
+  moveSpeed: 0.01
+  boostTime: 0.3
+  restPositionLocal: {x: 0, y: 0, z: 0}
+  jerkPositionLocal: {x: 0, y: 0.3, z: 0}
 --- !u!1 &7545592007566367801
 GameObject:
   m_ObjectHideFlags: 0

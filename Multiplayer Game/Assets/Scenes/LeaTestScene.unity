@@ -1509,10 +1509,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6492286562555166061, guid: 4891eb1f725131243900fdf28ef66aee, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -12.53
-      objectReference: {fileID: 0}
     - target: {fileID: 7438905759736473147, guid: 4891eb1f725131243900fdf28ef66aee, type: 3}
       propertyPath: m_Name
       value: SpaceShipNOTFINISHED
