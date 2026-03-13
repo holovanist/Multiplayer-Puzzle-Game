@@ -17,6 +17,7 @@ public class PlayerMovement : NetworkBehaviour
     Crouching Crouch;
     [SerializeField] CharacterController characterController;
     [SerializeField] Camera MainCamera;
+    [SerializeField] Camera UICamera;
     [SerializeField] GameObject PlayerModel;
     PlayerInputHandler Input;
     InputAction crouchinput;
@@ -44,6 +45,7 @@ public class PlayerMovement : NetworkBehaviour
         if(!IsLocalPlayer) GetComponent<PlayerMovement>().enabled = false;
         if (!IsOwner)
         {
+            UICamera.enabled = false;
             MainCamera.GetComponent<Camera>().enabled = false;
             MainCamera.gameObject.GetComponent<AudioListener>().enabled = false;
         }

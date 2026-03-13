@@ -41,9 +41,7 @@ public class StartNextLevel : NetworkBehaviour
                 NumberOfButtonsDisabled++;
             }
         }
-        if (anim != null)
-        {
+        if(buttons.Length == NumberOfButtonsActive)
             NetworkManager.SceneManager.LoadScene(LevelName, LoadSceneMode.Single);
-        }
     }
 }

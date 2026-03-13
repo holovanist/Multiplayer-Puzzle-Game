@@ -19,11 +19,12 @@ public class LeverController : NetworkBehaviour
     {
         if (Levers != null && LeverStateChanged)
         {
-            LeverUpdater();
+            LeverUpdaterRPC();
         }
     }
 
-    public void LeverUpdater()
+    [Rpc(SendTo.Everyone)]
+    public void LeverUpdaterRPC()
     {
         NumberOfLeversDisabled = 0;
         NumberOfLeversActive = 0;

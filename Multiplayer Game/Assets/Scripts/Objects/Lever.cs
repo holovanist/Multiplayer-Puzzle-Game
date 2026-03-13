@@ -78,7 +78,6 @@ public class Lever : NetworkBehaviour
         {
             if (!HoldLever && !IsButton)
             {
-                pulled = true;
                 if (LC != null)
                 {
                     for (int i = 0; i < LC.Length; i++)
@@ -87,14 +86,11 @@ public class Lever : NetworkBehaviour
                     }
                 }
                 if (IB != null) IB.LeverStateChanged = true;
-                if (!Oppisite) LeverActive = true;
-                else LeverActive = false;
-                if (anim != null)
-                    anim.SetBool(animationActive, false);
+                SetVariablesRPC(Oppisite, false, true, false, true, NetworkObjectId);
+
             }
             else if (Timer > HoldTime && !IsButton)
             {
-                pulled = true;
                 Timer = 0;
                 if (LC != null)
                 {
@@ -104,10 +100,7 @@ public class Lever : NetworkBehaviour
                     }
                 }
                 if (IB != null) IB.LeverStateChanged = true;
-                if (!Oppisite) LeverActive = true;
-                else LeverActive = false;
-                if (anim != null)
-                    anim.SetBool(animationActive, false);
+                SetVariablesRPC(Oppisite, true, false, false, true, NetworkObjectId);
                 return;
             }
             else if (IsButton)
@@ -116,7 +109,6 @@ public class Lever : NetworkBehaviour
         }
         else if(pulled && !WasPulled)
         {
-            pulled = false;
             if (LC != null) 
             {                
                 for (int i = 0; i < LC.Length; i++)
@@ -125,11 +117,18 @@ public class Lever : NetworkBehaviour
                 }
             }
             if (IB != null) IB.LeverStateChanged = true;
-            if (Oppisite) LeverActive = true;
-            else LeverActive = false;
-            if (anim != null)
-                anim.SetBool(animationActive, true);
+            SetVariablesRPC(Oppisite, true, false, true, false, NetworkObjectId);
         }
+    }
+    [Rpc(SendTo.Everyone)]
+    void SetVariablesRPC(bool Oppisite , bool leverActive, bool LeverActiveOppisite, bool animation, bool pull, ulong ID)
+    {
+        if(NetworkObjectId != ID) return;
+        pulled = pull;
+        if (!Oppisite) LeverActive = leverActive;
+        else LeverActive = LeverActiveOppisite; 
+        if (anim != null)
+            anim.SetBool(animationActive, animation);
     }
     void Button()
     {

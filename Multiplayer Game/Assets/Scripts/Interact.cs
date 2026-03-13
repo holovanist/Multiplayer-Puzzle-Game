@@ -30,7 +30,21 @@ public class Interact : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
+        Ray ray = new(_Camera.transform.position, _Camera.transform.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
+        {
+            if (hit.collider.gameObject.CompareTag("Lever"))
+            {
+                if (InteractText != null)
+                    InteractText.enabled = true;
+            }
+        }
+        else
+        {
+            if (InteractText != null)
+                InteractText.enabled = false;
+        }
+                timer += Time.deltaTime;
         if(_Interact.IsPressed())
             LeverInteraction();
         else if(TempLever != null)
