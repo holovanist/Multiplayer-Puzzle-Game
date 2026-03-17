@@ -13,49 +13,10 @@ public class ShapeRandomizer : MonoBehaviour
     public bool UpdateShape = false;
     private void Update()
     {
-        if (SpawnPuzzleObjects)
-        {
-            for(int i = 0;i < ShapesToRandomize.Count;i++)
-            {
-                if (ShapesToRandomize[i].SpawnedObjects != null)
-                {
-                    ResetPuzzle();
-                }
-            }
-            SpawnPuzzle();
-            SpawnPuzzleObjects = false;
-        }
-        if (RemovePuzzle)
-        {
-            ResetPuzzle();
-            RemovePuzzle = false;
-        }
         if(ScrollPuzzle)
         {
-            ResetPuzzle();
             SpawnNextObject();
             ScrollPuzzle = false;
-        }
-    }
-    public void SpawnPuzzle()
-    {
-        UpdateShape = true;
-        for (int i = 0; i < ShapesToRandomize.Count; i++)
-        {
-            int ObjectToSpawn = Random.Range(0, ShapesToRandomize[i].PuzzleObjects.Count);
-            GameObject PuzzleObject = Instantiate(ShapesToRandomize[i].PuzzleObjects[ObjectToSpawn], ShapesToRandomize[i].PuzzleSpawnLocations.position, Quaternion.identity, ShapesToRandomize[i].PuzzleSpawnLocations);
-            ShapesToRandomize[i].SpawnedObjects = PuzzleObject;
-            ShapesToRandomize[i].ObjectSpawned = ObjectToSpawn;
-            PuzzleObjects.Add(ObjectToSpawn);
-        }
-    }
-    public void ResetPuzzle()
-    {
-        PuzzleObjects.Clear();
-        for (int i = 0; i < ShapesToRandomize.Count; i++)
-        {
-            Destroy(ShapesToRandomize[i].SpawnedObjects);
-            ShapesToRandomize[i].SpawnedObjects = null;
         }
     }
     public void SpawnNextObject()
@@ -76,26 +37,6 @@ public class ShapeRandomizer : MonoBehaviour
             }
             
             PuzzleObjects[i] = ShapesToRandomize[i].ObjectSpawned;
-        }
-    }    
-    public void SpawnNextObject(int ObjectNextSpawning)
-    {
-        PuzzleObjects.Clear();
-        UpdateShape = true;
-        for (int i = 0; i < ShapesToRandomize.Count; ++i)
-        {
-            if(ShapesToRandomize[ObjectNextSpawning].ObjectSpawned+1 < ShapesToRandomize[ObjectNextSpawning].PuzzleObjects.Count)
-            {
-                int ObjectToSpawn = ShapesToRandomize[ObjectNextSpawning].ObjectSpawned++;
-                Spawn(ObjectToSpawn, ObjectNextSpawning);
-            }
-            else if (ShapesToRandomize[ObjectNextSpawning].ObjectSpawned+1 >= ShapesToRandomize[i].PuzzleObjects.Count)
-            {
-                int ObjectToSpawn = ShapesToRandomize[ObjectNextSpawning].ObjectSpawned = 0;
-                Spawn(ObjectToSpawn, ObjectNextSpawning);
-            }
-            
-            PuzzleObjects[ObjectNextSpawning] = ShapesToRandomize[ObjectNextSpawning].ObjectSpawned;
         }
     }
     private void Spawn(int ObjectToSpawn, int i)
