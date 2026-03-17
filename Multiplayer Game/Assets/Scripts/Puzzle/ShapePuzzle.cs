@@ -1,13 +1,17 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ShapePuzzle : MonoBehaviour
 {
-    public List<RandomShapes> ShapesToRandomize;
+    public List<RandomShapes> ShapesToScroll;
     public bool SpawnPuzzleObjects;
     public bool RemovePuzzle;
     public List<int> PuzzleObjects;
-    int CorrectShapeCount;
+    int CorrectShapeCount; 
+    public bool ScrollPuzzle;
+    public bool UpdateShape = false;
     ShapeRandomizer Randomizer;
     Animator anim;
     public string animationTrigger1;
@@ -23,20 +27,8 @@ public class ShapePuzzle : MonoBehaviour
     {
         if (SpawnPuzzleObjects)
         {
-            for (int i = 0; i < ShapesToRandomize.Count; i++)
-            {
-                if (ShapesToRandomize[i].SpawnedObjects != null)
-                {
-                    ResetPuzzle();
-                }
-            }
             SpawnPuzzle();
             SpawnPuzzleObjects = false;
-        }
-        if (RemovePuzzle)
-        {
-            ResetPuzzle();
-            RemovePuzzle = false;
         }
         if(Randomizer.UpdateShape)
         {
@@ -67,29 +59,35 @@ public class ShapePuzzle : MonoBehaviour
     public void SpawnPuzzle()
     {
         PuzzleObjects.Clear();
-        for (int i = 0; i < ShapesToRandomize.Count; i++)
+        for (int i = 0; i < ShapesToScroll.Count; i++)
         {
-            if (ShapesToRandomize[i].PuzzleSpawnLocations != null)
-            {
-            int ObjectToSpawn = Random.Range(0, ShapesToRandomize[i].PuzzleObjects.Count);
-            GameObject PuzzleObject = Instantiate(ShapesToRandomize[i].PuzzleObjects[ObjectToSpawn], ShapesToRandomize[i].PuzzleSpawnLocations.position, Quaternion.identity, ShapesToRandomize[i].PuzzleSpawnLocations);
-            ShapesToRandomize[i].SpawnedObjects = PuzzleObject;
-            ShapesToRandomize[i].ObjectSpawned = ObjectToSpawn;
-            }
-            else
-            {
-                int ObjectToSpawn = Random.Range(0, ShapesToRandomize[i].PuzzleObjects.Count);
-                PuzzleObjects.Add(ObjectToSpawn);
-            }
+            int ObjectToSpawn = Random.Range(0, ShapesToScroll[i].PuzzleObjects.Count);
+            //enable / disable objects
+            ShapesToScroll[i].ObjectSpawned = ObjectToSpawn;
         }
     }
-    public void ResetPuzzle()
+    public void SpawnNextObject(int ObjectNextSpawning)
     {
         PuzzleObjects.Clear();
-        for (int i = 0; i < ShapesToRandomize.Count; i++)
+        UpdateShape = true;
+        for (int i = 0; i < ShapesToScroll.Count; ++i)
         {
-            Destroy(ShapesToRandomize[i].SpawnedObjects);
-            ShapesToRandomize[i].SpawnedObjects = null;
+            if (ShapesToScroll[ObjectNextSpawning].ObjectSpawned + 1 < ShapesToScroll[ObjectNextSpawning].PuzzleObjects.Count)
+            {
+                int ObjectToSpawn = ShapesToScroll[ObjectNextSpawning].ObjectSpawned++;
+            }
+            else if (ShapesToScroll[ObjectNextSpawning].ObjectSpawned + 1 >= ShapesToScroll[i].PuzzleObjects.Count)
+            {
+                int ObjectToSpawn = ShapesToScroll[ObjectNextSpawning].ObjectSpawned = 0;
+            }
+
+            PuzzleObjects[ObjectNextSpawning] = ShapesToScroll  [ObjectNextSpawning].ObjectSpawned;
         }
     }
 }
+    [Serializable]
+    public class ShapesToRandomize
+    {
+        public int ObjectSpawned;
+        public List<GameObject> PuzzleObjects;
+    }
