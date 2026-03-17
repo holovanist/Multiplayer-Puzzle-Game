@@ -1802,7 +1802,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58ddadf681e91514ebc527cd77686b8b, type: 2}
+  - {fileID: 2100000, guid: dd533400a1677cd4f9cb7d3a447c4ef5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2167,7 +2167,7 @@ Transform:
   m_GameObject: {fileID: 2868588764863039438}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 7.32, z: 0.94}
+  m_LocalPosition: {x: -0, y: 7.082, z: 0.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4058,6 +4058,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9097134950827966906}
+  - component: {fileID: 4595111555828545364}
+  - component: {fileID: 6686591343148010671}
+  - component: {fileID: 5851539406914477107}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -4082,6 +4085,67 @@ Transform:
   - {fileID: 3421931658334914930}
   m_Father: {fileID: 8519324670821893643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4595111555828545364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5397618617918728968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a574016977ec55a4283544aaa8922fa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShipButton
+--- !u!114 &6686591343148010671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5397618617918728968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 1589310318
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &5851539406914477107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5397618617918728968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9477eda9aabe024b922cc16e52c7018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Lever
+  ShowTopMostFoldoutHeaderGroup: 1
+  LC: []
+  IB: {fileID: 0}
+  animationActive: 
+  IsButton: 0
+  WasPulled: 0
+  BasicButtonTime: 0
+  MaxButtonTime: 0
+  HoldLever: 0
+  HoldTime: 0
+  Oppisite: 0
+  pulled: 0
 --- !u!1 &5460341487283485093
 GameObject:
   m_ObjectHideFlags: 0
@@ -6004,6 +6068,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 593879051138966024}
+  - component: {fileID: 7494018462359482247}
   m_Layer: 0
   m_Name: SpaceShipNOTFINISHED
   m_TagString: Untagged
@@ -6028,6 +6093,26 @@ Transform:
   - {fileID: 2529212593104464131}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7494018462359482247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438905759736473147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98f2617d9eb0404fbd76af306f20584, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShipLauncher
+  shipArmObject: {fileID: 840858523759584033}
+  shipScreenMatSwapObject: {fileID: 7237114230010824884}
+  shipDoorTriggerObject: {fileID: 5756245660979804170}
+  shipScreenMatSwap1: {fileID: 2100000, guid: e61b73e7ab52d9447900dd82b6849317, type: 2}
+  shipScreenMatSwap2: {fileID: 2100000, guid: b50278755dde291429283835ddc12ee1, type: 2}
+  ScreenWarningBlinkInterval: 0.5
+  ShipArmRotateSpeed: 0.2
+  ShipArmRotateAmount: 90
 --- !u!1 &7480116684816515369
 GameObject:
   m_ObjectHideFlags: 0
