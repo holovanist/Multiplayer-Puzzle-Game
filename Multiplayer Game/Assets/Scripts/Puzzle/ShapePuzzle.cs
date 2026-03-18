@@ -12,13 +12,11 @@ public class ShapePuzzle : MonoBehaviour
     int CorrectShapeCount;
     bool UpdateShape;
     Animator anim;
-    public string animationTrigger1;
-    public string animationTrigger2;
-    public string animationTrigger3;
-    public string animationTrigger4;
+    public string animationTrigger;
     private void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>(); 
+        SpawnPuzzle();
     }
     private void Update()
     {
@@ -43,33 +41,68 @@ public class ShapePuzzle : MonoBehaviour
         {
             if(anim != null)
             {
-                anim.SetBool(animationTrigger1, true);
+                anim.SetBool(animationTrigger, true);
             }
         }
         else
         {
             if (anim != null)
             {
-                anim.SetBool(animationTrigger1, false);
+                anim.SetBool(animationTrigger, false);
             }
         }
     }
-    public void ScrollToNextObject()
+    public void ScrollToNextObject(bool Add, int ShapeID)
     {
-        UpdateShape = true;
-        for (int i = 0; i < ShapesToScroll.Count; ++i)
+        for (int i = 0; i < ShapesToScroll.Count; i++)
         {
-            if (ShapesToScroll[i].ObjectSpawned + 1 < ShapesToScroll[i].PuzzleObjects.Count)
+            for (int j = 0; j < ShapesToScroll[ShapeID].PuzzleObjects.Count; j++)
             {
-                int ObjectToSpawn = ShapesToScroll[i].ObjectSpawned++;
+                ShapesToScroll[ShapeID].PuzzleObjects[j].SetActive(false);
             }
-            else if (ShapesToScroll[i].ObjectSpawned + 1 >= ShapesToScroll[i].PuzzleObjects.Count)
-            {
-                int ObjectToSpawn = ShapesToScroll[i].ObjectSpawned = 0;
-            }
-
-            PuzzleObjects[i] = ShapesToScroll[i].ObjectSpawned;
         }
+        UpdateShape = true;
+        if(Add)
+        {
+            if (ShapesToScroll[ShapeID].ObjectSpawned < ShapesToScroll[ShapeID].PuzzleObjects.Count)
+            {
+                ShapesToScroll[ShapeID].ObjectSpawned++;
+                int ObjectToSpawn = ShapesToScroll[ShapeID].ObjectSpawned;
+                for (int j = 0; j < ObjectToSpawn; j++)
+                {
+                    ShapesToScroll[ShapeID].PuzzleObjects[j].SetActive(true);
+                }
+            }
+            else if (ShapesToScroll[ShapeID].ObjectSpawned >= ShapesToScroll[ShapeID].PuzzleObjects.Count)
+            {
+                int ObjectToSpawn = ShapesToScroll[ShapeID].ObjectSpawned = 1;
+                for (int j = 0; j < ObjectToSpawn; j++)
+                {
+                    ShapesToScroll[ShapeID].PuzzleObjects[j].SetActive(true);
+                }
+            }
+        }
+        else
+        {
+            if (ShapesToScroll[ShapeID].ObjectSpawned <= 1)
+            {
+                int ObjectToSpawn = ShapesToScroll[ShapeID].ObjectSpawned = 3;
+                for (int j = 0; j < ObjectToSpawn; j++)
+                {
+                    ShapesToScroll[ShapeID].PuzzleObjects[j].SetActive(true);
+                }
+            }
+            else if (ShapesToScroll[ShapeID].ObjectSpawned <= ShapesToScroll[ShapeID].PuzzleObjects.Count)
+            {
+                ShapesToScroll[ShapeID].ObjectSpawned--;
+                int ObjectToSpawn = ShapesToScroll[ShapeID].ObjectSpawned;
+                for (int j = 0; j < ObjectToSpawn; j++)
+                {
+                    ShapesToScroll[ShapeID].PuzzleObjects[j].SetActive(true);
+                }
+            }
+        }
+
     }
     public void SpawnPuzzle()
     {
