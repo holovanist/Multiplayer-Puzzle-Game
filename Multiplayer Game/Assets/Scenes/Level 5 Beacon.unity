@@ -2756,15 +2756,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3291672010605860225, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 136.90065
+      value: 9.800652
       objectReference: {fileID: 0}
     - target: {fileID: 3291672010605860225, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 218
+      value: 189.03256
       objectReference: {fileID: 0}
     - target: {fileID: 3291672010605860225, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 67.400024
+      value: 113.1001
       objectReference: {fileID: 0}
     - target: {fileID: 3291672010605860225, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3318,13 +3318,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1229974141}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1263.6}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 127.1, y: 28.967442, z: -1309.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1337976152}
   - {fileID: 1153032842}
+  - {fileID: 1337976152}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1263714866
@@ -3658,7 +3658,7 @@ Transform:
   m_GameObject: {fileID: 1337976149}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -412, y: 16.212, z: -504.87}
+  m_LocalPosition: {x: -539.1, y: -12.755442, z: -459.16992}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3733,6 +3733,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 604013936695720748, guid: 4891eb1f725131243900fdf28ef66aee, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6686591343148010671, guid: 4891eb1f725131243900fdf28ef66aee, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3027658914
@@ -3741,6 +3745,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpaceShip
       objectReference: {fileID: 0}
+    - target: {fileID: 7494018462359482247, guid: 4891eb1f725131243900fdf28ef66aee, type: 3}
+      propertyPath: shipDoorOpener
+      value: 
+      objectReference: {fileID: 2076886991}
+    - target: {fileID: 7494018462359482247, guid: 4891eb1f725131243900fdf28ef66aee, type: 3}
+      propertyPath: WhaleTerrainParentObject
+      value: 
+      objectReference: {fileID: 1229974141}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4834,6 +4846,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2076886991 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2769525179540160946, guid: 4891eb1f725131243900fdf28ef66aee, type: 3}
+  m_PrefabInstance: {fileID: 1404732776}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6023603181e221d4b8ee88c44a87a1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShipDoorOpener
 --- !u!65 &2103317630
 BoxCollider:
   m_ObjectHideFlags: 0
