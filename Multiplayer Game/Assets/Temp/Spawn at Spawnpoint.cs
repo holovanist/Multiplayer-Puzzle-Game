@@ -3,6 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class SpawnatSpawnpoint : MonoBehaviour
 {
+    private void Start()
+    {
+        GetComponent<CharacterController>().enabled = false;
+        if (GameObject.FindGameObjectWithTag("SpawnPoint") != null)
+            transform.position = GameObject.FindGameObjectWithTag("SpawnPoint").transform.position + new Vector3(Random.Range(0, 4f), 0, Random.Range(0, 4f));
+        GetComponent<CharacterController>().enabled = true;
+    }
     void OnEnable()
     {
         //Tell our 'OnLevelFinishedLoading' function to start listening for a scene change as soon as this script is enabled.
