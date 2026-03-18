@@ -5,8 +5,9 @@ public class InteractiveButtons : NetworkBehaviour
 {
     public Light Light;
     public AudioSource Sound;
-    AudioClip AudioClip;
+    public AudioClip AudioClip;
     public Lever[] Levers;
+    public Button Button;
     public bool CanPlayAudio;
     public bool CanEnableLight;
     public int NumberOfLeversActive { get; set; }
@@ -16,9 +17,11 @@ public class InteractiveButtons : NetworkBehaviour
     {
         Light.enabled = false;
     }
+    float AudioCooldown;
     private void Update()
     {
-        if (Levers != null && LeverStateChanged)
+        AudioCooldown += Time.deltaTime;
+        if (Levers != null && LeverStateChanged || Button != null && LeverStateChanged)
         {
             LeverUpdater();
         }
@@ -28,26 +31,51 @@ public class InteractiveButtons : NetworkBehaviour
     {
         NumberOfLeversDisabled = 0;
         NumberOfLeversActive = 0;
-        for (int i = 0; i < Levers.Length; i++)
+        if(Button != null)
         {
-            if (Levers[i].LeverActive == true)
+            if (Button.ButtonsActive == true)
             {
-                NumberOfLeversActive++;
+                NumberOfLeversActive = 1;
             }
-            if (Levers[i].LeverActive == false)
+            if (Button.ButtonsActive == false)
             {
-                NumberOfLeversDisabled++;
+                NumberOfLeversDisabled = 1;
+            }
+            if (NumberOfLeversActive == 1 && AudioCooldown >= 1f)
+            {
+                LeverEnabledRpc();
+            }
+            else if (NumberOfLeversDisabled <= 1)
+            {
+                if (CanEnableLight)
+                {
+                    LeverDisabledRpc();
+                }
             }
         }
-        if (NumberOfLeversActive == Levers.Length)
+        else
         {
-            LeverEnabledRpc();
-        }
-        else if (NumberOfLeversDisabled <= Levers.Length)
-        {
-            if (CanEnableLight)
+            for (int i = 0; i < Levers.Length; i++)
             {
-                LeverDisabledRpc();
+                if (Levers[i].LeverActive == true)
+                {
+                    NumberOfLeversActive++;
+                }
+                if (Levers[i].LeverActive == false)
+                {
+                    NumberOfLeversDisabled++;
+                }
+            }
+            if (NumberOfLeversActive == Levers.Length && AudioCooldown >= 1f)
+            {
+                LeverEnabledRpc();
+            }
+            else if (NumberOfLeversDisabled <= Levers.Length)
+            {
+                if (CanEnableLight)
+                {
+                    LeverDisabledRpc();
+                }
             }
         }
         LeverStateChanged = false;
@@ -68,6 +96,7 @@ public class InteractiveButtons : NetworkBehaviour
         {
             Light.enabled = true;
         }
+        AudioCooldown = 0;
     }
     [Rpc(SendTo.Everyone)]
     public void LeverDisabledRpc()

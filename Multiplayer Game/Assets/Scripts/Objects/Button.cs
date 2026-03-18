@@ -8,6 +8,7 @@ public class Button : MonoBehaviour
     public string animationTriggerDown;
     public ButtonController BC;
     public StartNextLevel StartNextLevel;
+    public InteractiveButtons IB;
     int ObjectsOnButton;
     public bool Oppisite;
     public bool StayActive;
@@ -27,6 +28,8 @@ public class Button : MonoBehaviour
             BC.ButtonStateChanged = true;
         else if (StartNextLevel != null)
             StartNextLevel.ButtonStateChanged = true;
+        else if (IB != null)
+            IB.LeverStateChanged = true;
         if (anim != null)
             anim.SetTrigger(animationTriggerDown);
     }
@@ -42,6 +45,8 @@ public class Button : MonoBehaviour
                 BC.ButtonStateChanged = true;
             else if (StartNextLevel != null)
                 StartNextLevel.ButtonStateChanged = true;
+            else if (IB != null)
+                IB.LeverStateChanged = true;
             if (anim != null)
                 anim.SetTrigger(animationTriggerUp);
         }
@@ -56,6 +61,8 @@ public class Button : MonoBehaviour
             BC.ButtonStateChanged = true;
         else if (StartNextLevel != null)
             StartNextLevel.ButtonStateChanged = true;
+        else if (IB != null)
+            IB.LeverStateChanged = true;
         if (anim != null)
             anim.SetTrigger(animationTriggerDown);
     }
@@ -71,6 +78,8 @@ public class Button : MonoBehaviour
                 BC.ButtonStateChanged = true;
             else if (StartNextLevel != null)
                 StartNextLevel.ButtonStateChanged = true;
+            else if (IB != null)
+                IB.LeverStateChanged = true;
             if (anim != null)
                 anim.SetTrigger(animationTriggerUp);
         }
