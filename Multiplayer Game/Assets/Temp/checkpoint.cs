@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Checkpoint : NetworkBehaviour
 {
-    Vector3 position;
+    public Vector3 position {  get; private set; }
     Quaternion rotation;
     Vector3 scale;
     public bool Reset { get; set; }
