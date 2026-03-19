@@ -89,7 +89,7 @@ public class PickupObjects : NetworkBehaviour
             }
             else
             {
-                holdPosition = hit.point + new Vector3(-(cameraTransform.forward.x / 3), .6f, -(cameraTransform.forward.z / 3));
+                holdPosition = hit.point + new Vector3(-(cameraTransform.forward.x / 3), 1.6f, -(cameraTransform.forward.z / 3));
                 hitObject.transform.position = holdPosition;
             }
         }   

@@ -10,7 +10,7 @@ public class CreatePicture : NetworkBehaviour
     [SerializeField] int MaxPictures = 5;
     List<GameObject> Pictures = new();
     StoredObjectData StoredData;
-    PlayerInput PlayerInput;
+    PlayerInputHandler PlayerInput;
     private void Start()
     {
         StoredData= GetComponent<StoredObjectData>();
@@ -19,18 +19,21 @@ public class CreatePicture : NetworkBehaviour
     {
         if(StoredData.IsHeld && PlayerInput == null)
         {
-            PlayerInput = GetComponentInParent<PlayerInput>();
+            PlayerInput = GetComponentInParent<PlayerInputHandler>();
         }
-        if(PlayerInput != null && PlayerInput.actions.FindAction("Left Click").WasPressedThisFrame() && StoredData.IsHeld)
+        if(PlayerInput != null && StoredData != null)
         {
-            if(Pictures.Count > MaxPictures)
+            if(PlayerInput.playerControls.FindAction("Left Click").WasPressedThisFrame() && StoredData.IsHeld)
             {
-                DestroyObjectRpc(Pictures[0]);
-                Pictures.RemoveAt(0);
+                if(Pictures.Count > MaxPictures)
+                {
+                    DestroyObjectRpc(Pictures[0]);
+                    Pictures.RemoveAt(0);
+                }
+                TakePictureRpc();
+                if(Picture != null)
+                Pictures.Add(Picture);
             }
-            TakePictureRpc();
-            if(Picture != null)
-            Pictures.Add(Picture);
         }
     }
     GameObject Picture;

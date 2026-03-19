@@ -161,6 +161,7 @@ MonoBehaviour:
   animationTriggerDown: 
   BC: {fileID: 193095858}
   StartNextLevel: {fileID: 0}
+  IB: {fileID: 0}
   Oppisite: 0
   StayActive: 0
 --- !u!65 &54739008
@@ -3363,8 +3364,10 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   Light: {fileID: 527907325}
   Sound: {fileID: 0}
+  AudioClip: {fileID: 0}
   Levers:
   - {fileID: 0}
+  Button: {fileID: 0}
   CanPlayAudio: 0
   CanEnableLight: 1
 --- !u!114 &527907328
@@ -4197,6 +4200,7 @@ MonoBehaviour:
   animationTriggerDown: 
   BC: {fileID: 193095858}
   StartNextLevel: {fileID: 0}
+  IB: {fileID: 0}
   Oppisite: 0
   StayActive: 0
 --- !u!65 &704813545
@@ -7895,46 +7899,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8edbf698885d0ac42b80c00f9d4a5d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShapePuzzle
-  ShapesToRandomize:
-  - ObjectSpawned: 0
-    PuzzleObjects:
-    - {fileID: 7608009003383700147, guid: 829302af54f1b0146ba9e71eb126b760, type: 3}
-    - {fileID: 7608009003383700147, guid: 2680d091c5ba6364fbc5a163da8e1762, type: 3}
-    - {fileID: 7608009003383700147, guid: 80eb9eb6f5a1f5c40ab26681cb7723ed, type: 3}
-    - {fileID: 7608009003383700147, guid: 71bb392f6f9ad334d94f31b7a5267e99, type: 3}
-    PuzzleSpawnLocations: {fileID: 0}
-    SpawnedObjects: {fileID: 0}
-  - ObjectSpawned: 0
-    PuzzleObjects:
-    - {fileID: 7608009003383700147, guid: 279f0287efb81b647b01144705b54b46, type: 3}
-    - {fileID: 7608009003383700147, guid: 26ad22343107a824294e2e6da9389c65, type: 3}
-    - {fileID: 7608009003383700147, guid: 75c643a11c76d1f4e947f18f6e540cb5, type: 3}
-    - {fileID: 7608009003383700147, guid: 4657184dc17a3fb41ab36d36c8912181, type: 3}
-    PuzzleSpawnLocations: {fileID: 0}
-    SpawnedObjects: {fileID: 0}
-  - ObjectSpawned: 0
-    PuzzleObjects:
-    - {fileID: 7608009003383700147, guid: 163cacc9a17c8e74e83e8b46b90180ac, type: 3}
-    - {fileID: 7608009003383700147, guid: 83d88a028bb3fa14695b272fdee4c1f6, type: 3}
-    - {fileID: 7608009003383700147, guid: 2438a9719a81c7c40be2d701bdbbcb80, type: 3}
-    - {fileID: 7608009003383700147, guid: 2ad7271f5a6492d4780216b0512ef6af, type: 3}
-    PuzzleSpawnLocations: {fileID: 0}
-    SpawnedObjects: {fileID: 0}
-  - ObjectSpawned: 0
-    PuzzleObjects:
-    - {fileID: 7608009003383700147, guid: e2dd5bed0c2589442af6e4a0a0fdfdfb, type: 3}
-    - {fileID: 7608009003383700147, guid: 76b9f0843a7ecef4283f8bc56ac42a95, type: 3}
-    - {fileID: 7608009003383700147, guid: 42ba708e01dd0464b8760d058cef203c, type: 3}
-    - {fileID: 7608009003383700147, guid: af4328a5454bb034187036aeb0075c5c, type: 3}
-    PuzzleSpawnLocations: {fileID: 0}
-    SpawnedObjects: {fileID: 0}
+  ShapesToScroll: []
   SpawnPuzzleObjects: 0
   RemovePuzzle: 0
   PuzzleObjects: 
-  animationTrigger1: 
-  animationTrigger2: 
-  animationTrigger3: 
-  animationTrigger4: 
+  animationTrigger: 
+  RequiredText: {fileID: 0}
 --- !u!1 &936317373
 GameObject:
   m_ObjectHideFlags: 0
@@ -9161,6 +9131,7 @@ MonoBehaviour:
   animationTriggerDown: 
   BC: {fileID: 193095858}
   StartNextLevel: {fileID: 0}
+  IB: {fileID: 0}
   Oppisite: 0
   StayActive: 0
 --- !u!65 &1247492651

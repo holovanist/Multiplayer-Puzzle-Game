@@ -138,7 +138,7 @@ public class ShapePuzzle : MonoBehaviour
         int object1 = PuzzleObjects[0];
         int object2 = PuzzleObjects[1];
         int object3 = PuzzleObjects[2];
-        RequiredText.text = object1.ToString() + " " + ShapesToScroll[0].PuzzleObjects[0].name + "\n" + object2.ToString() + " " + ShapesToScroll[1].PuzzleObjects[0].name + "\n" + object3.ToString() + " " + ShapesToScroll[2].PuzzleObjects[0].name;
+        RequiredText.text = object1.ToString() + " " + ShapesToScroll[0].PuzzleObjects[0].name + Environment.NewLine + object2.ToString() + " " + ShapesToScroll[1].PuzzleObjects[0].name + Environment.NewLine + object3.ToString() + " " + ShapesToScroll[2].PuzzleObjects[0].name;
     }
 }
 [Serializable]
