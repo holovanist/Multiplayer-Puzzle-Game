@@ -63,10 +63,10 @@ public class PlayerMovement : NetworkBehaviour
     }
     private void Update()
     {
-        if(transform.position.y <= -10)
+        if(transform.position.y <= -1000)
         {
             characterController.enabled = false;
-            transform.position = new Vector3(0, 10, 0);
+            transform.position = GetComponent<Checkpoint>().position;
             characterController.enabled = true;
         }
         HandleAnimationRPC(crouching, Input.MovementInput, Input.SprintTriggered);

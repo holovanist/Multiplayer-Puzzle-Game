@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,6 +14,7 @@ public class ShapePuzzle : MonoBehaviour
     bool UpdateShape;
     Animator anim;
     public string animationTrigger;
+    public TextMeshPro RequiredText;
     private void Start()
     {
         anim = GetComponent<Animator>(); 
@@ -106,6 +108,7 @@ public class ShapePuzzle : MonoBehaviour
     }
     public void SpawnPuzzle()
     {
+        RequiredText.text = string.Empty;
         for (int i = 0; i < PuzzleObjects.Count; i++)
         {
             PuzzleObjects[i] = Random.Range(1, PuzzleObjects.Count+1);
@@ -118,7 +121,24 @@ public class ShapePuzzle : MonoBehaviour
                 ShapesToScroll[i].PuzzleObjects[j].SetActive(true);
             }
             ShapesToScroll[i].ObjectSpawned = ObjectToSpawn;
+            if (ShapesToScroll[i].ObjectSpawned == PuzzleObjects[i])
+            {
+                    int ObjectToSpawnRedo = Random.Range(1, ShapesToScroll[i].PuzzleObjects.Count + 1);
+                for (int j = 0; j < PuzzleObjects.Count; j++)
+                {
+                    ShapesToScroll[i].PuzzleObjects[j].SetActive(false);
+                }
+                for (int j = 0; j < ObjectToSpawnRedo; j++)
+                {
+                    ShapesToScroll[i].PuzzleObjects[j].SetActive(true);
+                }
+                ShapesToScroll[i].ObjectSpawned = ObjectToSpawnRedo;
+            }
         }
+        int object1 = PuzzleObjects[0];
+        int object2 = PuzzleObjects[1];
+        int object3 = PuzzleObjects[2];
+        RequiredText.text = object1.ToString() + " " + ShapesToScroll[0].PuzzleObjects[0].name + "\n" + object2.ToString() + " " + ShapesToScroll[1].PuzzleObjects[0].name + "\n" + object3.ToString() + " " + ShapesToScroll[2].PuzzleObjects[0].name;
     }
 }
 [Serializable]
