@@ -5749,7 +5749,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1366355039594373136
 Transform:
@@ -6270,11 +6270,16 @@ MonoBehaviour:
   shipArmObject: {fileID: 840858523759584033}
   shipScreenMatSwapObject: {fileID: 7237114230010824884}
   shipDoorTriggerObject: {fileID: 5756245660979804170}
+  whaleTerrainParentObject: {fileID: 0}
   shipScreenMatSwap1: {fileID: 2100000, guid: e61b73e7ab52d9447900dd82b6849317, type: 2}
   shipScreenMatSwap2: {fileID: 2100000, guid: b50278755dde291429283835ddc12ee1, type: 2}
-  ScreenWarningBlinkInterval: 0.5
-  ShipArmRotateSpeed: 0.2
-  ShipArmRotateAmount: 90
+  shipDoorOpener: {fileID: 2769525179540160946}
+  screenWarningBlinkInterval: 0.5
+  shipArmRotateSpeed: 0.2
+  shipArmRotateAmount: 90
+  skipPlayerCountCheck: 1
+  maxFlightSpeed: 0.5
+  midFlightRotation: {x: 5, y: -90, z: -5}
 --- !u!1 &7480116684816515369
 GameObject:
   m_ObjectHideFlags: 0
