@@ -74,12 +74,12 @@ public class PlayerMovement : NetworkBehaviour
         HandleCrouching();
         if(crouch && crouching)
         {
-            Crouch.CrouchRPC(crouching, 1.4f, new(0, .65f, 0), 1, new(0, -.5f, 0));
+            Crouch.CrouchRPC(crouching, 1.4f, new(0, .65f, 0), 2, new(0, -.5f, 0));
             crouch = false;
         }
         else if (uncrouch && !crouching)
         {
-            Crouch.CrouchRPC(false, 1.8f, new(0, .9f, 0), 2f, new(0, 0, 0));
+            Crouch.CrouchRPC(false, 1.8f, new(0, .9f, 0), 3.8f, new(0, 0, 0));
             uncrouch = false;
         }
         if (IsServer)
@@ -235,7 +235,7 @@ public class PlayerMovement : NetworkBehaviour
         if (Jumping)
         {
             crouching = false;
-            Crouch.CrouchRPC(false, 1.8f, new(0, .9f, 0), 2f, new(0, 0, 0));
+            Crouch.CrouchRPC(false, 1.8f, new(0, .9f, 0), 3.8f, new(0, 0, 0));
             time = 0f;
         }
     }
