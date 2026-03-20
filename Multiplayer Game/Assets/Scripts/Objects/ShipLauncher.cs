@@ -108,7 +108,7 @@ public class ShipLauncher : MonoBehaviour
         //moves terrain back and up easing into the vertical movement
         whaleTerrainParentObject.transform.position = new Vector3(objectPos.x - maxFlightSpeed, objectPos.y - (useMaxSpeed1 ? maxFlightSpeed : SpeedEaseIn(lastSpeedUsed)), objectPos.z);
         //stops movement when terrain is out of sight
-        if (Vector3.Distance(transform.position, objectPos) >= 500)
+        if (Vector3.Distance(transform.position, objectPos) >= 1000)
         {
             currentFlightStep = 3;
         }

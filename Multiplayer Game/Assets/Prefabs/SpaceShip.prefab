@@ -6248,7 +6248,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3.17, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1366355039594373136}
@@ -6279,7 +6279,6 @@ MonoBehaviour:
   shipArmRotateAmount: 90
   skipPlayerCountCheck: 1
   maxFlightSpeed: 0.5
-  midFlightRotation: {x: 5, y: -90, z: -5}
 --- !u!1 &7480116684816515369
 GameObject:
   m_ObjectHideFlags: 0
