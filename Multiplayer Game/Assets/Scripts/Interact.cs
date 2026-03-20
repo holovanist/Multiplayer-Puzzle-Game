@@ -16,7 +16,7 @@ public class Interact : MonoBehaviour
     TextMeshProUGUI InteractText;
     public float InteractDelay;
     public GameObject _Camera;
-    float timer = 0;
+    float DelayTimer = 0;
     Lever TempLever;
     Monitor TempMonitor;
     // Start is called before the first frame update
@@ -31,9 +31,9 @@ public class Interact : MonoBehaviour
     void Update()
     {
         Ray ray = new(_Camera.transform.position, _Camera.transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
+        if (InteractDelay < DelayTimer && Physics.Raycast(ray, out RaycastHit hit, interactRange))
         {
-            if (hit.collider.gameObject.CompareTag("Lever"))
+            if (HitInteractableObject(hit))
             {
                 if (InteractText != null)
                     InteractText.enabled = true;
@@ -44,15 +44,15 @@ public class Interact : MonoBehaviour
             if (InteractText != null)
                 InteractText.enabled = false;
         }
-                timer += Time.deltaTime;
+        DelayTimer += Time.deltaTime;
         if(_Interact.IsPressed())
-            LeverInteraction();
+            Interaction();
         else if(TempLever != null)
         {
             TempLever.Interact = false;
         }
     }
-    private void LeverInteraction()
+    private void Interaction()
     {
         Ray ray = new(_Camera.transform.position, _Camera.transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
@@ -60,18 +60,14 @@ public class Interact : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("Lever"))
             {
                 Lever InteractObject = hit.collider.gameObject.GetComponent<Lever>();
-                if (InteractText != null)
-                    InteractText.enabled = true;
                 TempLever = InteractObject;
                 if(!InteractObject.WasPulled)
                 InteractObject.Interact = true;
                 if(!InteractObject.HoldLever)
                 {
-                    if (timer > InteractDelay)
+                    if (DelayTimer > InteractDelay)
                     {
-                        timer = 0;
-                        if (InteractText != null)
-                            InteractText.enabled = false;
+                        DelayTimer = 0;
                         InteractObject.OnInteract();
                     }
                 }
@@ -79,22 +75,18 @@ public class Interact : MonoBehaviour
                 {
                     if(InteractObject.IsButton && InteractObject.HoldLever)
                     {
-                        if (InteractText != null)
-                            InteractText.enabled = false;
                         InteractObject.OnInteract();
                     }
-                    else if (timer > InteractDelay)
+                    else if (DelayTimer > InteractDelay)
                     {
-                        if (InteractText != null)
-                            InteractText.enabled = false;
                         InteractObject.OnInteract();
                         if(InteractObject.LeverActive)
                         {
-                            timer = -1;
+                            DelayTimer = -1;
                         }
                         else if (InteractObject.Timer > InteractObject.HoldTime && !InteractObject.LeverActive)
                         {
-                            timer = 0;
+                            DelayTimer = 0;
                         }
                     }
                 }
@@ -102,27 +94,44 @@ public class Interact : MonoBehaviour
             else if (hit.collider.gameObject.CompareTag("Monitor"))
             {
                 Monitor InteractObject = hit.collider.gameObject.GetComponent<Monitor>();
-                if (InteractText != null)
-                    InteractText.enabled = true;
                 TempMonitor = InteractObject;
-                if (timer > InteractDelay)
+                if (DelayTimer > InteractDelay)
                 {
-                    timer = 0;
-                    if (InteractText != null)
-                        InteractText.enabled = false;
+                    DelayTimer = 0;
                     InteractObject.SetBool(GetComponentInChildren<Camera>());
                 }
-            }    
-            else
-            {
-                if (InteractText != null)
-                    InteractText.enabled = false;
             }
+            else if (hit.collider.gameObject.CompareTag("Rotate Wire clockwise"))
+            {
+                Circutboard InteractObject = hit.collider.gameObject.GetComponent<Circutboard>();
+                if (DelayTimer > InteractDelay)
+                {
+                    DelayTimer = 0;
+                    InteractObject.RotateWireClockwiseRPC();
+                }
+            }
+            else if (hit.collider.gameObject.CompareTag("Rotate Wire counter clockwise"))
+            {
+                Circutboard InteractObject = hit.collider.gameObject.GetComponent<Circutboard>();
+                if (DelayTimer > InteractDelay)
+                {
+                    DelayTimer = 0;
+                    InteractObject.RotateWireCounterClockwiseRPC();
+                }
+            }
+        }
+    }
+    bool HitInteractableObject(RaycastHit hit)
+    {
+        bool interactable = false;
+        if(hit.collider.gameObject.CompareTag("Lever") || hit.collider.gameObject.CompareTag("Monitor") || hit.collider.gameObject.CompareTag("Rotate Wire clockwise") || hit.collider.gameObject.CompareTag("Rotate Wire counter clockwise"))
+        {
+            interactable = true;
         }
         else
         {
-            if (InteractText != null)
-                InteractText.enabled = false;
+            interactable = false;
         }
+        return interactable;
     }
 }

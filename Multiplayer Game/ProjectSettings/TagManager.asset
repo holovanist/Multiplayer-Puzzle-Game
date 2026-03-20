@@ -17,6 +17,8 @@ TagManager:
   - Monitor
   - Disable Player
   - SpawnPoint
+  - Rotate Wire clockwise
+  - Rotate Wire counter clockwise
   layers:
   - Default
   - TransparentFX
