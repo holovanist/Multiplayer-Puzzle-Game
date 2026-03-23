@@ -617,7 +617,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4718410076691399834, guid: 0e7481860c1bfa646abcb67a904259bf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 42.456
+      value: 42.49
       objectReference: {fileID: 0}
     - target: {fileID: 4718410076691399834, guid: 0e7481860c1bfa646abcb67a904259bf, type: 3}
       propertyPath: m_LocalPosition.y
@@ -867,7 +867,7 @@ Transform:
   m_GameObject: {fileID: 334550269}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 286.6947, y: 33.58798, z: -90.785645}
+  m_LocalPosition: {x: 282.7, y: 33.58798, z: -90.785645}
   m_LocalScale: {x: 1, y: 100, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1639,6 +1639,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeaconMap2
       objectReference: {fileID: 0}
+    - target: {fileID: 7766470307892145903, guid: e7e8b2eafc12cd847b0e6b09495e7188, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 38.706684
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766470307892145903, guid: e7e8b2eafc12cd847b0e6b09495e7188, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -29.6382
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2338,6 +2346,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestLever (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1669730559760404550, guid: 57c06c1ef93417b4cb822ac56a3129a9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 08b32cb3a5901ba498f268ab2e6f2f79, type: 2}
     - target: {fileID: 3861856561290123907, guid: 57c06c1ef93417b4cb822ac56a3129a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 70.49
@@ -2377,6 +2389,14 @@ PrefabInstance:
     - target: {fileID: 3861856561290123907, guid: 57c06c1ef93417b4cb822ac56a3129a9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468022979687603110, guid: 57c06c1ef93417b4cb822ac56a3129a9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 08b32cb3a5901ba498f268ab2e6f2f79, type: 2}
+    - target: {fileID: 5878264949328578671, guid: 57c06c1ef93417b4cb822ac56a3129a9, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1902263847
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2419,8 +2439,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.557455, z: 0.9999987}
+  m_Center: {x: 0, y: 0.2787265, z: 0}
 --- !u!4 &863883545
 Transform:
   m_ObjectHideFlags: 0
@@ -2770,6 +2790,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestLever
       objectReference: {fileID: 0}
+    - target: {fileID: 1669730559760404550, guid: 57c06c1ef93417b4cb822ac56a3129a9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 08b32cb3a5901ba498f268ab2e6f2f79, type: 2}
     - target: {fileID: 3861856561290123907, guid: 57c06c1ef93417b4cb822ac56a3129a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 79.937416
@@ -2809,6 +2833,14 @@ PrefabInstance:
     - target: {fileID: 3861856561290123907, guid: 57c06c1ef93417b4cb822ac56a3129a9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468022979687603110, guid: 57c06c1ef93417b4cb822ac56a3129a9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 08b32cb3a5901ba498f268ab2e6f2f79, type: 2}
+    - target: {fileID: 5878264949328578671, guid: 57c06c1ef93417b4cb822ac56a3129a9, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 976632854
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3729,8 +3761,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.9329588, z: 1}
+  m_Center: {x: 0, y: 0.46648046, z: 0}
 --- !u!4 &1212001500
 Transform:
   m_ObjectHideFlags: 0
@@ -3881,8 +3913,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Have a crouch script on the player to the top player can crouch through
-    this vent
+  m_text: Let the player crouch through this vent
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
