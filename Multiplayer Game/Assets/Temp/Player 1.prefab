@@ -2916,13 +2916,13 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
-  orthographic: 1
+  field of view: 75
+  orthographic: 0
   orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 32
+    m_Bits: 1024
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -3053,7 +3053,7 @@ GameObject:
   - component: {fileID: 4412445247774053717}
   - component: {fileID: 5803801882024623419}
   - component: {fileID: 616597934080536756}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3717,7 +3717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2075552551
+  GlobalObjectIdHash: 3482853921
   InScenePlacedSourceGlobalObjectIdHash: 2075552551
   DeferredDespawnTick: 0
   Ownership: 1
@@ -3794,13 +3794,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 3.8
+  m_Height: 3.6
   m_Radius: 1
   m_SlopeLimit: 90
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!114 &144034495949649357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7037,7 +7037,7 @@ GameObject:
   - component: {fileID: 1045790273959510833}
   - component: {fileID: 8616201343413671095}
   - component: {fileID: 3916217120998034569}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7817,7 +7817,7 @@ GameObject:
   - component: {fileID: 258201662775891411}
   - component: {fileID: 6400548130283944993}
   - component: {fileID: 4677398367206994507}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7856,7 +7856,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 5190223577523016775}
-  m_PlaneDistance: 5
+  m_PlaneDistance: 75
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0

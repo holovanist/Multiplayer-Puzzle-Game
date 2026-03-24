@@ -39,14 +39,14 @@ public class Lever : NetworkBehaviour
         {
             if (Oppisite) LeverActive = true;
             else LeverActive = false;
-            if (LC != null)
+            if (IB != null) IB.LeverStateChanged = true;
+            else if (LC != null)
             {
                 for(int i = 0; i < LC.Length; i++)
                 {
                     LC[i].LeverStateChanged = true;
                 }
             }
-            if (IB != null) IB.LeverStateChanged = true;
             WasPulled = false;
             pulled = false;
         }
@@ -56,14 +56,14 @@ public class Lever : NetworkBehaviour
         {
             if (Oppisite) LeverActive = true;
             else LeverActive = false;
-            if(LC != null)
+            if (IB != null) IB.LeverStateChanged = true;
+            else if(LC != null)
             {
                 for (int i = 0; i < LC.Length; i++)
                 {
                     LC[i].LeverStateChanged = true;
                 }
             }
-            if (IB != null) IB.LeverStateChanged = true;
             WasPulled = false;
             pulled = false;
         }
@@ -78,28 +78,28 @@ public class Lever : NetworkBehaviour
         {
             if (!HoldLever && !IsButton)
             {
-                if (LC != null)
+                if (IB != null) IB.LeverStateChanged = true;
+                else if (LC != null)
                 {
                     for (int i = 0; i < LC.Length; i++)
                     {
                         LC[i].LeverStateChanged = true;
                     }
                 }
-                if (IB != null) IB.LeverStateChanged = true;
                 SetVariablesRPC(Oppisite, false, true, false, true, NetworkObjectId);
 
             }
             else if (Timer > HoldTime && !IsButton)
             {
                 Timer = 0;
-                if (LC != null)
+                if (IB != null) IB.LeverStateChanged = true;
+                else if (LC != null)
                 {
                     for (int i = 0; i < LC.Length; i++)
                     {
                         LC[i].LeverStateChanged = true;
                     }
                 }
-                if (IB != null) IB.LeverStateChanged = true;
                 SetVariablesRPC(Oppisite, true, false, false, true, NetworkObjectId);
                 return;
             }
@@ -109,14 +109,14 @@ public class Lever : NetworkBehaviour
         }
         else if(pulled && !WasPulled)
         {
-            if (LC != null) 
+            if (IB != null) IB.LeverStateChanged = true;
+            else if (LC != null) 
             {                
                 for (int i = 0; i < LC.Length; i++)
                 {
                     LC[i].LeverStateChanged = true;
                 }
             }
-            if (IB != null) IB.LeverStateChanged = true;
             SetVariablesRPC(Oppisite, true, false, true, false, NetworkObjectId);
         }
     }
@@ -137,14 +137,14 @@ public class Lever : NetworkBehaviour
             BasicButtonTimer = BasicButtonTime;
             pulled = true; 
             WasPulled = true;
-            if (LC != null)
+            if (IB != null) IB.LeverStateChanged = true;
+            else if (LC != null)
             {
                 for (int i = 0; i < LC.Length; i++)
                 {
                     LC[i].LeverStateChanged = true;
                 }
             }
-            if (IB != null) IB.LeverStateChanged = true;
             if (!Oppisite) LeverActive = true;
             else LeverActive = false;
             if (anim != null)
@@ -162,14 +162,14 @@ public class Lever : NetworkBehaviour
             else
             pulled = true;
             Timer = 0;
-            if (LC != null)
+            if (IB != null) IB.LeverStateChanged = true;
+            else if (LC != null)
             {
                 for (int i = 0; i < LC.Length; i++)
                 {
                     LC[i].LeverStateChanged = true;
                 }
             }
-            if (IB != null) IB.LeverStateChanged = true;
             if (!Oppisite) LeverActive = true;
             else LeverActive = false;
             if (anim != null)
