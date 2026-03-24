@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Request : MonoBehaviour
 {
-    [SerializeField] GameObject[] ListOfPotentialObject1;
-    [SerializeField] GameObject[] ListOfPotentialObject2;
+    [SerializeField] ObjectsToFeed[] ListOfPotentialObject1;
+    [SerializeField] ObjectsToFeed[] ListOfPotentialObject2;
     public GameObject[] Side1 { get; private set; } = new GameObject[3];
     public GameObject[] Side2 { get; private set; } = new GameObject[3];
     int[] SelectedObject1 = new int[3];
@@ -23,10 +23,12 @@ public class Request : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             SelectedObject1[i] = (Random.Range(0, ListOfPotentialObject1.Length));
+            //set requsted item images
         }
         for (int i = 0; i < 3; i++)
         {
             SelectedObject2[i] = (Random.Range(0, ListOfPotentialObject2.Length));
+            //set requsted item images
         }
     }
     private void Update()
@@ -65,14 +67,14 @@ public class Request : MonoBehaviour
             {
                 for (int i = 0; i < SelectedObject2.Length; i++)
                 {
-                    Side2[i] = ListOfPotentialObject2[SelectedObject2[i]];
+                    Side2[i] = ListOfPotentialObject2[SelectedObject2[i]].GameObject;
                 }
             }
             if(SelectedObject1[0] != SelectedObject1[1] && SelectedObject1[0] != SelectedObject1[2] && SelectedObject1[1] != SelectedObject1[2])
             {
                 for (int i = 0; i < SelectedObject1.Length; i++)
                 {
-                    Side1[i] = ListOfPotentialObject1[SelectedObject1[i]];
+                    Side1[i] = ListOfPotentialObject1[SelectedObject1[i]].GameObject;
                 }
             }
         }

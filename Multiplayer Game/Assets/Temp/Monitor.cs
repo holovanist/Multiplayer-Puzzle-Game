@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Monitor : MonoBehaviour
 {
@@ -27,9 +29,26 @@ public class Monitor : MonoBehaviour
             pos.transform.position = CameraPosition.position;
         }
     }
+    public void sendImageRPC()
+    {
+        //send image ItemID
+        //set image based on ItemID
+    }
+    public void SetImage(int ItemID)
+    {
+        //set item as selected based on ItemID
+    }
     public void SetBool(Camera cam)
     {
         Cam = cam;
         InMonitor = true;
     }
+}
+
+[Serializable]
+public class ObjectsToFeed
+{
+    public Image ObjectPicture { get; set; }
+    public GameObject GameObject { get; set; }
+    public int ItemID { get; set; }
 }
