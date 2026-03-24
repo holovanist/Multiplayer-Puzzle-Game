@@ -15,12 +15,12 @@ public class SpaceWhaleAI : MonoBehaviour
     [SerializeField] float rotationSpeed = 0.01f;
     [SerializeField] bool useSetSpeed = true;
     static Transform pivotFollowObject;
+    static bool FollowingPlayer = false;
     public bool moveWhale = true;
     static Transform _target;
     bool state1 = true;
     private void Start()
     {
-        //_target = pivotFollowObject;
         GetPatrolFollowObject();
         ResumeFigure8Patrol();
     }
@@ -29,12 +29,20 @@ public class SpaceWhaleAI : MonoBehaviour
         if (moveWhale)
         {
             Figure8Patrol();
-            MoveWhale(useSetSpeed);
+            if (FollowingPlayer)
+            {
+                MoveWhale(true);
+            }
+            else
+            {
+                MoveWhale(useSetSpeed);
+            }
         }
     }
-    public static void TargetObject(Transform target)
+    public static void TargetObject(Transform target, bool isPlayer)
     {
         _target = target;
+        FollowingPlayer = isPlayer;
     }
     void GetPatrolFollowObject()
     {
