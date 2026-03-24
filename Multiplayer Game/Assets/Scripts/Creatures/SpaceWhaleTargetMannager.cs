@@ -9,19 +9,19 @@ public class SpaceWhaleTargetMannager : NetworkBehaviour
     [SerializeField] Image rageMeterOutputUIImage;
     [SerializeField] float rageGainSpeed = 1;
     [SerializeField] float pasiveRageDrain = 0.2f;
-    public bool doRageCheck = true;
+    public static bool doRageCheck = true;
     [Header("Don't Edit, View Only")]
     [SerializeField] List<GameObject> playerList;
-    [SerializeField] float rageAmount = 0;
+    [SerializeField] static float rageAmount = 0;
     List<Vector3> lastReportedPlayerPosition = new List<Vector3> {Vector3.zero, Vector3.zero};
     bool currentlyAttacking = false;
-    bool ran = false;
+    static bool ran = false;
     void FixedUpdate()
     {
         if (doRageCheck)
         {
             CalculateRageGain();
-            if (rageAmount > 0.8f && !currentlyAttacking)
+            if (rageAmount > 0.98f && !currentlyAttacking)
             {
                 currentlyAttacking = true;
             }
@@ -62,7 +62,21 @@ public class SpaceWhaleTargetMannager : NetworkBehaviour
     {
         //targets a random player (server side)
         TargetRandomPlayerRPC();
-
+        //stops rage check from happening and maxes out rage meter
+        doRageCheck = false;
+        rageAmount = 1;
+        //updates rage meter
+        rageMeterOutputUIImage.fillAmount = rageAmount;
+    }
+    public static void ExitAttackState()
+    {
+        //tells space whale to return to its normal patrol
+        SpaceWhaleAI.ResumeFigure8Patrol();
+        //resets rage meter
+        doRageCheck = true;
+        rageAmount = 0;
+        //resets check to see if the whale can go into attack state
+        ran = false;
     }
     float ClampFloat(float floatToClamp)
     {

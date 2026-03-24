@@ -1197,6 +1197,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.38, y: 0.26, z: 0.1}
   m_Center: {x: 0, y: 0.05, z: -0.56}
+--- !u!114 &463170131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463170128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d9c653bb31d3e45957e2977a68e580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpaceWhaleRespawnBox
 --- !u!65 &481090058
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3513,7 +3525,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6913845849086945128, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
       propertyPath: rotationSpeed
-      value: 0.003
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3522,6 +3534,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2086759545001156946, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
       insertIndex: -1
       addedObject: {fileID: 463170130}
+    - targetCorrespondingSourceObject: {fileID: 2086759545001156946, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 463170131}
   m_SourcePrefab: {fileID: 100100000, guid: 6647a57ce3c6eb84fac34e6c9e7e8b81, type: 3}
 --- !u!65 &1011296552
 BoxCollider:
@@ -4089,10 +4104,8 @@ MonoBehaviour:
   rageMeterOutputUIImage: {fileID: 583185523}
   rageGainSpeed: 0.7
   pasiveRageDrain: 0.0005
-  doRageCheck: 1
   playerList:
   - {fileID: 1174694385}
-  rageAmount: 0
 --- !u!4 &1190455285
 Transform:
   m_ObjectHideFlags: 0
