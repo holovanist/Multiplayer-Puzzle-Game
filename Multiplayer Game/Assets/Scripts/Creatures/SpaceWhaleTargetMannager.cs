@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpaceWhaleTargetMannager : MonoBehaviour
+public class SpaceWhaleTargetMannager : NetworkBehaviour
 {
     [SerializeField] GameObject spaceWhaleObject;
     [SerializeField] Image rageMeterOutputUIImage;
@@ -14,6 +15,7 @@ public class SpaceWhaleTargetMannager : MonoBehaviour
     [SerializeField] float rageAmount = 0;
     List<Vector3> lastReportedPlayerPosition = new List<Vector3> {Vector3.zero, Vector3.zero};
     bool currentlyAttacking = false;
+    bool ran = false;
     void FixedUpdate()
     {
         if (doRageCheck)
@@ -24,9 +26,10 @@ public class SpaceWhaleTargetMannager : MonoBehaviour
                 currentlyAttacking = true;
             }
         }
-        if (currentlyAttacking)
+        if (currentlyAttacking && !ran)
         {
-            SpaceWhaleAI.TargetObject(playerList[Random.Range(0, playerList.Count)].transform, true);
+            ran = true;
+            EnterAttackState();
         }
     }
     void CalculateRageGain()
@@ -37,7 +40,7 @@ public class SpaceWhaleTargetMannager : MonoBehaviour
             //calculates distace the player(s) have traveled since last check
             float moveDist = Vector3.Distance(lastReportedPlayerPosition[i], playerList[i].transform.position);
             //does not apply distance to rage meter if distace jump is too far (added to help during testing)
-            if (moveDist > 0.2)
+            if (moveDist > 1)
             {
                 Debug.Log("(Space Whale Mannager) Large distance jump detected stopping value from being applied to rage meter");
             } else
@@ -55,6 +58,12 @@ public class SpaceWhaleTargetMannager : MonoBehaviour
         //updates rage meter
         rageMeterOutputUIImage.fillAmount = rageAmount;
     }
+    void EnterAttackState()
+    {
+        //targets a random player (server side)
+        TargetRandomPlayerRPC();
+
+    }
     float ClampFloat(float floatToClamp)
     {
         if (floatToClamp > 1)
@@ -66,6 +75,15 @@ public class SpaceWhaleTargetMannager : MonoBehaviour
             floatToClamp = 0;
         }
         return floatToClamp;
+    }
+    [Rpc(SendTo.Server)]
+    void TargetRandomPlayerRPC()
+    {
+        SpaceWhaleAI.TargetObject(playerList[Random.Range(0, playerList.Count)].transform, true);
+    }
+    void ReturnToF8Patrol()
+    {
+        SpaceWhaleAI.ResumeFigure8Patrol();
     }
     public void SetPlayerObjectInList(GameObject playerObject, int indexToAssignObjectTo)
     {
