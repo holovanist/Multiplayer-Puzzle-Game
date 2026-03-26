@@ -25,7 +25,12 @@ public class ShapePuzzle : NetworkBehaviour
     {
         if (!SpawnPuzzleObjects)
         {
-            SpawnPuzzle();
+            if (!IsServer)
+            {
+                SpawnPuzzleObjects = true;
+                return;
+            }
+            SpawnPuzzleServerRPC();
             SpawnPuzzleObjects = true;
         }
         if(UpdateShape)
@@ -160,9 +165,11 @@ public class ShapePuzzle : NetworkBehaviour
             }
         }
     }
-    public void SpawnPuzzle()
+    [Rpc(SendTo.Server)]
+    public void SpawnPuzzleServerRPC()
     {
         RequiredText.text = string.Empty;
+        int[] objectsSpawned = new int[3];
         for (int i = 0; i < PuzzleObjects.Count; i++)
         {
                 RandomRangeRPC(1, PuzzleObjects.Count+1);
@@ -192,6 +199,15 @@ public class ShapePuzzle : NetworkBehaviour
                 ShapesToScroll[i].ObjectSpawned = ObjectToSpawnRedo;
             }
         }
+        int[] puzzleobj = new int[3];
+        for (int i = 0; i < ShapesToScroll.Count; i++)
+        {
+            puzzleobj[i] = PuzzleObjects[i];
+            objectsSpawned[i] = ShapesToScroll[i].ObjectSpawned;
+            //Debug.Log(PuzzleObjects[i] + " " + ShapesToScroll[i].ObjectSpawned);
+        }
+
+        SpawnPuzzleClientRPC(puzzleobj, objectsSpawned);
         int object1 = PuzzleObjects[0];
         int object2 = PuzzleObjects[1];
         int object3 = PuzzleObjects[2];
@@ -201,14 +217,31 @@ public class ShapePuzzle : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void RandomRangeRPC(int min, int max)
     {
-        Debug.Log("server");
+        if(!IsServer) return;
         RandomizedNumber = Random.Range(min, max);
-        RandomNumberRPC(RandomizedNumber);
+        //RandomNumberRPC(RandomizedNumber);
     }
     [Rpc(SendTo.NotServer)]
-    public void RandomNumberRPC(int RandomNumber)
+    public void SpawnPuzzleClientRPC(int[] RandomNumber, int[] NumberToSpawn)
     {
-        RandomizedNumber = RandomNumber;
+        RequiredText.text = string.Empty;
+        for (int i = 0; i < PuzzleObjects.Count; i++)
+        {
+            PuzzleObjects[i] = RandomNumber[i];
+        }
+        for (int i = 0; i < ShapesToScroll.Count; i++)
+        {
+            int ObjectToSpawn = NumberToSpawn[i];
+            for (int j = 0; j < ObjectToSpawn; j++)
+            {
+                ShapesToScroll[i].PuzzleObjects[j].SetActive(true);
+            }
+            ShapesToScroll[i].ObjectSpawned = ObjectToSpawn;
+        }
+        int object1 = PuzzleObjects[0];
+        int object2 = PuzzleObjects[1];
+        int object3 = PuzzleObjects[2];
+        RequiredText.text = object1.ToString() + " " + ShapesToScroll[0].PuzzleObjects[0].name + Environment.NewLine + object2.ToString() + " " + ShapesToScroll[1].PuzzleObjects[0].name + Environment.NewLine + object3.ToString() + " " + ShapesToScroll[2].PuzzleObjects[0].name;
     }
 }
 [Serializable]
