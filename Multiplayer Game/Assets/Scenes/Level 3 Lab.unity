@@ -5182,7 +5182,7 @@ GameObject:
   - component: {fileID: 8695238381172565088}
   m_Layer: 0
   m_Name: CorrectSignal
-  m_TagString: Untagged
+  m_TagString: Lever
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5688,9 +5688,9 @@ MonoBehaviour:
   LC: []
   IB: {fileID: 8707004105191778012}
   animationActive: 
-  IsButton: 0
+  IsButton: 1
   WasPulled: 0
-  BasicButtonTime: 0
+  BasicButtonTime: 1
   MaxButtonTime: 0
   HoldLever: 0
   HoldTime: 0
