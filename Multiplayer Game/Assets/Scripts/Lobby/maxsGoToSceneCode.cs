@@ -5,10 +5,14 @@ using UnityEngine.SceneManagement;
 public class maxsGoToSceneCode : NetworkBehaviour
 {
 
-    public int nextScene;
+    public string nextScene = "readyUpScreen";
     public void goToScene()
     {
-        NetworkManager.SceneManager.LoadScene("readyUpScreen", LoadSceneMode.Single);
+        NetworkManager.SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
         //SceneManager.LoadSceneAsync(nextScene);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        goToScene();
     }
 }

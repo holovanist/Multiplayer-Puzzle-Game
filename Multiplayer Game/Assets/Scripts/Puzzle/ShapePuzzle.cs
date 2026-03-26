@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ShapePuzzle : MonoBehaviour
+public class ShapePuzzle : NetworkBehaviour
 {
     public List<ShapesToRandomize> ShapesToScroll;
     public bool SpawnPuzzleObjects;
@@ -18,14 +20,13 @@ public class ShapePuzzle : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>(); 
-        SpawnPuzzle();
     }
     private void Update()
     {
-        if (SpawnPuzzleObjects)
+        if (!SpawnPuzzleObjects)
         {
             SpawnPuzzle();
-            SpawnPuzzleObjects = false;
+            SpawnPuzzleObjects = true;
         }
         if(UpdateShape)
         {
@@ -54,8 +55,10 @@ public class ShapePuzzle : MonoBehaviour
             }
         }
     }
-    public void ScrollToNextObject(bool Add, int ShapeID)
+    [Rpc(SendTo.Server)]
+    public void ScrollToNextObjectRPC(bool Add, int ShapeID)
     {
+        ScrollClientSideRPC(Add,ShapeID);
         for (int i = 0; i < ShapesToScroll.Count; i++)
         {
             for (int j = 0; j < ShapesToScroll[ShapeID].PuzzleObjects.Count; j++)
@@ -104,18 +107,71 @@ public class ShapePuzzle : MonoBehaviour
                 }
             }
         }
-
+    }
+    [Rpc(SendTo.NotServer)]
+    void ScrollClientSideRPC(bool Add, int ShapeID)
+    {
+        for (int i = 0; i < ShapesToScroll.Count; i++)
+        {
+            for (int j = 0; j < ShapesToScroll[ShapeID].PuzzleObjects.Count; j++)
+            {
+                ShapesToScroll[ShapeID].PuzzleObjects[j].SetActive(false);
+            }
+        }
+        UpdateShape = true;
+        if (Add)
+        {
+            if (ShapesToScroll[ShapeID].ObjectSpawned < ShapesToScroll[ShapeID].PuzzleObjects.Count)
+            {
+                ShapesToScroll[ShapeID].ObjectSpawned++;
+                int ObjectToSpawn = ShapesToScroll[ShapeID].ObjectSpawned;
+                for (int j = 0; j < ObjectToSpawn; j++)
+                {
+                    ShapesToScroll[ShapeID].PuzzleObjects[j].SetActive(true);
+                }
+            }
+            else if (ShapesToScroll[ShapeID].ObjectSpawned >= ShapesToScroll[ShapeID].PuzzleObjects.Count)
+            {
+                int ObjectToSpawn = ShapesToScroll[ShapeID].ObjectSpawned = 1;
+                for (int j = 0; j < ObjectToSpawn; j++)
+                {
+                    ShapesToScroll[ShapeID].PuzzleObjects[j].SetActive(true);
+                }
+            }
+        }
+        else
+        {
+            if (ShapesToScroll[ShapeID].ObjectSpawned <= 1)
+            {
+                int ObjectToSpawn = ShapesToScroll[ShapeID].ObjectSpawned = 3;
+                for (int j = 0; j < ObjectToSpawn; j++)
+                {
+                    ShapesToScroll[ShapeID].PuzzleObjects[j].SetActive(true);
+                }
+            }
+            else if (ShapesToScroll[ShapeID].ObjectSpawned <= ShapesToScroll[ShapeID].PuzzleObjects.Count)
+            {
+                ShapesToScroll[ShapeID].ObjectSpawned--;
+                int ObjectToSpawn = ShapesToScroll[ShapeID].ObjectSpawned;
+                for (int j = 0; j < ObjectToSpawn; j++)
+                {
+                    ShapesToScroll[ShapeID].PuzzleObjects[j].SetActive(true);
+                }
+            }
+        }
     }
     public void SpawnPuzzle()
     {
         RequiredText.text = string.Empty;
         for (int i = 0; i < PuzzleObjects.Count; i++)
         {
-            PuzzleObjects[i] = Random.Range(1, PuzzleObjects.Count+1);
+                RandomRangeRPC(1, PuzzleObjects.Count+1);
+            PuzzleObjects[i] = RandomizedNumber;
         }
         for (int i = 0; i < ShapesToScroll.Count; i++)
         {
-            int ObjectToSpawn = Random.Range(1, ShapesToScroll[i].PuzzleObjects.Count+1);
+                RandomRangeRPC(1, ShapesToScroll[i].PuzzleObjects.Count+1);
+            int ObjectToSpawn = RandomizedNumber;
             for (int j = 0; j < ObjectToSpawn; j++)
             {
                 ShapesToScroll[i].PuzzleObjects[j].SetActive(true);
@@ -123,7 +179,8 @@ public class ShapePuzzle : MonoBehaviour
             ShapesToScroll[i].ObjectSpawned = ObjectToSpawn;
             if (ShapesToScroll[i].ObjectSpawned == PuzzleObjects[i])
             {
-                    int ObjectToSpawnRedo = Random.Range(1, ShapesToScroll[i].PuzzleObjects.Count + 1);
+                    RandomRangeRPC(1, ShapesToScroll[i].PuzzleObjects.Count + 1);
+                int ObjectToSpawnRedo = RandomizedNumber;
                 for (int j = 0; j < PuzzleObjects.Count; j++)
                 {
                     ShapesToScroll[i].PuzzleObjects[j].SetActive(false);
@@ -139,6 +196,19 @@ public class ShapePuzzle : MonoBehaviour
         int object2 = PuzzleObjects[1];
         int object3 = PuzzleObjects[2];
         RequiredText.text = object1.ToString() + " " + ShapesToScroll[0].PuzzleObjects[0].name + Environment.NewLine + object2.ToString() + " " + ShapesToScroll[1].PuzzleObjects[0].name + Environment.NewLine + object3.ToString() + " " + ShapesToScroll[2].PuzzleObjects[0].name;
+    }
+    int RandomizedNumber;
+    [Rpc(SendTo.Server)]
+    public void RandomRangeRPC(int min, int max)
+    {
+        Debug.Log("server");
+        RandomizedNumber = Random.Range(min, max);
+        RandomNumberRPC(RandomizedNumber);
+    }
+    [Rpc(SendTo.NotServer)]
+    public void RandomNumberRPC(int RandomNumber)
+    {
+        RandomizedNumber = RandomNumber;
     }
 }
 [Serializable]

@@ -10,11 +10,10 @@ public class ChangeNumberOfShapes : MonoBehaviour
     int ShapeID;
     private void OnCollisionEnter(Collision collision)
     {
-
-            shape.ScrollToNextObject(IncreasesNumberOfShapes, ShapeID);
+        shape.ScrollToNextObjectRPC(IncreasesNumberOfShapes, ShapeID);
     }
     private void OnTriggerEnter(Collider other)
     {
-        shape.ScrollToNextObject(IncreasesNumberOfShapes, ShapeID);
+        shape.ScrollToNextObjectRPC(IncreasesNumberOfShapes, ShapeID);
     }
 }
