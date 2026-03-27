@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 public class Interact : MonoBehaviour
 {
     private InputAction _Interact;
+    private InputAction Pause;
 
     [SerializeField]
     float interactRange = 4;
@@ -25,11 +26,16 @@ public class Interact : MonoBehaviour
         if (InteractText != null)
             InteractText.enabled = false;
         _Interact = GetComponent<PlayerInputHandler>().playerControls.FindAction("Interact");
+        Pause = GetComponent<PlayerInputHandler>().playerControls.FindAction("Pause");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Pause.WasPressedThisFrame() && TempMonitor != null && TempMonitor.InMonitor)
+        {
+            TempMonitor.InMonitor = false;
+        }
         Ray ray = new(_Camera.transform.position, _Camera.transform.forward);
         if (InteractDelay < DelayTimer && Physics.Raycast(ray, out RaycastHit hit, interactRange))
         {
