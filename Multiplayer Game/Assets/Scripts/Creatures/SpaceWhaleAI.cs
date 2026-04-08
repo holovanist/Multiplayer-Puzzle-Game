@@ -51,6 +51,7 @@ public class SpaceWhaleAI : MonoBehaviour
     public static void ResumeFigure8Patrol()
     {
         _target = pivotFollowObject;
+        FollowingPlayer = false;
     }
     void Figure8Patrol()
     {

@@ -14,7 +14,7 @@ public class SpaceWhaleTargetMannager : NetworkBehaviour
     [SerializeField] List<GameObject> playerList;
     [SerializeField] static float rageAmount = 0;
     List<Vector3> lastReportedPlayerPosition = new List<Vector3> {Vector3.zero, Vector3.zero};
-    bool currentlyAttacking = false;
+    static bool currentlyAttacking = false;
     static bool ran = false;
     void FixedUpdate()
     {
@@ -40,7 +40,7 @@ public class SpaceWhaleTargetMannager : NetworkBehaviour
             //calculates distace the player(s) have traveled since last check
             float moveDist = Vector3.Distance(lastReportedPlayerPosition[i], playerList[i].transform.position);
             //does not apply distance to rage meter if distace jump is too far (added to help during testing)
-            if (moveDist > 1)
+            if (moveDist > 5)
             {
                 Debug.Log("(Space Whale Mannager) Large distance jump detected stopping value from being applied to rage meter");
             } else
@@ -75,6 +75,7 @@ public class SpaceWhaleTargetMannager : NetworkBehaviour
         //resets rage meter
         doRageCheck = true;
         rageAmount = 0;
+        currentlyAttacking = false;
         //resets check to see if the whale can go into attack state
         ran = false;
     }
