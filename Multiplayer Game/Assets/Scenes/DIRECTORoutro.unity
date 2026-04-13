@@ -758,7 +758,7 @@ MonoBehaviour:
   evilVanish: 12
   turnMusicOff: 12
   text: {fileID: 1852825054}
-  nextScene: 2
+  nextScene: 1
   suddenVanish: 1
 --- !u!82 &978657998
 AudioSource:

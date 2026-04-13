@@ -114,4 +114,11 @@ public class SpaceWhaleTargetMannager : NetworkBehaviour
             lastReportedPlayerPosition[indexToAssignObjectTo] = playerList[indexToAssignObjectTo].transform.position;
         }
     }
+    public void GetPlayers()
+    {
+        List<PlayerMovement> list = new List<PlayerMovement>();
+        list.AddRange(FindObjectsByType<PlayerMovement>(FindObjectsSortMode.None));
+        playerList.Add(list[0].gameObject);
+        playerList.Add(list[1].gameObject);
+    }
 }

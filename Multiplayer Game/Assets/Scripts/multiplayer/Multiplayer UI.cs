@@ -2,18 +2,18 @@ using Unity.Netcode.Transports.UTP;
 using Unity.Netcode;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
-public class MultiplayerUI : MonoBehaviour
+public class MultiplayerUI : NetworkBehaviour
 {
     private UnityTransport unityTransport;
     NetworkManager networkManager;
     public TMP_InputField IPInput;
     public GameObject LANObject;
-    public GameObject OnlineObject;    
     public GameObject LANButton;
-    public GameObject OnlineButton;
     public GameObject Camera;
-    public GameObject StackCamera;
+    public GameObject StackCamera; 
+    public string nextScene = "readyUpScreen";
 
     private void Start()
     {
@@ -24,26 +24,23 @@ public class MultiplayerUI : MonoBehaviour
     {
         LANObject.SetActive(true);
         LANButton.SetActive(false);
-        OnlineButton.SetActive(false);
-    }
-    public void Online()
-    {
-        OnlineObject.SetActive(true);
-        LANButton.SetActive(false);
-        OnlineButton.SetActive(false);
     }
     public void Create()
     {
         unityTransport.SetConnectionData(IPInput.text, 7777);
         networkManager.StartHost();
+        if(Camera != null )
         Camera.SetActive(false);
+        NetworkManager.SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
         gameObject.SetActive(false);
     }
     public void Join()
     {
         unityTransport.SetConnectionData(IPInput.text, 7777);
         networkManager.StartClient();
+        if(Camera != null )
         Camera.SetActive(false);
+        NetworkManager.SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
         gameObject.SetActive(false);
     }
 }

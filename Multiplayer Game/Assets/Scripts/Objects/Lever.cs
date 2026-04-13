@@ -7,6 +7,7 @@ public class Lever : NetworkBehaviour
     Animator anim;
     public LeverController[] LC;
     public InteractiveButtons IB;
+    public TempShipLaunchActivator SLA;
     public string animationActive;
 
     [Header("Button")]
@@ -56,7 +57,8 @@ public class Lever : NetworkBehaviour
         {
             if (Oppisite) LeverActive = true;
             else LeverActive = false;
-            if (IB != null) IB.LeverStateChanged = true;
+            if(SLA != null) SLA.ActivateRPC();
+            else if (IB != null) IB.LeverStateChanged = true;
             else if(LC != null)
             {
                 for (int i = 0; i < LC.Length; i++)

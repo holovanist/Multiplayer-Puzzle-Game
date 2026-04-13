@@ -74,7 +74,7 @@ public class PlayerMovement : NetworkBehaviour
         HandleCrouching();
         if(crouch && crouching)
         {
-            Crouch.CrouchRPC(crouching, 1.4f, new(0, .65f, 0), 2, new(0, -.5f, 0));
+            Crouch.CrouchRPC(crouching, 1.4f, new(0, .65f, 0), 2, new(0, 0, 0));
             crouch = false;
         }
         else if (uncrouch && !crouching)

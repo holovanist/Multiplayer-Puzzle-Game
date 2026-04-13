@@ -1,16 +1,16 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class TempShipLaunchActivator : MonoBehaviour
+public class TempShipLaunchActivator : NetworkBehaviour
 {
     [SerializeField] GameObject ShipObject;
     bool ran = false;
-    private void OnTriggerEnter(Collider other)
+    [Rpc(SendTo.Everyone)]
+    public void ActivateRPC()
     {
-        if (other.gameObject.tag == "PlayerObject" && !ran)
-        {
+        Debug.Log("active");
+        if (ran) return;
             ran = true;
-            Debug.Log("I ran :3");
             ShipObject.GetComponent<ShipLauncher>().StartShipLaunch();
-        }
     }
 }

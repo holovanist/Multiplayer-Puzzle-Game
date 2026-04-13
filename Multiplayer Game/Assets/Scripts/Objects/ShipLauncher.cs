@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ShipLauncher : MonoBehaviour
@@ -142,8 +143,20 @@ public class ShipLauncher : MonoBehaviour
             return false;
         }
     }
+    public GameObject UiCanvas;
+    public GameObject CreditCanvas;
+    public List <PlayerMovement> movement; 
     void RollCredits()
     {
-        //fill with whatever is needed to roll the credits/trigger another function to so do, if you don't, I will just make it do a star-wars intro style roll of the entire bee movie script. :3
+        UiCanvas.SetActive(false);
+        movement.Clear();
+        movement.AddRange(FindObjectsByType <PlayerMovement> (FindObjectsSortMode.None));
+        movement[0].gameObject.GetComponent<Disableplayer>().enabled = false;
+        movement[1].gameObject.GetComponent<Disableplayer>().enabled = false;
+        movement[0].enabled = false;
+        movement[1].enabled = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        CreditCanvas.SetActive(true);
     }
 }
