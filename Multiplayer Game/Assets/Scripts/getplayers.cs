@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class getplayers : MonoBehaviour
 {
+    public Canvas Ui;
     private void OnTriggerEnter(Collider other)
     {
-        GetComponent<SpaceWhaleTargetMannager>().GetPlayers();
+        Ui.gameObject.SetActive(true);
+        GetComponentInParent<SpaceWhaleTargetMannager>().GetPlayers();
     }
 }

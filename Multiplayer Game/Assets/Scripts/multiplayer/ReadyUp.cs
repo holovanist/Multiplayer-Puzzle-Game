@@ -122,7 +122,6 @@ public class ReadyUp : NetworkBehaviour
         if(current >= 2)
         {
             Debug.Log("Go to Next Scene");
-            DeleteLobby();
             NetworkManager.SceneManager.LoadScene(Level1, LoadSceneMode.Single);
         }
     }
@@ -133,16 +132,5 @@ public class ReadyUp : NetworkBehaviour
         // this will cause a replication over the network
         // and ultimately invoke `OnValueChanged` on receivers
         State.Value += NumberOfPlayersReady;
-    }
-    public async void DeleteLobby()
-    {
-        try
-        {
-            await LobbyService.Instance.DeleteLobbyAsync("lobbyId");
-        }
-        catch (LobbyServiceException e)
-        {
-            Debug.Log(e);
-        }
     }
 }

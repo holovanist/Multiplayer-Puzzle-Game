@@ -11,15 +11,15 @@ public class GiveObjectToCreature : MonoBehaviour
     }
     void CheckItems(Collision collision)
     {
-        if (request.Side1 == null) return;
-        for (int i = 0; request.Side1.Length > 0; i++)
+        if (request.Side1GameObject == null) return;
+        for (int i = 0; request.Side1GameObject.Length > 0; i++)
         {
-            if (request.Side1[i].GameObject == collision.gameObject && Side1)
+            if (request.Side1GameObject[i] == collision.gameObject && Side1)
             {
                 request.ObjectsGivenToCreature++;
                 Destroy(collision.gameObject);
             }
-            if (request.Side2[i].GameObject == collision.gameObject && !Side1)
+            if (request.Side2ObjectPicture[i] == collision.gameObject && !Side1)
             {
                 request.ObjectsGivenToCreature++;
                 Destroy(collision.gameObject);

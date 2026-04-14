@@ -12,17 +12,15 @@ public class Monitor : MonoBehaviour
     public Request request;
     Camera Cam;
     public bool IsTop;
-    void Start()
+    public bool WantedItemsCanBeSet { get; set; } = false;
+    private void Start()
     {
     }
-
     void Update()
     {
-        bool stop = false;
-        if (request.Side2[1].ObjectPicture != null && !stop)
+        if(WantedItemsCanBeSet)
         {
             SetWantedItems();
-            stop = true;
         }
         if (InMonitor)
             EnableCanvas();
@@ -75,21 +73,18 @@ public class Monitor : MonoBehaviour
     }
     public void SetWantedItems()
     {
-                Debug.Log("0");
         if(IsTop)
         {
-                Debug.Log("1");
             for(int i = 0;i < wantedItems.Length;i++)
             {
-                Debug.Log("2");
-                wantedItems[i].sprite = request.Side2[i].ObjectPicture;
+                wantedItems[i].sprite = request.Side2ObjectPicture[i];
             }
         }
         else
         {
-            for(int i = 0;i < wantedItems.Length; i++)
+            for (int i = 0;i < wantedItems.Length; i++)
             {
-                wantedItems[i].sprite = request.Side1[i].ObjectPicture;
+                wantedItems[i].sprite = request.Side1ObjectPicture[i];
             }
         }
     }

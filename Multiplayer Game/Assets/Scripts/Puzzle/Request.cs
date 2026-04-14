@@ -5,8 +5,12 @@ public class Request : NetworkBehaviour
 {
     public ObjectsToFeed[] ListOfPotentialObject1;
     public ObjectsToFeed[] ListOfPotentialObject2;
-    public ObjectsToFeed[] Side1 = new ObjectsToFeed[3];
-    public ObjectsToFeed[] Side2 = new ObjectsToFeed[3];
+    public Sprite[] Side1ObjectPicture = new Sprite[3];
+    public GameObject[] Side1GameObject = new GameObject[3];
+    public int[] Side1ID = new int[3];
+    public Sprite[] Side2ObjectPicture = new Sprite[3];
+    public GameObject[] Side2GameObject = new GameObject[3];
+    public int[] Side2ID = new int[3];
     int[] SelectedObject1 = new int[3];
     int[] SelectedObject2 = new int[3];
     public bool PuzzleReset;
@@ -40,7 +44,7 @@ public class Request : NetworkBehaviour
         }
         if (PuzzleReset)
             ResetPuzzle();
-        if (Side1[0] == null || Side1[1] == null || Side1[2] == null || Side2[0] == null || Side2[1] == null || Side2[2] == null)
+        if (Side1GameObject[0] == null || Side1GameObject[1] == null || Side1GameObject[2] == null || Side2GameObject[0] == null || Side2GameObject[1] == null || Side2GameObject[2] == null)
         {
             if(IsServer)
             RandomizePuzzleCheckRPC();
@@ -48,19 +52,18 @@ public class Request : NetworkBehaviour
             {
                 for (int i = 0; i < SelectedObject2.Length; i++)
                 {
-                    Debug.Log(Side2[1]);
-                    Side2[i].ObjectPicture = ListOfPotentialObject2[SelectedObject2[i]].ObjectPicture;
-                    Side2[i].GameObject = ListOfPotentialObject2[SelectedObject2[i]].GameObject;
-                    Side2[i].ItemID = ListOfPotentialObject2[SelectedObject2[i]].ItemID;
+                    Side2ObjectPicture[i] = ListOfPotentialObject2[SelectedObject2[i]].ObjectPicture;
+                    Side2GameObject[i] = ListOfPotentialObject2[SelectedObject2[i]].GameObject;
+                    Side2ID[i] = ListOfPotentialObject2[SelectedObject2[i]].ItemID;
                 }
             }
             if (SelectedObject1[0] != SelectedObject1[1] && SelectedObject1[0] != SelectedObject1[2] && SelectedObject1[1] != SelectedObject1[2])
             {
                 for (int i = 0; i < SelectedObject1.Length; i++)
                 {
-                    Side1[i].ObjectPicture = ListOfPotentialObject1[SelectedObject1[i]].ObjectPicture;
-                    Side1[i].GameObject = ListOfPotentialObject1[SelectedObject1[i]].GameObject;
-                    Side1[i].ItemID = ListOfPotentialObject1[SelectedObject1[i]].ItemID;
+                    Side1ObjectPicture[i] = ListOfPotentialObject1[SelectedObject1[i]].ObjectPicture;
+                    Side1GameObject[i] = ListOfPotentialObject1[SelectedObject1[i]].GameObject;
+                    Side1ID[i] = ListOfPotentialObject1[SelectedObject1[i]].ItemID;
                 }
             }
         }
@@ -107,21 +110,35 @@ public class Request : NetworkBehaviour
         {
             RandomizePuzzleCheckClientRPC(SelectedObject1, SelectedObject2);
         }
+        Monitor[] monitors = FindObjectsByType<Monitor>(FindObjectsSortMode.None);
+        for (int i = 0; i < monitors.Length; i++)
+        {
+            monitors[i].WantedItemsCanBeSet = true;
+        }
     }
     [Rpc(SendTo.NotServer)]
     public void RandomizePuzzleCheckClientRPC(int[] side1, int[] side2)
     {
         SelectedObject1 = side1;
         SelectedObject2 = side2;
+        Monitor[] monitors = FindObjectsByType<Monitor>(FindObjectsSortMode.None);
+        for (int i = 0; i < monitors.Length; i++)
+        {
+            monitors[i].WantedItemsCanBeSet = true;
+        }
     }
     public void ResetPuzzle()
     {
-        for(int i = 0;i < Side1.Length;i++)
+        for(int i = 0;i < Side1GameObject.Length;i++)
         {
             SelectedObject1[i] = -1;
             SelectedObject2[i] = -1;
-            Side1[i] = null;
-            Side2[i] = null;
+            Side1GameObject[i] = null;
+            Side1ID[i] = 0;
+            Side1ObjectPicture[i] = null;
+            Side2GameObject[i] = null;
+            Side2ID[i] = 0;
+            Side2ObjectPicture[i] = null;
         }
         for (int i = 0; i < 3; i++)
         {
